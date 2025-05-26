@@ -18,12 +18,12 @@ Then clone this repo inside `<WORKSPACE>/src` using one of:
 
 * [Recommanded] SSH
 ```sh
-git clone git@github.com:ArthurVal/tiago_lfc.git
+git clone git@github.com:pran-d/talos_harmonic.git
 ```
 
 * HTTPS
 ```sh
-git clone https://github.com/ArthurVal/tiago_lfc.git
+git clone https://github.com/pran-d/talos_harmonic.git
 ```
 
 ### Dependencies
@@ -31,52 +31,6 @@ git clone https://github.com/ArthurVal/tiago_lfc.git
 > [!tip]
 > You can check for any deps availability on your system using<br>
 > `ros2 pkg list | grep <NAME>`
-
-#### `tiago_description`
-
-If the `tiago_description` dependency is not installed you can fetch them inside
-your workspace by doing the following:
-
-> [!important]
-> The following commands expect you to be inside `<WORKSPACE>/src`
-> (i.e. `cd <WORKSPACE>/src` beforehands)
-
-```sh
-wget -O - https://github.com/Tiago-Harmonic/tiago_robot/archive/jazzy.tar.gz | tar -xz --strip=1 tiago_robot-jazzy/tiago_description
-wget -O - https://github.com/Tiago-Harmonic/omni_base_robot/archive/jazzy.tar.gz | tar -xz --strip=1 omni_base_robot-jazzy/omni_base_description
-wget -O - https://github.com/Tiago-Harmonic/pmb2_robot/archive/jazzy.tar.gz | tar -xz --strip=1 pmb2_robot-jazzy/pmb2_description
-wget -O - https://github.com/Tiago-Harmonic/pal_robotiq_gripper/archive/jazzy.tar.gz | tar -xz --strip=1 pal_robotiq_gripper-jazzy/pal_robotiq_description
-wget -O - https://github.com/Tiago-Harmonic/pal_hey5/archive/jazzy.tar.gz | tar -xz --strip=1 pal_hey5-jazzy/pal_hey5_description
-wget -O - https://github.com/Tiago-Harmonic/pal_gripper/archive/jazzy.tar.gz | tar -xz --strip=1 pal_gripper-jazzy/pal_gripper_description
-git clone https://github.com/Tiago-Harmonic/launch_pal.git
-git clone https://github.com/Tiago-Harmonic/pal_urdf_utils.git --branch jazzy
-```
-
-> [!note]
-> Currently this fetches **ONLY** the strict minimum dependencies required to
-> make `tiago_lfc` work.<br/>
-> If needed, you can fetch the full set of dependencies using:<br/>
-> `vcs import . < tiago_lfc/dependencies/tiago_robot.repos`
-
-#### [`linear_feedback_controller`](https://github.com/loco-3d/linear-feedback-controller)
-
-If the `linear_feedback_controller` is not installed you can fetch them inside
-your workspace by doing the following:
-
-> [!important]
-> The following command expect you to be inside `<WORKSPACE>/src`
-> (i.e. `cd <WORKSPACE>/src` beforehands)
-
-```sh
-vcs import . < tiago_lfc/dependencies/lfc.repos
-```
-
-Additionally, you can install the `linear_feedback_controller` build
-dependencies on your system using:
-
-```sh
-rosdep install -i -t build --from-paths linear_feedback_controller --from-paths linear_feedback_controller_msgs
-```
 
 ### Build
 
@@ -100,9 +54,9 @@ colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF -DCMAKE_BUILD_TY
 > it.<br>
 > `source <WORKSPACE>/install/local_setup.<EXTENSION>`
 
-- Terminal 1: Spawn GZ gui + Contains logs from `ros_control` etc...
+- Terminal 1: Spawn GZ gui
 ```sh
-ros2 launch tiago_lfc gz_tiago_lfc.launch.py
+ros2 launch talos_harmonic talos_spawn.launch.py
 ```
 
 - Terminal 2: Interact with GZ
