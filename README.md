@@ -59,45 +59,6 @@ colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF -DCMAKE_BUILD_TY
 ros2 launch talos_harmonic talos_spawn.launch.py
 ```
 
-- Terminal 2: Interact with GZ
-```sh
-ros2 launch tiago_lfc switch_controllers.launch.py controllers:='lfc jse' activate:=True
-```
-
-### Launch files
-
-This package provides several launch files that can simply be used through:<br/>
-`ros2 launch tiago_lfc <FILE> [ARGS...]` .
-
-> [!tip]
-> Use `-s` (`ros2 launch tiago_lfc <FILE> -s`) to access the full list of
-> arguments
-
-* Generic launch files (doesn't depends on Tiago at all):
-
-| **Launch file**                              | **Description**                                                                              |
-|----------------------------------------------|----------------------------------------------------------------------------------------------|
-| `robot_description_from_xacro.launch.py`     | Create any `robot_description` from xacro file (mappings can be specified through arguments) |
-| `robot_state_publisher_from_xacro.launch.py` | Create `robot_description` (same as above) and start the `robot_state_publisher` associated  |
-| `load_controllers.launch.py`                 | Load ROS2 control controllers.                                                               |
-| `switch_controllers.launch.py`               | Activate/Deactivate controllers.                                                             |
-| `gz_control.launch.py`                       | Interact with the controls of a  GZ world                                                    |
-| `gz_server.launch.py`                        | Launch any GZ server                                                                         |
-| `gz_spawn.launch.py`                         | Spawn any GZ model inside any GZ world                                                       |
-
-* Tiago's specific launch files (use hard path to `tiago_description` xacro's location):
-
-| **Launch file**                         | **Description**                                           |
-|-----------------------------------------|-----------------------------------------------------------|
-| `tiago_robot_description.launch.py`     | Create Tiago's `robot_description`                        |
-| `tiago_robot_state_publisher.launch.py` | Start Tiago's `robot_state_publisher`                     |
-| `gz_tiago_lfc.launch.py`                | Launch everything needed at once to spawn Tiago inside GZ |
-
-> [!note]
-> The files used/required from `tiago_description` are: <br/>
-> - `tiago_description/robots/tiago.urdf.xacro`;<br/>
-> - `tiago_description/config/tiago_configuration.yaml`;
-
 ## Common Issues
 
 ### [GZ] Robot's model is incomplete
