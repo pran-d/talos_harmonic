@@ -13,7 +13,7 @@ class crocoddylOCP():
         
         robot = example_robot_data.load("talos")
         self.model = robot.model
-        self.q0 = self.model.referenceConfigurations["default"]
+        self.q0 = self.model.referenceConfigurations["half_sitting"]
         self.x0 = np.concatenate([self.q0, np.zeros(self.model.nv)])
 
         rf_name = "right_sole_link"
@@ -79,17 +79,17 @@ class crocoddylOCP():
         costs.addCost("uReg", u_reg_cost, 1e-4)
 
         # Adding the state limits penalization
-        x_lb = np.concatenate([self.state.lb[1 : self.state.nv+1], self.state.lb[-self.state.nv :]])
-        x_ub = np.concatenate([self.state.ub[1 : self.state.nv+1], self.state.ub[-self.state.nv :]])
-        activation_xbounds = crocoddyl.ActivationModelQuadraticBarrier(
-            crocoddyl.ActivationBounds(x_lb, x_ub)
-        )
-        x_bounds = crocoddyl.CostModelResidual(
-            self.state,
-            activation_xbounds,
-            crocoddyl.ResidualModelState(self.state, 0*self.x0, self.actuation.nu),
-        )
-        costs.addCost("xBounds", x_bounds, 1.0)
+        # x_lb = np.concatenate([self.state.lb[1 : self.state.nv+1], self.state.lb[-self.state.nv :]])
+        # x_ub = np.concatenate([self.state.ub[1 : self.state.nv+1], self.state.ub[-self.state.nv :]])
+        # activation_xbounds = crocoddyl.ActivationModelQuadraticBarrier(
+        #     crocoddyl.ActivationBounds(x_lb, x_ub)
+        # )
+        # x_bounds = crocoddyl.CostModelResidual(
+        #     self.state,
+        #     activation_xbounds,
+        #     crocoddyl.ResidualModelState(self.state, 0*self.x0, self.actuation.nu),
+        # )
+        # costs.addCost("xBounds", x_bounds, 1.0)
 
         # Adding the friction cone penalization
         nsurf, mu = np.identity(3), 0.7
@@ -139,7 +139,7 @@ class crocoddylOCP():
         seq = self.createSequence(dmodel, DT, N)
         self.problem = crocoddyl.ShootingProblem(x0, seq, seq[-1])
         self.fddp = crocoddyl.SolverFDDP(self.problem)
-        self.fddp.setCallbacks([crocoddyl.CallbackVerbose()])
+        # self.fddp.setCallbacks([crocoddyl.CallbackVerbose()])
 
     
     def solveProblem(self):

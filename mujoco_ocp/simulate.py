@@ -50,7 +50,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         time_elapsed = time.time() - start_time_real
 
         data.ctrl = list(torques)
-        # print(solved,torques)
+        print(solved,torques)
 
         while(time_elapsed - (data.time-start_time_sim) >= 0):
             mujoco.mj_step(model, data)
@@ -72,7 +72,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
 
         if step_count % 10 == 0:
             viewer.sync()
-            print((data.time-start_time_sim), ", ", (time.time()-start_time_real))
+            # print((data.time-start_time_sim), ", ", (time.time()-start_time_real))
 
         prev_time_real = time.time()
         prev_time_sim = data.time
