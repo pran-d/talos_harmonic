@@ -8806,21 +8806,17 @@
       <pose>0.0621 0.0375 0.1832 0 -0 0</pose>
     </frame>
     <frame name='rgbd_link' attached_to='rgbd_joint'/>
-    <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+    <!-- <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
       <ros>
         <namespace>/</namespace>
       </ros>
       <parameters>/home/pdebbad/ros_space/talos_harmonic/src/talos_harmonic/controller/ros2_controller.yaml</parameters>
-    </plugin>
+    </plugin> -->
     <plugin
         filename="gz-sim-joint-state-publisher-system"
         name="gz::sim::systems::JointStatePublisher">
     </plugin>
-
-  </model>
-</sdf>
-
-    <!-- <plugin
+    <plugin
         filename="gz-sim-apply-joint-force-system"
         name="gz::sim::systems::ApplyJointForce">
       <joint_name>leg_left_1_joint</joint_name>
@@ -8980,4 +8976,6 @@
         filename="gz-sim-apply-joint-force-system"
         name="gz::sim::systems::ApplyJointForce">    
       <joint_name>head_2_joint</joint_name>
-    </plugin> -->
+    </plugin>
+  </model>
+</sdf>
