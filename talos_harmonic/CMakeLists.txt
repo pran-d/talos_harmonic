@@ -24,12 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 # Install launch files
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
-# Install models files
-install(DIRECTORY models
+install(DIRECTORY launch models
   DESTINATION share/${PROJECT_NAME}
 )
 
