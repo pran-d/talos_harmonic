@@ -314,24 +314,6 @@
           <far>8.0</far>
         </clip>
       </camera>
-      <plugin filename="libgazebo_ros_openni_kinect.so" name="rgbd_frame_controller">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>30.0</updateRate>
-        <cameraName>rgbd</cameraName>
-        <imageTopicName>rgb/image_raw</imageTopicName>
-        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
-        <depthImageTopicName>depth/image_raw</depthImageTopicName>
-        <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-        <pointCloudTopicName>depth/points</pointCloudTopicName>
-        <frameName>rgbd_optical_frame</frameName>
-        <pointCloudCutoff>0.45</pointCloudCutoff>
-        <rangeMax>10.0</rangeMax>
-        <distortionK1>0.00000001</distortionK1>
-        <distortionK2>0.00000001</distortionK2>
-        <distortionK3>0.00000001</distortionK3>
-        <distortionT1>0.00000001</distortionT1>
-        <distortionT2>0.00000001</distortionT2>
-      </plugin>
     </sensor>
     <!-- RGB High res-->
     <sensor name="rgbd_high_res_frame_sensor" type="camera">
@@ -2236,47 +2218,7 @@
   <gazebo reference="leg_right_6_link">
     <material>Gazebo/White</material>
   </gazebo>
-  <gazebo>
-    <plugin filename="libgz_ros2_control.so" name="gazebo_ros2_control">
-      <ros>
-        <argument>--ros-args</argument>
-        <argument>--params-file</argument>
-        <argument>/home/pdebbad/ros2_space/install/talos_description/share/talos_description/config/gazebo_controller_manager_cfg.yaml</argument>
-      </ros>
-      <hold_joints>false</hold_joints>
-      <parameters>/home/pdebbad/ros2_space/install/talos_description/share/talos_description/config/gazebo_controller_manager_cfg.yaml</parameters>
-      <!-- Do something about multirobot -->
-    </plugin>
-  </gazebo>
-  <gazebo>
-    <plugin filename="libgazebo_ros_ft_sensor.so" name="gazebo_ros_ft">
-      <ros>
-        <!-- Add namespace and remap the default topic -->
-        <namespace>/talos</namespace>
-        <remapping>wrench:=base_link_wrench</remapping>
-      </ros>
-      <!-- Replace camelCase elements with camel_case ones -->
-      <body_name>base_link</body_name>
-      <frame_name>link</frame_name>
-      <update_rate>1000</update_rate>
-      <gaussian_noise>0.01</gaussian_noise>
-    </plugin>
-  </gazebo>
-  <gazebo>
-    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
-      <always_on>true</always_on>
-      <update_rate>50.0</update_rate>
-      <body_name>base_link</body_name>
-      <ros>
-        <!-- Add namespace and remap the default topic -->
-        <namespace>/talos</namespace>
-      </ros>
-      <gaussian_noise>0.0</gaussian_noise>
-      <frame_name>map</frame_name>
-      <xyzOffsets>0 0 0</xyzOffsets>
-      <rpyOffsets>0 0 0</rpyOffsets>
-    </plugin>
-  </gazebo>
+
   <gazebo reference="imu_link">
     <sensor name="imu_sensor" type="imu">
       <always_on>1</always_on>

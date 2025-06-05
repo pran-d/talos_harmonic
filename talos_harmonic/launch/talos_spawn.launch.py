@@ -1,81 +1,76 @@
-'''
-File Name: talos_spawn.launch.py
-Author: Pranav Debbad (pranav.debbad@laas.fr)
-Date: May 15, 2025
-
-Description: 
-Launch file used to:
-1. spawn TALOS in Gazebo (with bullet physics engine)
-2. run ros-gz-bridge for torque control
-3. run robot_state_publisher
-'''
-
-from itertools import (
-    chain,
-)
-
 from launch import LaunchDescription
-from launch.actions import SetEnvironmentVariable, ExecuteProcess, TimerAction
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, TimerAction
+from launch.substitutions import LaunchConfiguration, Command
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
-from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution
-from ros_gz_bridge.actions import RosGzBridge
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 import os
 
 def generate_launch_description():
-        
-    model = PathJoinSubstitution([
-        FindPackageShare('talos_harmonic'),
-        'models', 'talos', 'empty_talos_gz.sdf'
-    ])
+    # Package directories
+    robot_pkg = get_package_share_directory('talos_harmonic')
+    gazebo_pkg = get_package_share_directory('ros_gz_sim')
 
-    config = PathJoinSubstitution([
-        FindPackageShare('talos_harmonic'),
-        'launch', 'controller_bridge.yaml'
-    ])
+    # File paths
+    sdf_path = os.path.join(robot_pkg, 'models', 'talos_description', 'talos.sdf')
+    srdf_path = os.path.join(robot_pkg, 'models', 'talos_description', 'talos.srdf')
 
-    urdf_file = os.path.join(
-        get_package_share_directory('talos_harmonic'),
-        'models',
-        'talos',
-        'talos_reduced.urdf'
+    # Robot Description
+    with open(sdf_path, 'r') as sdf_file:
+        robot_description_content = sdf_file.read()
+    
+    with open(srdf_path, 'r') as srdf_file:
+        robot_description_semantic_content = srdf_file.read()
+
+    # Robot State Publisher node
+    robot_state_publisher_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='both',
+        parameters=[
+            {'use_sim_time': True},
+            {'robot_description': robot_description_content}
+        ],
+        arguments=[sdf_path],
     )
 
-    with open(urdf_file, 'r') as infp:
-        robot_description = infp.read()
-   
+    state_publisher_node = Node(
+        package='talos_harmonic',
+        executable='state_publisher',
+        name='state_publisher',
+        output='screen',
+    )
+
+    # Gazebo launch
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(gazebo_pkg, 'launch', 'gz_sim.launch.py')
+        ),
+        launch_arguments={'gz_args': ['-v4 empty.sdf']}.items()
+    )
+
+    # Spawn robot in Gazebo
+    spawn_entity = Node(
+        package='ros_gz_sim',
+        executable='create',
+        arguments=[
+            '-name', 'talos',
+            '-topic', 'robot_description',
+            '-z', '1.127'
+        ],
+        output='screen'
+    )
+
+    spawn_with_delay = TimerAction(
+        period=5.0,
+        actions=[spawn_entity]
+    )
+
     return LaunchDescription([
-
-        SetEnvironmentVariable(name='GZ_SIM_RESOURCE_PATH', value='/home/pdebbad/ros_space/talos_harmonic/src/talos_harmonic/models'),
-
-        SetEnvironmentVariable(name='GZ_SIM_SYSTEM_PLUGIN_PATH', value='/opt/ros/jazzy/lib'),
-
-        ExecuteProcess(
-            cmd=['gz', 'sim', '--physics-engine', 'gz-physics7-bullet-featherstone-plugin', '-r', model],
-            output='screen'
-        ),
-
-        Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[{'robot_description': robot_description}, {'use_sim_time': True}],
-        ),
-
-        # RosGzBridge(
-        #     bridge_name="controller_bridge",
-        #     config_file=config,
-        # ),
-
-        # Node(
-        #     package='robot_state_publisher',
-        #     executable='robot_state_publisher',
-        #     name='robot_state_publisher',
-        #     output='screen',
-        #     parameters=[{'use_sim_time': True}],
-        #     arguments=[os.path.join(pkg_talos, 'models', 'talos', 'talos_reduced.urdf')]
-        # ),
-
+        DeclareLaunchArgument('use_sim_time', default_value='true'),
+        gazebo,
+        robot_state_publisher_node,
+        state_publisher_node,
+        spawn_with_delay,
     ])

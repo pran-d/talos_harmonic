@@ -7,9 +7,8 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -26,6 +25,14 @@ endif()
 # Install launch files
 install(DIRECTORY launch models
   DESTINATION share/${PROJECT_NAME}
+)
+
+add_executable(state_publisher scripts/state_publisher.cpp)
+ament_target_dependencies(state_publisher rclcpp sensor_msgs)
+
+install(TARGETS
+  state_publisher
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()
