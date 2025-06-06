@@ -32,6 +32,11 @@ git clone https://github.com/pran-d/talos_harmonic.git
 > You can check for any deps availability on your system using<br>
 > `ros2 pkg list | grep <NAME>`
 
+Clone the repository containing the Talos robot description package from PAL Robotics into the `${WS}/src` directory:
+```sh
+git clone https://github.com/pal-robotics/talos_robot.git
+```
+
 ### Build
 
 Using `colcon`:

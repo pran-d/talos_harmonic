@@ -1,0 +1,17 @@
+use_sim:
+  default_value: 'True'
+  
+test:
+  default_value: 'False'
+
+foot_collision:
+  default_value: 'default'
+
+disable_gazebo_camera:
+  default_value: 'False'
+
+head_type:
+  default_value: 'default'
+
+flexibility:
+  default_value: 'False'

@@ -1,0 +1,82 @@
+--- # section
+lfc:
+  ros__parameters:
+    type: linear_feedback_controller/LinearFeedbackController
+    moving_joint_names: [
+      arm_right_1_joint,
+      arm_right_2_joint,
+      arm_right_3_joint,
+      arm_right_4_joint,
+      arm_right_5_joint,
+      arm_right_6_joint,
+      arm_right_7_joint
+    ]
+    arm_right_1_joint:
+      p: 100.0
+      d: 10.0
+    arm_right_2_joint:
+      p: 100.0
+      d: 10.0
+    arm_right_3_joint:
+      p: 100.0
+      d: 10.0
+    arm_right_4_joint:
+      p: 100.0
+      d: 10.0
+    arm_right_5_joint:
+      p: 100.0
+      d: 10.0
+    arm_right_6_joint:
+      p: 100.0
+      d: 10.0
+    arm_right_7_joint:
+      p: 100.0
+      d: 10.0
+    chainable_controller:
+      reference_prefix: ''
+      command_interfaces:
+      - arm_right_1_joint/effort
+      - arm_right_2_joint/effort
+      - arm_right_3_joint/effort
+      - arm_right_4_joint/effort
+      - arm_right_5_joint/effort
+      - arm_right_6_joint/effort
+      - arm_right_7_joint/effort
+    remove_gravity_compensation_effort: true
+    joint_velocity_filter_coefficient: 0.9
+    pd_to_lf_transition_duration: 0.1
+    robot_has_free_flyer: true
+
+jse:
+  ros__parameters:
+    type: linear_feedback_controller/JointStateEstimator
+    state_interfaces:
+      - arm_right_1_joint/effort
+      - arm_right_1_joint/position
+      - arm_right_1_joint/velocity
+      - arm_right_2_joint/effort
+      - arm_right_2_joint/position
+      - arm_right_2_joint/velocity
+      - arm_right_3_joint/effort
+      - arm_right_3_joint/position
+      - arm_right_3_joint/velocity
+      - arm_right_4_joint/effort
+      - arm_right_4_joint/position
+      - arm_right_4_joint/velocity
+      - arm_right_5_joint/effort
+      - arm_right_5_joint/position
+      - arm_right_5_joint/velocity
+      - arm_right_6_joint/effort
+      - arm_right_6_joint/position
+      - arm_right_6_joint/velocity
+      - arm_right_7_joint/effort
+      - arm_right_7_joint/position
+      - arm_right_7_joint/velocity
+    command_interfaces:
+      - lfc/arm_right_1_joint/effort
+      - lfc/arm_right_2_joint/effort
+      - lfc/arm_right_3_joint/effort
+      - lfc/arm_right_4_joint/effort 
+      - lfc/arm_right_5_joint/effort
+      - lfc/arm_right_6_joint/effort
+      - lfc/arm_right_7_joint/effort

@@ -1,76 +1,124 @@
-from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, TimerAction
-from launch.substitutions import LaunchConfiguration, Command
-from launch_ros.actions import Node
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+#!/usr/bin/env python
+
+"""Completely launch talos inside GZ in one go."""
+from itertools import (
+    chain,
+)
+from pathlib import (
+    Path,
+)
+
 from ament_index_python.packages import get_package_share_directory
-import os
+
+from launch import (
+    LaunchDescription,
+)
+from launch.actions import (
+    SetLaunchConfiguration,
+)
+from launch.substitutions import (
+    LaunchConfiguration,
+)
+
+from talos_harmonic.launch import (
+    GzWorld,
+    Invoke,
+    add_robot_description_from_xacro,
+    all_arguments_from_yaml,
+    evaluate_dict,
+    gz_control,
+    gz_server,
+    gz_spawn_entity,
+    load_controllers,
+    run_robot_state_publisher,
+    # switch_controllers,
+)
 
 def generate_launch_description():
-    # Package directories
-    robot_pkg = get_package_share_directory('talos_harmonic')
-    gazebo_pkg = get_package_share_directory('ros_gz_sim')
-
-    # File paths
-    sdf_path = os.path.join(robot_pkg, 'models', 'talos_description', 'talos.sdf')
-    srdf_path = os.path.join(robot_pkg, 'models', 'talos_description', 'talos.srdf')
-
-    # Robot Description
-    with open(sdf_path, 'r') as sdf_file:
-        robot_description_content = sdf_file.read()
-    
-    with open(srdf_path, 'r') as srdf_file:
-        robot_description_semantic_content = srdf_file.read()
-
-    # Robot State Publisher node
-    robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='both',
-        parameters=[
-            {'use_sim_time': True},
-            {'robot_description': robot_description_content}
-        ],
-        arguments=[sdf_path],
-    )
-
-    state_publisher_node = Node(
-        package='talos_harmonic',
-        executable='state_publisher',
-        name='state_publisher',
-        output='screen',
-    )
-
-    # Gazebo launch
-    gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(gazebo_pkg, 'launch', 'gz_sim.launch.py')
+    """Launch talos within GZ."""
+    start_gz = chain(
+        (
+            # Since we are simulating, use_sim_time is FORCED here
+            SetLaunchConfiguration(
+                'use_sim_time',
+                'True',
+            ),
         ),
-        launch_arguments={'gz_args': ['-v4 empty.sdf']}.items()
+        gz_server()
     )
 
-    # Spawn robot in Gazebo
-    spawn_entity = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'talos',
-            '-topic', 'robot_description',
-            '-z', '1.127'
-        ],
-        output='screen'
+    xacro_file = Path(
+        get_package_share_directory('talos_description'),
+        'robots',
+        'talos_full_v2.urdf.xacro',
     )
 
-    spawn_with_delay = TimerAction(
-        period=5.0,
-        actions=[spawn_entity]
+    xacro_args = list(
+        all_arguments_from_yaml(
+            Path(
+                get_package_share_directory('talos_harmonic'),
+                'config',
+                'talos_configuration.yaml',
+            )
+        )
     )
 
-    return LaunchDescription([
-        DeclareLaunchArgument('use_sim_time', default_value='true'),
-        gazebo,
-        robot_state_publisher_node,
-        state_publisher_node,
-        spawn_with_delay,
-    ])
+    urdf_file = xacro_file.with_suffix('.urdf')
+
+    # Remove the file extension from world defined by gz_server()
+    world = Invoke(
+        lambda v: Path(v).stem,
+        LaunchConfiguration('world'),
+    )
+
+    spawn_tiago = chain(
+        xacro_args,
+        add_robot_description_from_xacro(
+            file_path=xacro_file,
+            mappings=evaluate_dict(
+                {
+                    arg.name: LaunchConfiguration(arg.name)
+                    for arg in xacro_args
+                } | {
+                    'use_sim_time': LaunchConfiguration('use_sim_time')
+                }
+            ),
+            output_file=urdf_file,
+        ),
+        run_robot_state_publisher(
+            robot_description=LaunchConfiguration('robot_description'),
+            use_sim_time=LaunchConfiguration('use_sim_time'),
+        ),
+        gz_spawn_entity(
+            model_path=urdf_file,
+            name='talos',
+            world=world,
+            timeout_ms=1000,
+        ),
+        # load_controllers(
+        #     controllers=('lfc', 'jse'),
+        #     param_file=Path(
+        #         get_package_share_directory('tiago_lfc'),
+        #         'config',
+        #         'lfc_parameters.yaml',
+        #     ),
+        #     activate=False,
+        #     controller_manager='/controller_manager',
+        # ),
+
+    )
+
+    return LaunchDescription(
+        chain(
+            start_gz,
+            spawn_tiago,
+            gz_control(
+                world=world,
+                step=GzWorld.Play(),
+                timeout_ms=1000,
+
+                # This disable the DeclareArgument('reset', ...)
+                reset=Invoke(lambda *args: None),
+            )
+        )
+    )
