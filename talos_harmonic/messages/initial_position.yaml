@@ -1,0 +1,24 @@
+header:
+  stamp:
+    sec: 0
+    nanosec: 0
+joint_names: [
+  arm_left_1_joint, arm_left_2_joint, arm_left_3_joint, arm_left_4_joint, arm_left_5_joint, arm_left_6_joint, arm_left_7_joint,
+  arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint,
+  head_1_joint, head_2_joint,
+  torso_1_joint, torso_2_joint,
+  leg_left_1_joint, leg_left_2_joint, leg_left_3_joint, leg_left_4_joint, leg_left_5_joint, leg_left_6_joint,
+  leg_right_1_joint, leg_right_2_joint, leg_right_3_joint, leg_right_4_joint, leg_right_5_joint, leg_right_6_joint,
+]
+points:
+  - positions: [
+      0.25847, 0.173046, -0.0002, -0.525366, 0, 0, 0.1,
+      -0.25847, -0.173046, 0.0002, -0.525366, 0, 0, 0.1,
+      0, 0,
+      0, 0.006761,
+      0, 0, -0.411354, 0.859395, -0.448041, -0.001708,
+      0, 0, -0.411354, 0.859395, -0.448041, -0.001708,
+    ]
+    time_from_start:
+      sec: 0
+      nanosec: 0

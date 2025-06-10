@@ -89,13 +89,6 @@ def generate_launch_description():
             robot_description=LaunchConfiguration('robot_description'),
             use_sim_time=LaunchConfiguration('use_sim_time'),
         ),
-        gz_spawn_entity(
-            model_path=urdf_file,
-            name='talos',
-            world=world,
-            timeout_ms=1000,
-            z_height=1.01927
-        ),
         load_controllers(
             controllers=('lfc', 'jse'),
             param_file=Path(
@@ -106,7 +99,23 @@ def generate_launch_description():
             activate=False,
             controller_manager='/controller_manager',
         ),
-
+        load_controllers(
+            controllers=('jpc','jse_2'),
+            param_file=Path(
+                get_package_share_directory('talos_harmonic'),
+                'controllers',
+                'lfc_parameters.yaml',
+            ),
+            activate=True,
+            controller_manager='/controller_manager',
+        ),
+        gz_spawn_entity(
+            model_path=urdf_file,
+            name='talos',
+            world=world,
+            timeout_ms=1000,
+            z_height=1.01927,
+        ),
     )
 
     return LaunchDescription(

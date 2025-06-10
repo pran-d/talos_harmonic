@@ -74,9 +74,34 @@ jse:
       - arm_right_7_joint/velocity
     command_interfaces:
       - lfc/arm_right_1_joint/effort
+      - lfc/arm_right_1_joint/position
       - lfc/arm_right_2_joint/effort
+      - lfc/arm_right_2_joint/position
       - lfc/arm_right_3_joint/effort
+      - lfc/arm_right_3_joint/position      
       - lfc/arm_right_4_joint/effort 
+      - lfc/arm_right_4_joint/position
       - lfc/arm_right_5_joint/effort
+      - lfc/arm_right_5_joint/position
       - lfc/arm_right_6_joint/effort
+      - lfc/arm_right_6_joint/position
       - lfc/arm_right_7_joint/effort
+      - lfc/arm_right_7_joint/position
+
+jse_2:
+  ros__parameters:
+    type: joint_state_broadcaster/JointStateBroadcaster
+
+jpc:
+  ros__parameters:
+    type: joint_trajectory_controller/JointTrajectoryController
+    joints: [
+      arm_left_1_joint, arm_left_2_joint, arm_left_3_joint, arm_left_4_joint, arm_left_5_joint, arm_left_6_joint, arm_left_7_joint,
+      arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint,
+      head_1_joint, head_2_joint,
+      torso_1_joint, torso_2_joint,
+      leg_left_1_joint, leg_left_2_joint, leg_left_3_joint, leg_left_4_joint, leg_left_5_joint, leg_left_6_joint,
+      leg_right_1_joint, leg_right_2_joint, leg_right_3_joint, leg_right_4_joint, leg_right_5_joint, leg_right_6_joint,
+    ]  # Your robot's joint names
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
