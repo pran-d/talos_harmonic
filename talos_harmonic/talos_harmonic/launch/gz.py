@@ -218,6 +218,7 @@ def __make_spawn_cmd(
         name: Text,
         model_path: Path,
         timeout_ms: int,
+        z_height: float
 ):
     logger.info(
         (
@@ -240,12 +241,12 @@ def __make_spawn_cmd(
         '--reptype', 'gz.msgs.Boolean',
         '--timeout', '{}'.format(timeout_ms),
         '--req',
-        'name: "{name}", sdf_filename: "{path}"'.format(
+        'name: "{name}", sdf_filename: "{path}", pose: {{ position: {{ x: 0.0, y: 0.0, z: {z} }} }}'.format(
             name=name,
-            path=model_path
+            path=model_path,
+            z=z_height
         )
     ]
-
 
 def gz_spawn_entity(
         *,
@@ -253,6 +254,7 @@ def gz_spawn_entity(
         name: Optional[SubstitutionOr[Text]] = None,
         world: Optional[SubstitutionOr[Text]] = None,
         timeout_ms: Optional[SubstitutionOr[int]] = None,
+        z_height: Optional[SubstitutionOr[float]] = None,
 ) -> Generator[Action]:
     """Spawn a model, with a given name, into an already running GZ server.
 
@@ -319,6 +321,14 @@ def gz_spawn_entity(
             int,
             LaunchConfiguration('timeout_ms'),
         )
+    
+    if z_height is None:
+        yield DeclareLaunchArgument(
+            'z_height',
+            description='Initial spawning height of robot (in m)',
+            default_value='0',
+        )
+        z_height = LaunchConfiguration('z_height')
 
     yield Invoke(
         __make_spawn_cmd,
@@ -326,6 +336,7 @@ def gz_spawn_entity(
         name,
         model_path,
         timeout_ms,
+        z_height,
     ).and_then(
         __log_then_forward_cmd
     ).and_then_with_key(

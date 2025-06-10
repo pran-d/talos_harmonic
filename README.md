@@ -61,7 +61,7 @@ colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF -DCMAKE_BUILD_TY
 
 - Terminal 1: Spawn GZ gui
 ```sh
-ros2 launch talos_harmonic talos_spawn.launch.py
+ros2 launch talos_harmonic robot_spawn.launch.py
 ```
 
 ## Common Issues

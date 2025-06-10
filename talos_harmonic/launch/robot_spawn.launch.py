@@ -94,17 +94,18 @@ def generate_launch_description():
             name='talos',
             world=world,
             timeout_ms=1000,
+            z_height=1.01927
         ),
-        # load_controllers(
-        #     controllers=('lfc', 'jse'),
-        #     param_file=Path(
-        #         get_package_share_directory('tiago_lfc'),
-        #         'config',
-        #         'lfc_parameters.yaml',
-        #     ),
-        #     activate=False,
-        #     controller_manager='/controller_manager',
-        # ),
+        load_controllers(
+            controllers=('lfc', 'jse'),
+            param_file=Path(
+                get_package_share_directory('talos_harmonic'),
+                'controllers',
+                'lfc_parameters.yaml',
+            ),
+            activate=False,
+            controller_manager='/controller_manager',
+        ),
 
     )
 

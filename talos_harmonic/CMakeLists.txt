@@ -10,7 +10,7 @@ find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 # Install launch files
-install(DIRECTORY launch config 
+install(DIRECTORY launch config controllers
   DESTINATION share/${PROJECT_NAME}
 )
 
