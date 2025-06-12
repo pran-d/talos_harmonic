@@ -100,6 +100,20 @@ def __make_sim_cmd(
     return cmd
 
 
+def __play_sim_cmd(
+    world: Text,
+):
+    return [
+        "gz", "service",
+        "-s", "/world/{world}/control".format(world=world),
+        '--reqtype', 'gz.msgs.WorldControl',
+        '--reptype', 'gz.msgs.Boolean',
+        '--timeout', '1000',
+        '--req', 'pause: false'
+    ]
+
+
+
 def gz_server(
         *,
         world: Optional[SubstitutionOr[Path]] = None,
@@ -564,6 +578,40 @@ def gz_control(
         timeout_ms=timeout_ms,
     ).and_then(
         __log_then_forward_cmd
+    ).and_then_with_key(
+        'cmd',
+        ExecuteProcess,
+    )
+
+def gz_play(
+        world: Optional[SubstitutionOr[Text]] = None,
+) -> Generator[Action]:
+    """Play/resume the physics simulation in an already running GZ server.
+
+    Parameters
+    ----------
+    world: Optional[SubstitutionOr[Path]]
+      If not None, the GZ world we wish to spawn our model into.
+      When None, declare a LaunchArgument for it (default to 'empty').
+
+    Returns
+    -------
+    Generator[Action]
+      All ROS launch Actions used to perform the needed task.
+    """
+    if world is None:
+        yield DeclareLaunchArgument(
+            'world',
+            description=(
+                'Name of the world we wish to spawn the entity into'
+            ),
+            default_value='empty',
+        )
+        world = LaunchConfiguration('world')
+        
+    yield Invoke(
+        __play_sim_cmd,
+        world=world
     ).and_then_with_key(
         'cmd',
         ExecuteProcess,

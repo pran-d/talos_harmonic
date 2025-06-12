@@ -6,9 +6,19 @@ from launch import LaunchDescription
 
 from talos_harmonic.launch import (
     switch_controllers,
+    gz_play
+)
+
+from itertools import (
+    chain,
 )
 
 
 def generate_launch_description():
     """Load controllers."""
-    return LaunchDescription(switch_controllers())
+    return LaunchDescription(
+        chain(
+            gz_play(),
+            switch_controllers()
+        )
+    )

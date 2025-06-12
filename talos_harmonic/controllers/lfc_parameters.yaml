@@ -9,7 +9,32 @@ lfc:
       arm_right_4_joint,
       arm_right_5_joint,
       arm_right_6_joint,
-      arm_right_7_joint
+      arm_right_7_joint,
+      arm_left_1_joint,
+      arm_left_2_joint,
+      arm_left_3_joint,
+      arm_left_4_joint,
+      arm_left_5_joint,
+      arm_left_6_joint,
+      arm_left_7_joint,
+      leg_right_1_joint,
+      leg_right_2_joint,
+      leg_right_3_joint,
+      leg_right_4_joint,
+      leg_right_5_joint,
+      leg_right_6_joint,
+      leg_left_1_joint,
+      leg_left_2_joint,
+      leg_left_3_joint,
+      leg_left_4_joint,
+      leg_left_5_joint,
+      leg_left_6_joint,
+      torso_1_joint,
+      torso_2_joint,
+      head_1_joint,
+      head_2_joint,
+      gripper_left_joint,
+      gripper_right_joint,
     ]
     arm_right_1_joint:
       p: 100.0
@@ -32,17 +57,117 @@ lfc:
     arm_right_7_joint:
       p: 100.0
       d: 10.0
+    arm_left_1_joint:
+      p: 100.0
+      d: 10.0
+    arm_left_2_joint:
+      p: 100.0
+      d: 10.0
+    arm_left_3_joint:
+      p: 100.0
+      d: 10.0
+    arm_left_4_joint:
+      p: 100.0
+      d: 10.0
+    arm_left_5_joint:
+      p: 100.0
+      d: 10.0
+    arm_left_6_joint:
+      p: 100.0
+      d: 10.0
+    arm_left_7_joint:
+      p: 100.0
+      d: 10.0
+    leg_right_1_joint:
+      p: 100.0
+      d: 10.0
+    leg_right_2_joint:
+      p: 100.0
+      d: 10.0
+    leg_right_3_joint:
+      p: 100.0
+      d: 10.0
+    leg_right_4_joint:
+      p: 100.0
+      d: 10.0
+    leg_right_5_joint:
+      p: 100.0
+      d: 10.0
+    leg_right_6_joint:
+      p: 100.0
+      d: 10.0
+    leg_left_1_joint:
+      p: 100.0
+      d: 10.0
+    leg_left_2_joint:
+      p: 100.0
+      d: 10.0
+    leg_left_3_joint:
+      p: 100.0
+      d: 10.0
+    leg_left_4_joint: 
+      p: 100.0
+      d: 10.0
+    leg_left_5_joint:
+      p: 100.0
+      d: 10.0
+    leg_left_6_joint:
+      p: 100.0
+      d: 10.0
+    torso_1_joint:
+      p: 100.0
+      d: 10.0
+    torso_2_joint:
+      p: 100.0
+      d: 10.0
+    head_1_joint:
+      p: 100.0
+      d: 10.0
+    head_2_joint:
+      p: 100.0
+      d: 10.0
+    gripper_left_joint:
+      p: 50.0
+      d: 0.0
+    gripper_right_joint:
+      p: 50.0
+      d: 0.0
     chainable_controller:
       reference_prefix: ''
       command_interfaces:
-      - arm_right_1_joint/effort
-      - arm_right_2_joint/effort
-      - arm_right_3_joint/effort
-      - arm_right_4_joint/effort
-      - arm_right_5_joint/effort
-      - arm_right_6_joint/effort
-      - arm_right_7_joint/effort
-    remove_gravity_compensation_effort: true
+        - arm_right_1_joint/effort
+        - arm_right_2_joint/effort
+        - arm_right_3_joint/effort
+        - arm_right_4_joint/effort
+        - arm_right_5_joint/effort
+        - arm_right_6_joint/effort
+        - arm_right_7_joint/effort
+        - arm_left_1_joint/effort
+        - arm_left_2_joint/effort
+        - arm_left_3_joint/effort
+        - arm_left_4_joint/effort
+        - arm_left_5_joint/effort
+        - arm_left_6_joint/effort
+        - arm_left_7_joint/effort
+        - leg_right_1_joint/effort
+        - leg_right_2_joint/effort
+        - leg_right_3_joint/effort
+        - leg_right_4_joint/effort
+        - leg_right_5_joint/effort
+        - leg_right_6_joint/effort
+        - leg_left_1_joint/effort
+        - leg_left_2_joint/effort
+        - leg_left_3_joint/effort
+        - leg_left_4_joint/effort
+        - leg_left_5_joint/effort
+        - leg_left_6_joint/effort
+        - torso_1_joint/effort
+        - torso_2_joint/effort
+        - head_1_joint/effort
+        - head_2_joint/effort
+        - gripper_left_joint/position
+        - gripper_right_joint/position
+    remove_gravity_compensation_effort: false
     joint_velocity_filter_coefficient: 0.9
     pd_to_lf_transition_duration: 0.1
     robot_has_free_flyer: true
@@ -72,36 +197,175 @@ jse:
       - arm_right_7_joint/effort
       - arm_right_7_joint/position
       - arm_right_7_joint/velocity
+      - arm_left_1_joint/effort
+      - arm_left_1_joint/position
+      - arm_left_1_joint/velocity
+      - arm_left_2_joint/effort
+      - arm_left_2_joint/position
+      - arm_left_2_joint/velocity
+      - arm_left_3_joint/effort
+      - arm_left_3_joint/position  
+      - arm_left_3_joint/velocity
+      - arm_left_4_joint/effort
+      - arm_left_4_joint/position
+      - arm_left_4_joint/velocity
+      - arm_left_5_joint/effort
+      - arm_left_5_joint/position
+      - arm_left_5_joint/velocity
+      - arm_left_6_joint/effort
+      - arm_left_6_joint/position
+      - arm_left_6_joint/velocity
+      - arm_left_7_joint/effort
+      - arm_left_7_joint/position
+      - arm_left_7_joint/velocity
+      - leg_right_1_joint/effort
+      - leg_right_1_joint/position
+      - leg_right_1_joint/velocity
+      - leg_right_2_joint/effort
+      - leg_right_2_joint/position
+      - leg_right_2_joint/velocity
+      - leg_right_3_joint/effort
+      - leg_right_3_joint/position
+      - leg_right_3_joint/velocity
+      - leg_right_4_joint/effort
+      - leg_right_4_joint/position
+      - leg_right_4_joint/velocity
+      - leg_right_5_joint/effort
+      - leg_right_5_joint/position
+      - leg_right_5_joint/velocity
+      - leg_right_6_joint/effort
+      - leg_right_6_joint/position
+      - leg_right_6_joint/velocity
+      - leg_left_1_joint/effort
+      - leg_left_1_joint/position
+      - leg_left_1_joint/velocity
+      - leg_left_2_joint/effort
+      - leg_left_2_joint/position
+      - leg_left_2_joint/velocity
+      - leg_left_3_joint/effort
+      - leg_left_3_joint/position
+      - leg_left_3_joint/velocity
+      - leg_left_4_joint/effort
+      - leg_left_4_joint/position
+      - leg_left_4_joint/velocity
+      - leg_left_5_joint/effort
+      - leg_left_5_joint/position
+      - leg_left_5_joint/velocity
+      - leg_left_6_joint/effort
+      - leg_left_6_joint/position
+      - leg_left_6_joint/velocity
+      - torso_1_joint/effort
+      - torso_1_joint/position
+      - torso_1_joint/velocity
+      - torso_2_joint/effort
+      - torso_2_joint/position
+      - torso_2_joint/velocity
+      - head_1_joint/effort
+      - head_1_joint/position
+      - head_1_joint/velocity
+      - head_2_joint/effort
+      - head_2_joint/position
+      - head_2_joint/velocity
+      - gripper_left_joint/effort
+      - gripper_left_joint/position
+      - gripper_left_joint/velocity
+      - gripper_right_joint/effort
+      - gripper_right_joint/position
+      - gripper_right_joint/velocity
     command_interfaces:
-      - lfc/arm_right_1_joint/effort
       - lfc/arm_right_1_joint/position
-      - lfc/arm_right_2_joint/effort
       - lfc/arm_right_2_joint/position
-      - lfc/arm_right_3_joint/effort
-      - lfc/arm_right_3_joint/position      
-      - lfc/arm_right_4_joint/effort 
+      - lfc/arm_right_3_joint/position
       - lfc/arm_right_4_joint/position
-      - lfc/arm_right_5_joint/effort
       - lfc/arm_right_5_joint/position
-      - lfc/arm_right_6_joint/effort
       - lfc/arm_right_6_joint/position
-      - lfc/arm_right_7_joint/effort
       - lfc/arm_right_7_joint/position
-
-jse_2:
-  ros__parameters:
-    type: joint_state_broadcaster/JointStateBroadcaster
-
-jpc:
-  ros__parameters:
-    type: joint_trajectory_controller/JointTrajectoryController
-    joints: [
-      arm_left_1_joint, arm_left_2_joint, arm_left_3_joint, arm_left_4_joint, arm_left_5_joint, arm_left_6_joint, arm_left_7_joint,
-      arm_right_1_joint, arm_right_2_joint, arm_right_3_joint, arm_right_4_joint, arm_right_5_joint, arm_right_6_joint, arm_right_7_joint,
-      head_1_joint, head_2_joint,
-      torso_1_joint, torso_2_joint,
-      leg_left_1_joint, leg_left_2_joint, leg_left_3_joint, leg_left_4_joint, leg_left_5_joint, leg_left_6_joint,
-      leg_right_1_joint, leg_right_2_joint, leg_right_3_joint, leg_right_4_joint, leg_right_5_joint, leg_right_6_joint,
-    ]  # Your robot's joint names
-    command_interfaces: [position]
-    state_interfaces: [position, velocity]
+      - lfc/arm_left_1_joint/position
+      - lfc/arm_left_2_joint/position
+      - lfc/arm_left_3_joint/position
+      - lfc/arm_left_4_joint/position
+      - lfc/arm_left_5_joint/position
+      - lfc/arm_left_6_joint/position
+      - lfc/arm_left_7_joint/position
+      - lfc/leg_right_1_joint/position
+      - lfc/leg_right_2_joint/position
+      - lfc/leg_right_3_joint/position
+      - lfc/leg_right_4_joint/position
+      - lfc/leg_right_5_joint/position
+      - lfc/leg_right_6_joint/position
+      - lfc/leg_left_1_joint/position
+      - lfc/leg_left_2_joint/position
+      - lfc/leg_left_3_joint/position
+      - lfc/leg_left_4_joint/position
+      - lfc/leg_left_5_joint/position
+      - lfc/leg_left_6_joint/position
+      - lfc/torso_1_joint/position
+      - lfc/torso_2_joint/position
+      - lfc/head_1_joint/position
+      - lfc/head_2_joint/position
+      - lfc/gripper_left_joint/position
+      - lfc/gripper_right_joint/position
+      - lfc/arm_right_1_joint/velocity
+      - lfc/arm_right_2_joint/velocity
+      - lfc/arm_right_3_joint/velocity
+      - lfc/arm_right_4_joint/velocity
+      - lfc/arm_right_5_joint/velocity
+      - lfc/arm_right_6_joint/velocity
+      - lfc/arm_right_7_joint/velocity
+      - lfc/arm_left_1_joint/velocity
+      - lfc/arm_left_2_joint/velocity
+      - lfc/arm_left_3_joint/velocity
+      - lfc/arm_left_4_joint/velocity
+      - lfc/arm_left_5_joint/velocity
+      - lfc/arm_left_6_joint/velocity
+      - lfc/arm_left_7_joint/velocity
+      - lfc/leg_right_1_joint/velocity
+      - lfc/leg_right_2_joint/velocity
+      - lfc/leg_right_3_joint/velocity
+      - lfc/leg_right_4_joint/velocity
+      - lfc/leg_right_5_joint/velocity
+      - lfc/leg_right_6_joint/velocity
+      - lfc/leg_left_1_joint/velocity
+      - lfc/leg_left_2_joint/velocity
+      - lfc/leg_left_3_joint/velocity
+      - lfc/leg_left_4_joint/velocity
+      - lfc/leg_left_5_joint/velocity
+      - lfc/leg_left_6_joint/velocity
+      - lfc/torso_1_joint/velocity
+      - lfc/torso_2_joint/velocity
+      - lfc/head_1_joint/velocity
+      - lfc/head_2_joint/velocity
+      - lfc/gripper_left_joint/velocity
+      - lfc/gripper_right_joint/velocity
+      - lfc/arm_right_1_joint/effort
+      - lfc/arm_right_2_joint/effort
+      - lfc/arm_right_3_joint/effort
+      - lfc/arm_right_4_joint/effort
+      - lfc/arm_right_5_joint/effort
+      - lfc/arm_right_6_joint/effort
+      - lfc/arm_right_7_joint/effort
+      - lfc/arm_left_1_joint/effort
+      - lfc/arm_left_2_joint/effort
+      - lfc/arm_left_3_joint/effort
+      - lfc/arm_left_4_joint/effort
+      - lfc/arm_left_5_joint/effort
+      - lfc/arm_left_6_joint/effort
+      - lfc/arm_left_7_joint/effort
+      - lfc/leg_right_1_joint/effort
+      - lfc/leg_right_2_joint/effort
+      - lfc/leg_right_3_joint/effort
+      - lfc/leg_right_4_joint/effort
+      - lfc/leg_right_5_joint/effort
+      - lfc/leg_right_6_joint/effort
+      - lfc/leg_left_1_joint/effort
+      - lfc/leg_left_2_joint/effort
+      - lfc/leg_left_3_joint/effort
+      - lfc/leg_left_4_joint/effort
+      - lfc/leg_left_5_joint/effort
+      - lfc/leg_left_6_joint/effort
+      - lfc/torso_1_joint/effort
+      - lfc/torso_2_joint/effort
+      - lfc/head_1_joint/effort
+      - lfc/head_2_joint/effort
+      - lfc/gripper_left_joint/effort
+      - lfc/gripper_right_joint/effort

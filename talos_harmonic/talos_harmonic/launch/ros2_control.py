@@ -39,7 +39,7 @@ from .logging import (
 
 
 def __make_spawner_args(
-        controllers: Iterable[Text],
+        controllers: List[Text],
         activate: bool,
         param_file: Optional[Path] = None,
         controller_manager: Optional[Text] = None,
@@ -76,7 +76,7 @@ def __make_spawner_args(
 
 def load_controllers(
         *,
-        controllers: Optional[SubstitutionOr[Iterable[Text]]] = None,
+        controllers: Optional[SubstitutionOr[List[Text]]] = None,
         param_file: Optional[SubstitutionOr[Path]] = None,
         activate: Optional[SubstitutionOr[bool]] = None,
         controller_manager: Optional[SubstitutionOr[Text]] = None,

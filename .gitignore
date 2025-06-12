@@ -3,6 +3,5 @@ build/
 .env*
 .vscode/
 third_party/
-# find . -type l | sed -e s'/^\.\///g' >> .gitignorelinear-feedback-controller
 
 

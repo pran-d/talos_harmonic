@@ -1,5 +1,9 @@
 ---
-jpc:  # Controller parameters
+jse_2:
+  ros__parameters:
+    type: joint_state_broadcaster/JointStateBroadcaster
+
+jpc:
   ros__parameters:
     type: joint_trajectory_controller/JointTrajectoryController
     joints: [
@@ -9,6 +13,6 @@ jpc:  # Controller parameters
       torso_1_joint, torso_2_joint,
       leg_left_1_joint, leg_left_2_joint, leg_left_3_joint, leg_left_4_joint, leg_left_5_joint, leg_left_6_joint,
       leg_right_1_joint, leg_right_2_joint, leg_right_3_joint, leg_right_4_joint, leg_right_5_joint, leg_right_6_joint,
-    ]
+    ]  # Your robot's joint names
     command_interfaces: [position]
     state_interfaces: [position, velocity]

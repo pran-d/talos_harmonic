@@ -10,6 +10,7 @@ from .gz import (
     gz_control,
     gz_server,
     gz_spawn_entity,
+    gz_play,
 )
 from .invoke import (
     FunctionSubstitution,
@@ -47,6 +48,7 @@ __all__ = [
     'gz_control',
     'gz_server',
     'gz_spawn_entity',
+    'gz_play',
 
     # invoke
     'FunctionSubstitution',

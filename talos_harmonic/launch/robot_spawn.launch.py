@@ -89,32 +89,12 @@ def generate_launch_description():
             robot_description=LaunchConfiguration('robot_description'),
             use_sim_time=LaunchConfiguration('use_sim_time'),
         ),
-        load_controllers(
-            controllers=('lfc', 'jse'),
-            param_file=Path(
-                get_package_share_directory('talos_harmonic'),
-                'controllers',
-                'lfc_parameters.yaml',
-            ),
-            activate=False,
-            controller_manager='/controller_manager',
-        ),
-        load_controllers(
-            controllers=('jpc','jse_2'),
-            param_file=Path(
-                get_package_share_directory('talos_harmonic'),
-                'controllers',
-                'lfc_parameters.yaml',
-            ),
-            activate=True,
-            controller_manager='/controller_manager',
-        ),
         gz_spawn_entity(
             model_path=urdf_file,
             name='talos',
             world=world,
             timeout_ms=1000,
-            z_height=1.01927,
+            z_height=1.08,
         ),
     )
 
@@ -124,7 +104,7 @@ def generate_launch_description():
             spawn_tiago,
             gz_control(
                 world=world,
-                step=GzWorld.Play(),
+                step=GzWorld.Pause(),
                 timeout_ms=1000,
 
                 # This disable the DeclareArgument('reset', ...)
