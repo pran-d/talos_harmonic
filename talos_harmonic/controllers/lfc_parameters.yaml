@@ -135,39 +135,39 @@ lfc:
     chainable_controller:
       reference_prefix: ''
       command_interfaces:
-        - arm_right_1_joint/effort
-        - arm_right_2_joint/effort
-        - arm_right_3_joint/effort
-        - arm_right_4_joint/effort
-        - arm_right_5_joint/effort
-        - arm_right_6_joint/effort
-        - arm_right_7_joint/effort
-        - arm_left_1_joint/effort
-        - arm_left_2_joint/effort
-        - arm_left_3_joint/effort
-        - arm_left_4_joint/effort
-        - arm_left_5_joint/effort
-        - arm_left_6_joint/effort
-        - arm_left_7_joint/effort
-        - leg_right_1_joint/effort
-        - leg_right_2_joint/effort
-        - leg_right_3_joint/effort
-        - leg_right_4_joint/effort
-        - leg_right_5_joint/effort
-        - leg_right_6_joint/effort
-        - leg_left_1_joint/effort
-        - leg_left_2_joint/effort
-        - leg_left_3_joint/effort
-        - leg_left_4_joint/effort
-        - leg_left_5_joint/effort
-        - leg_left_6_joint/effort
-        - torso_1_joint/effort
-        - torso_2_joint/effort
-        - head_1_joint/effort
-        - head_2_joint/effort
-        - gripper_left_joint/position
-        - gripper_right_joint/position
-    remove_gravity_compensation_effort: false
+        - arm_right_1_joint_inertia_shaping_controller/arm_right_1_joint/effort
+        # - arm_right_2_joint_inertia_shaping_controller/arm_right_2_joint/effort
+        # - arm_right_3_joint_inertia_shaping_controller/arm_right_3_joint/effort
+        # - arm_right_4_joint_inertia_shaping_controller/arm_right_4_joint/effort
+        # - arm_right_5_joint_inertia_shaping_controller/arm_right_5_joint/effort
+        # - arm_right_6_joint_inertia_shaping_controller/arm_right_6_joint/effort
+        # - arm_right_7_joint_inertia_shaping_controller/arm_right_7_joint/effort
+        # - arm_left_1_joint_inertia_shaping_controller/arm_left_1_joint/effort
+        # - arm_left_2_joint_inertia_shaping_controller/arm_left_2_joint/effort
+        # - arm_left_3_joint_inertia_shaping_controller/arm_left_3_joint/effort
+        # - arm_left_4_joint_inertia_shaping_controller/arm_left_4_joint/effort
+        # - arm_left_5_joint_inertia_shaping_controller/arm_left_5_joint/effort
+        # - arm_left_6_joint_inertia_shaping_controller/arm_left_6_joint/effort
+        # - arm_left_7_joint_inertia_shaping_controller/arm_left_7_joint/effort
+        # - leg_right_1_joint_inertia_shaping_controller/leg_right_1_joint/effort
+        # - leg_right_2_joint_inertia_shaping_controller/leg_right_2_joint/effort
+        # - leg_right_3_joint_inertia_shaping_controller/leg_right_3_joint/effort
+        # - leg_right_4_joint_inertia_shaping_controller/leg_right_4_joint/effort
+        # - leg_right_5_joint_inertia_shaping_controller/leg_right_5_joint/effort
+        # - leg_right_6_joint_inertia_shaping_controller/leg_right_6_joint/effort
+        # - leg_left_1_joint_inertia_shaping_controller/leg_left_1_joint/effort
+        # - leg_left_2_joint_inertia_shaping_controller/leg_left_2_joint/effort
+        # - leg_left_3_joint_inertia_shaping_controller/leg_left_3_joint/effort
+        # - leg_left_4_joint_inertia_shaping_controller/leg_left_4_joint/effort
+        # - leg_left_5_joint_inertia_shaping_controller/leg_left_5_joint/effort
+        # - leg_left_6_joint_inertia_shaping_controller/leg_left_6_joint/effort
+        # - torso_1_joint_inertia_shaping_controller/torso_1_joint/effort
+        # - torso_2_joint_inertia_shaping_controller/torso_2_joint/effort
+        # - head_1_joint_inertia_shaping_controller/head_1_joint/effort
+        # - head_2_joint_inertia_shaping_controller/head_2_joint/effort
+        # - gripper_left_joint_inertia_shaping_controller/gripper_left_joint/position
+        # - gripper_right_joint_inertia_shaping_controller/gripper_right_joint/position
+    remove_gravity_compensation_effort: true
     joint_velocity_filter_coefficient: 0.9
     pd_to_lf_transition_duration: 0.1
     robot_has_free_flyer: true

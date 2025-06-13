@@ -1,0 +1,192 @@
+---
+arm_right_1_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_1_joint/effort]
+    command_interfaces: [arm_right_1_joint/effort]
+
+arm_right_2_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_2_joint/effort]
+    command_interfaces: [arm_right_2_joint/effort]
+
+arm_right_3_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_3_joint/effort]
+    command_interfaces: [arm_right_3_joint/effort]
+
+arm_right_4_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_4_joint/effort]
+    command_interfaces: [arm_right_4_joint/effort]
+
+arm_right_5_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_5_joint/effort]
+    command_interfaces: [arm_right_5_joint/effort]
+
+arm_right_6_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_6_joint/effort]
+    command_interfaces: [arm_right_6_joint/effort]
+
+arm_right_7_joint_inertia_shaping_controller: 
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_right_7_joint/effort]
+    command_interfaces: [arm_right_7_joint/effort]
+
+arm_left_1_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_1_joint/effort]
+    command_interfaces: [arm_left_1_joint/effort]
+
+arm_left_2_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_2_joint/effort]
+    command_interfaces: [arm_left_2_joint/effort]
+
+arm_left_3_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_3_joint/effort]
+    command_interfaces: [arm_left_3_joint/effort]
+
+arm_left_4_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_4_joint/effort]
+    command_interfaces: [arm_left_4_joint/effort]
+
+arm_left_5_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_5_joint/effort]
+    command_interfaces: [arm_left_5_joint/effort]
+
+arm_left_6_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_6_joint/effort]
+    command_interfaces: [arm_left_6_joint/effort]
+
+arm_left_7_joint_inertia_shaping_controller: 
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [arm_left_7_joint/effort]
+    command_interfaces: [arm_left_7_joint/effort]
+
+leg_left_1_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_left_1_joint/effort]
+    command_interfaces: [leg_left_1_joint/effort]
+
+leg_left_2_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_left_2_joint/effort]
+    command_interfaces: [leg_left_2_joint/effort]
+
+leg_left_3_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_left_3_joint/effort]
+    command_interfaces: [leg_left_3_joint/effort]
+
+leg_left_4_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_left_4_joint/effort]
+    command_interfaces: [leg_left_4_joint/effort]
+
+leg_left_5_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_left_5_joint/effort]
+    command_interfaces: [leg_left_5_joint/effort]
+
+leg_left_6_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_left_6_joint/effort]
+    command_interfaces: [leg_left_6_joint/effort]
+
+leg_right_1_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_right_1_joint/effort]
+    command_interfaces: [leg_right_1_joint/effort]
+
+leg_right_2_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_right_2_joint/effort]
+    command_interfaces: [leg_right_2_joint/effort]
+
+leg_right_3_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_right_3_joint/effort]
+    command_interfaces: [leg_right_3_joint/effort]
+
+leg_right_4_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_right_4_joint/effort]
+    command_interfaces: [leg_right_4_joint/effort]
+
+leg_right_5_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_right_5_joint/effort]
+    command_interfaces: [leg_right_5_joint/effort]
+
+leg_right_6_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [leg_right_6_joint/effort]
+    command_interfaces: [leg_right_6_joint/effort]
+
+torso_1_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [torso_1_joint/effort]
+    command_interfaces: [torso_1_joint/effort]
+
+torso_2_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [torso_2_joint/effort]
+    command_interfaces: [torso_2_joint/effort]
+
+head_1_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [head_1_joint/effort]
+    command_interfaces: [head_1_joint/effort]
+
+head_2_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [head_2_joint/effort]
+    command_interfaces: [head_2_joint/effort]
+
+gripper_left_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [gripper_left_joint/position]
+    command_interfaces: [gripper_left_joint/position]
+
+gripper_right_joint_inertia_shaping_controller:
+  ros__parameters:
+    type: linear_feedback_controller/PassthroughController
+    reference_interfaces: [gripper_right_joint/position]
+    command_interfaces: [gripper_right_joint/position]
