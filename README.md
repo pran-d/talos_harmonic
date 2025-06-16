@@ -52,17 +52,25 @@ colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF -DCMAKE_BUILD_TY
 
 ## Usage
 
-### TLDR
-
 > [!tip]
 > Don't forget to source the local setup file at least once after building
 > it.<br>
 > `source <WORKSPACE>/install/local_setup.<EXTENSION>`
 
-- Terminal 1: Spawn GZ gui
+### Terminal 1: Spawn GZ gui with TALOS robot
 ```sh
 ros2 launch talos_harmonic robot_spawn.launch.py
 ```
+### Terminal 2:
+- Load the controllers:
+```sh
+ros2 launch talos_harmonic load_controllers.launch.py
+```
+- Play the physics and activate the controllers:
+```sh
+ros2 launch talos_harmonic switch_controllers.launch.py controllers:='<whitespace-separated names of controllers>' activate:=True
+```
+For example, if the controllers to be activated are named lfc and jse then the controllers should be passed as `'lfc jse'`.
 
 ## Common Issues
 
