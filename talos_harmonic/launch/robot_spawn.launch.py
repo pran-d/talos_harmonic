@@ -93,7 +93,7 @@ def generate_launch_description():
             model_path=urdf_file,
             name='talos',
             world=world,
-            timeout_ms=1000,
+            timeout_ms=5000,
             z_height=1.08,
         ),
     )
@@ -105,7 +105,7 @@ def generate_launch_description():
             gz_control(
                 world=world,
                 step=GzWorld.Pause(),
-                timeout_ms=1000,
+                timeout_ms=5000,
 
                 # This disable the DeclareArgument('reset', ...)
                 reset=Invoke(lambda *args: None),
