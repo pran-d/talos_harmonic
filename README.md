@@ -16,7 +16,7 @@ WS=<WORKSPACE>; mkdir -p ${WS}/src && cd ${WS}/src
 
 Then clone this repo inside `<WORKSPACE>/src` using one of:
 
-* [Recommanded] SSH
+* [Recommended] SSH
 ```sh
 git clone git@github.com:pran-d/talos_harmonic.git
 ```
@@ -34,7 +34,7 @@ git clone https://github.com/pran-d/talos_harmonic.git
 
 Clone the repository containing the Talos robot description package from PAL Robotics into the `${WS}/src` directory:
 ```sh
-git clone https://github.com/pal-robotics/talos_robot.git
+git clone https://github.com/pran-d/talos_robot.git
 ```
 
 ### Build
@@ -57,16 +57,11 @@ colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF -DCMAKE_BUILD_TY
 > it.<br>
 > `source <WORKSPACE>/install/local_setup.<EXTENSION>`
 
-### Terminal 1: Spawn GZ gui with TALOS robot
+### Terminal 1: Spawn GZ gui with TALOS robot, load controllers
 ```sh
-ros2 launch talos_harmonic robot_spawn.launch.py
+ros2 launch talos_harmonic talos_gz_load.launch.py
 ```
-### Terminal 2:
-- Load the controllers:
-```sh
-ros2 launch talos_harmonic load_controllers.launch.py
-```
-- Play the physics and activate the controllers:
+### Terminal 2: Play the physics and activate the controllers:
 ```sh
 ros2 launch talos_harmonic switch_controllers.launch.py controllers:='<whitespace-separated names of controllers>' activate:=True
 ```
