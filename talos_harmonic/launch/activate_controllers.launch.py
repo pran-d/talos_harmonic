@@ -1,10 +1,15 @@
-#!/usr/bin/env python
-
 """Launch file use to switch ANY ros2 control controller."""
 
 from launch import LaunchDescription
+from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
+
+from pathlib import (
+    Path,
+)
+
+from ament_index_python.packages import get_package_share_directory
 
 from talos_harmonic.launch import (
     switch_controllers,
@@ -14,6 +19,20 @@ from talos_harmonic.launch import (
 from itertools import (
     chain,
 )
+
+def pd_controller():
+    pd_plus_controller_params = Path(
+        get_package_share_directory("talos_mpc"),
+        "config",
+        "pd_control_parameters.yaml",
+    )
+
+    return Node(
+        package="linear_feedback_controller",
+        executable="pd_plus_controller",
+        parameters=[pd_plus_controller_params],
+        output="screen",
+    )
 
 
 def generate_launch_description():
@@ -72,8 +91,10 @@ def generate_launch_description():
             default_value='True',
             description='Whether to activate or deactivate the controllers'
         ),
+
         *chain(
             gz_play(),
             switch_controllers()
-        )
+        ),
+        pd_controller(),
     ])
