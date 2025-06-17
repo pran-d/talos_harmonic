@@ -199,7 +199,7 @@ lfc:
         # - head_2_joint/effort
         # - gripper_left_joint/position
         # - gripper_right_joint/position
-    remove_gravity_compensation_effort: true
+    remove_gravity_compensation_effort: false
     joint_velocity_filter_coefficient: 0.9
     pd_to_lf_transition_duration: 0.1
     robot_has_free_flyer: true
