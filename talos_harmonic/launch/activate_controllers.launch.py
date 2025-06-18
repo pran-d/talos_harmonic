@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """Launch file use to switch ANY ros2 control controller."""
 
 from launch import LaunchDescription
@@ -28,8 +30,8 @@ def pd_controller():
     )
 
     return Node(
-        package="linear_feedback_controller",
-        executable="pd_plus_controller",
+        package="talos_mpc",
+        executable="pd_controller",
         parameters=[pd_plus_controller_params],
         output="screen",
     )
@@ -93,8 +95,8 @@ def generate_launch_description():
         ),
 
         *chain(
-            gz_play(),
+            # gz_play(),
             switch_controllers()
         ),
-        pd_controller(),
+        # pd_controller(),
     ])

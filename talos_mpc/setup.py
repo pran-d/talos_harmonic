@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'mpc_node = talos_mpc.mpc_node:main'
+            'mpc_node = talos_mpc.mpc_node:main',
+            'pd_controller = talos_mpc.pd_controller:main',
         ],
     },
 )
