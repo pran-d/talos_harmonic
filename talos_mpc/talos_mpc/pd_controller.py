@@ -18,11 +18,15 @@ class PDController(Node):
         self.publisher_control_ = self.create_publisher(Control, '/control', qos)
 
         # Prepare a fixed Control message
-        nv = 38  
+        robot_nj = 32
+        free_flyer_nq = 7
+        free_flyer_nv = 6
+        robot_nq = robot_nj + free_flyer_nq
+        robot_nv = robot_nj + free_flyer_nv
 
         # Fixed zero matrices as example
-        K_ricatti = np.zeros((nv, 2 * nv))
-        tau = np.ones((nv, 1))
+        K_ricatti = np.zeros((robot_nq, robot_nq+robot_nv-1))
+        tau = np.ones((robot_nq, 1))
 
         # Create sensor with zeros
         sensor = lfc_py_types.Sensor(
@@ -63,9 +67,9 @@ class PDController(Node):
                     "gripper_left_joint",
                     "gripper_right_joint",
                 ],
-                position=np.zeros(nv),
-                velocity=np.zeros((nv, 1)),
-                effort=np.zeros((nv, 1)),
+                position=np.zeros(robot_nq),
+                velocity=np.zeros((robot_nq, 1)),
+                effort=np.zeros((robot_nq, 1)),
             ),
             contacts=[],
         )

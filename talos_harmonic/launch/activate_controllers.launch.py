@@ -95,8 +95,8 @@ def generate_launch_description():
         ),
 
         *chain(
-            # gz_play(),
-            switch_controllers()
+            gz_play(),
+            switch_controllers(),
         ),
         # pd_controller(),
     ])
