@@ -3,6 +3,13 @@ jse:
   ros__parameters:
     type: linear_feedback_controller/JointStateEstimator
     state_interfaces:
+      - imu_sensor/orientation.x
+      - imu_sensor/orientation.y
+      - imu_sensor/orientation.z
+      - imu_sensor/orientation.w
+      - imu_sensor/angular_velocity.x
+      - imu_sensor/angular_velocity.y
+      - imu_sensor/angular_velocity.z
       - arm_right_1_joint/effort
       - arm_right_1_joint/position
       - arm_right_1_joint/velocity
@@ -100,6 +107,19 @@ jse:
       - gripper_right_joint/position
       - gripper_right_joint/velocity
     command_interfaces:
+      - lfc/base_translation_x
+      - lfc/base_translation_y
+      - lfc/base_translation_z
+      - lfc/base_orientation_qx
+      - lfc/base_orientation_qy
+      - lfc/base_orientation_qz
+      - lfc/base_orientation_qw
+      - lfc/base_linear_velocity_x
+      - lfc/base_linear_velocity_y
+      - lfc/base_linear_velocity_z
+      - lfc/base_angular_velocity_x
+      - lfc/base_angular_velocity_y
+      - lfc/base_angular_velocity_z
       - lfc/arm_right_1_joint/position
       - lfc/arm_right_2_joint/position
       - lfc/arm_right_3_joint/position

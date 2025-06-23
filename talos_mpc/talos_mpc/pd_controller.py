@@ -25,8 +25,8 @@ class PDController(Node):
         robot_nv = robot_nj + free_flyer_nv
 
         # Fixed zero matrices as example
-        K_ricatti = np.zeros((robot_nq, robot_nq+robot_nv-1))
-        tau = np.ones((robot_nq, 1))
+        K_ricatti = np.zeros((robot_nj, 2*robot_nv))
+        tau = np.ones((robot_nj, 1))
 
         # Create sensor with zeros
         sensor = lfc_py_types.Sensor(
@@ -67,9 +67,9 @@ class PDController(Node):
                     "gripper_left_joint",
                     "gripper_right_joint",
                 ],
-                position=np.zeros(robot_nq),
-                velocity=np.zeros((robot_nq, 1)),
-                effort=np.zeros((robot_nq, 1)),
+                position=np.zeros(robot_nj),
+                velocity=np.zeros((robot_nj, 1)),
+                effort=np.zeros((robot_nj, 1)),
             ),
             contacts=[],
         )
