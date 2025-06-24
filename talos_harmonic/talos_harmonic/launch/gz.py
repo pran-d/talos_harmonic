@@ -222,7 +222,8 @@ def gz_server(
     yield Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'],
+        arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                   '/model/talos/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry'],
         output='screen'
     )
 

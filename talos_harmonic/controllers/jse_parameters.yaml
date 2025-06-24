@@ -107,16 +107,16 @@ jse:
       - gripper_right_joint/position
       - gripper_right_joint/velocity
     command_interfaces:
-      - lfc/base_translation_x
-      - lfc/base_translation_y
-      - lfc/base_translation_z
+      # - lfc/base_translation_x
+      # - lfc/base_translation_y
+      # - lfc/base_translation_z
       - lfc/base_orientation_qx
       - lfc/base_orientation_qy
       - lfc/base_orientation_qz
       - lfc/base_orientation_qw
-      - lfc/base_linear_velocity_x
-      - lfc/base_linear_velocity_y
-      - lfc/base_linear_velocity_z
+      # - lfc/base_linear_velocity_x
+      # - lfc/base_linear_velocity_y
+      # - lfc/base_linear_velocity_z
       - lfc/base_angular_velocity_x
       - lfc/base_angular_velocity_y
       - lfc/base_angular_velocity_z
