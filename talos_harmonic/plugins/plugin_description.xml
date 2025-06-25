@@ -1,0 +1,7 @@
+<library path="odometry_hw_interface">
+  <class name="odom/OdometryHardwareInterface"
+         type="odom::OdometryHardwareInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>Odometry-based hardware interface that reads from nav_msgs/Odometry</description>
+  </class>
+</library>
