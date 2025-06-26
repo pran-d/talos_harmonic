@@ -16,26 +16,3 @@ install(DIRECTORY launch config src include
 
 ament_python_install_package(${PROJECT_NAME})
 ament_package()
-
-# -------------------------------------------------------- #
-# -------------------------------------------------------- #
-# Adding custom hardware interface
-# -------------------------------------------------------- #
-add_library(odometry_hw_interface SHARED
-src/odometry_hardware_interface.cpp)
-
-target_include_directories(odometry_hw_interface PUBLIC include)
-
-ament_target_dependencies(odometry_hw_interface
-  pluginlib
-  hardware_interface
-  nav_msgs
-  rclcpp_lifecycle
-)
-
-pluginlib_export_plugin_description_file(hardware_interface plugins/plugin_description.xml)
-
-install(
-TARGETS odometry_hw_interface
-DESTINATION lib
-)

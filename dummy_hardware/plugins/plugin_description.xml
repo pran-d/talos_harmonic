@@ -1,0 +1,8 @@
+<library path="dummy_hardware_interface">
+  <class 
+      name="dummy_hardware/DummyHardwareInterface"
+      type="dummy_hardware::DummyHardwareInterface"
+      base_class_type="hardware_interface::SystemInterface">
+    <description>Odometry-based hardware interface that reads from nav_msgs/Odometry</description>
+  </class>
+</library>

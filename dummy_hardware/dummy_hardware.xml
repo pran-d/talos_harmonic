@@ -1,0 +1,9 @@
+<library path="dummy_hardware">
+  <class name="dummy_hardware/DummyHardwareInterface"
+         type="dummy_hardware::DummyHardwareInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control RRbot example using a system hardware interface-type.
+    </description>
+  </class>
+</library>
