@@ -190,3 +190,7 @@ gripper_right_joint_inertia_shaping_controller:
     type: linear_feedback_controller/PassthroughController
     reference_interfaces: [gripper_right_joint/position]
     command_interfaces: [gripper_right_joint/position]
+
+odometry_dummy_estimator:
+  ros__parameters:
+    type: dummy_controller/DummyController

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dummy">
+    <ros2_control name="dummy" type="system">
+        <hardware>
+            <plugin>dummy_hardware/DummyHardwareInterface</plugin>
+        </hardware>
+    </ros2_control>
+    <link name="world"/>
+</robot>

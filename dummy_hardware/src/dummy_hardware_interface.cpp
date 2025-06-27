@@ -72,5 +72,5 @@ hardware_interface::return_type DummyHardwareInterface::write(
 
 PLUGINLIB_EXPORT_CLASS(
     dummy_hardware::DummyHardwareInterface,
-    gz_ros2_control::GazeboSimSystemInterface
+    hardware_interface::SystemInterface
 )

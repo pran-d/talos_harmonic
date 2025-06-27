@@ -10,7 +10,7 @@ find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 # Install launch files
-install(DIRECTORY launch config src include
+install(DIRECTORY launch config src include urdf
   DESTINATION share/${PROJECT_NAME}
 )
 

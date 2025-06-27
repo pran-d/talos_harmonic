@@ -66,7 +66,7 @@ def generate_launch_description():
                 ],
                 param_file=Path(
                     get_package_share_directory('talos_harmonic'),
-                    'controllers',
+                    'config',
                     'dummy_controllers.yaml',
                 ),
                 activate=False,
@@ -75,7 +75,7 @@ def generate_launch_description():
                 controllers=['lfc'],
                 param_file=Path(
                     get_package_share_directory('talos_harmonic'),
-                    'controllers',
+                    'config',
                     'lfc_parameters.yaml',
                 ),
                 activate=False,
@@ -84,8 +84,17 @@ def generate_launch_description():
                 controllers=['jse'],
                 param_file=Path(
                     get_package_share_directory('talos_harmonic'),
-                    'controllers',
+                    'config',
                     'jse_parameters.yaml',
+                ),
+                activate=False,
+            ),
+            load_controllers(
+                controllers=['odometry_dummy_estimator'],
+                param_file=Path(
+                    get_package_share_directory('talos_harmonic'),
+                    'config',
+                    'dummy_controllers.yaml',
                 ),
                 activate=False,
             ),

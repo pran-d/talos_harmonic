@@ -8,7 +8,6 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(backward_ros REQUIRED)
-find_package(hardware_interface REQUIRED)
 set(THIS_PACKAGE_INCLUDE_DEPENDS
   hardware_interface
   pluginlib
@@ -16,7 +15,18 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   rclcpp_lifecycle
   realtime_tools
   std_msgs
+  control_msgs
+  controller_interface
 )
+foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
+  find_package(${Dependency} REQUIRED)
+endforeach()
+
+
+# ------------------------------------------------------------------------------#
+# ------------------------------------------------------------------------------#
+# Adding the dummy_hardware_interface
+# ------------------------------------------------------------------------------#
 
 add_library(
   dummy_hardware
@@ -47,6 +57,40 @@ install(TARGETS dummy_hardware
   RUNTIME DESTINATION bin
 )
 
+# ------------------------------------------------------------------------------#
+# ------------------------------------------------------------------------------#
+# Adding the dummy_controller
+# ------------------------------------------------------------------------------#
+add_library(
+  dummy_controller
+  SHARED
+  src/dummy_controller.cpp
+)
+target_compile_features(dummy_controller PUBLIC cxx_std_17)
+target_include_directories(dummy_controller PUBLIC
+$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include/dummy_controller>
+)
+ament_target_dependencies(
+  dummy_controller PUBLIC
+  ${THIS_PACKAGE_INCLUDE_DEPENDS}
+)
+
+# Export hardware plugins
+pluginlib_export_plugin_description_file(controller_interface dummy_controller.xml)
+
+install(
+  DIRECTORY include/
+  DESTINATION include/dummy_controller
+)
+install(TARGETS dummy_controller
+  EXPORT export_dummy_controller
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -60,4 +104,6 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_targets(export_dummy_hardware HAS_LIBRARY_TARGET)
+ament_export_targets(export_dummy_controller HAS_LIBRARY_TARGET)
+ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
 ament_package()

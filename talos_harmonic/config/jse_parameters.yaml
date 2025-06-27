@@ -3,16 +3,16 @@ jse:
   ros__parameters:
     type: linear_feedback_controller/JointStateEstimator
     state_interfaces:
-      - ros2_control_talos_system/base_translation.x
-      - ros2_control_talos_system/base_translation.y
-      - ros2_control_talos_system/base_translation.z
+      - odometry_dummy_estimator/base_translation/x
+      - odometry_dummy_estimator/base_translation/y
+      - odometry_dummy_estimator/base_translation/z
       - imu_sensor/orientation.x
       - imu_sensor/orientation.y
       - imu_sensor/orientation.z
       - imu_sensor/orientation.w
-      - ros2_control_talos_system/base_linear_velocity.x
-      - ros2_control_talos_system/base_linear_velocity.y
-      - ros2_control_talos_system/base_linear_velocity.z
+      - odometry_dummy_estimator/base_linear_velocity/x
+      - odometry_dummy_estimator/base_linear_velocity/y
+      - odometry_dummy_estimator/base_linear_velocity/z
       - imu_sensor/angular_velocity.x
       - imu_sensor/angular_velocity.y
       - imu_sensor/angular_velocity.z

@@ -1,0 +1,9 @@
+<library path="dummy_controller">
+  <class name="dummy_controller/DummyController"
+         type="dummy_controller::DummyController"
+         base_class_type="controller_interface::ChainableControllerInterface">
+    <description>
+      A controller that acts as a dummy estimator by providing hardware interface for LFC.
+    </description>
+  </class>
+</library>
