@@ -26,11 +26,11 @@ class PDController(Node):
 
         # Fixed zero matrices as example
         K_ricatti = np.zeros((robot_nj, 2*robot_nv))
-        tau = np.ones((robot_nj, 1))
+        tau = 10*np.ones((robot_nj, 1))
 
         # Create sensor with zeros
         sensor = lfc_py_types.Sensor(
-            base_pose=np.zeros(7),
+            base_pose=np.array([0,0,1.08, 0,0,0,1]),
             base_twist=np.zeros(6),
             joint_state=lfc_py_types.JointState(
                 name=[
