@@ -41,25 +41,6 @@ std::vector<hardware_interface::InterfaceDescription> DummyHardwareInterfaceGz::
     return state_interfaces;
 }
 
-// std::vector<hardware_interface::StateInterface::ConstSharedPtr> DummyHardwareInterfaceGz::export_state_interfaces() {
-  
-//   std::vector<hardware_interface::InterfaceDescription> unlisted_interface_descriptions =
-//     export_unlisted_state_interface_descriptions();
-
-//   std::vector<hardware_interface::StateInterface::ConstSharedPtr> state_interfaces;
-//   state_interfaces.reserve(
-//     unlisted_interface_descriptions.size() + joint_state_interfaces_.size());
-
-//   state_interfaces.emplace_back(hardware_interface::StateInterface("dummy_estimator/base_linear_velocity", "x", &position_states_[0]));
-//   state_interfaces.emplace_back(hardware_interface::StateInterface("dummy_estimator/base_linear_velocity", "y", &position_states_[1]));
-//   state_interfaces.emplace_back(hardware_interface::StateInterface("dummy_estimator/base_linear_velocity", "z", &position_states_[2]));
-
-//   state_interfaces.emplace_back(hardware_interface::StateInterface("dummy_estimator/base_linear_velocity", "vx", &velocity_states_[0]));
-//   state_interfaces.emplace_back(hardware_interface::StateInterface("dummy_estimator/base_linear_velocity", "vy", &velocity_states_[1]));
-//   state_interfaces.emplace_back(hardware_interface::StateInterface("dummy_estimator/base_linear_velocity", "vz", &velocity_states_[2]));
-
-//   return state_interfaces;
-// }
 
 hardware_interface::CallbackReturn DummyHardwareInterfaceGz::on_init(const hardware_interface::HardwareInfo &hardware_info)
 {
@@ -116,6 +97,13 @@ hardware_interface::return_type DummyHardwareInterfaceGz::read(const rclcpp::Tim
   {
     rclcpp::spin_some(node_);
   }
+
+  this->set_state("dummy_estimator/base_translation/x", position_states_[0]);
+  this->set_state("dummy_estimator/base_translation/y", position_states_[1]);
+  this->set_state("dummy_estimator/base_translation/z", position_states_[2]);
+  this->set_state("dummy_estimator/base_linear_velocity/x", velocity_states_[0]);
+  this->set_state("dummy_estimator/base_linear_velocity/y", velocity_states_[1]);
+  this->set_state("dummy_estimator/base_linear_velocity/z", velocity_states_[2]);
 
   return hardware_interface::return_type::OK;
 }
