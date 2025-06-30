@@ -1,0 +1,9 @@
+<library path="dummy_hardware_gz">
+  <class name="dummy_hardware_gz/DummyHardwareInterfaceGz"
+         type="dummy_hardware_gz::DummyHardwareInterfaceGz"
+         base_class_type="gz_ros2_control::GazeboSimSystemInterface">
+    <description>
+      The ros2_control RRbot example using a system hardware interface-type.
+    </description>
+  </class>
+</library>

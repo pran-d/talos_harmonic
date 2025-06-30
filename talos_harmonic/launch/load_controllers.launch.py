@@ -89,15 +89,15 @@ def generate_launch_description():
                 ),
                 activate=False,
             ),
-            load_controllers(
-                controllers=['odometry_dummy_estimator'],
-                param_file=Path(
-                    get_package_share_directory('talos_harmonic'),
-                    'config',
-                    'dummy_controllers.yaml',
-                ),
-                activate=False,
-            ),
+            # load_controllers(
+            #     controllers=['odometry_dummy_estimator'],
+            #     param_file=Path(
+            #         get_package_share_directory('talos_harmonic'),
+            #         'config',
+            #         'dummy_controllers.yaml',
+            #     ),
+            #     activate=False,
+            # ),
         )
     )
 

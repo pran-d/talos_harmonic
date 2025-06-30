@@ -31,10 +31,7 @@ controller_interface::InterfaceConfiguration DummyController::state_interface_co
 controller_interface::CallbackReturn DummyController::on_configure(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  command_interface_names_ = {
-    "odometry_dummy_estimator/base_translation/x", "odometry_dummy_estimator/base_translation/y", "odometry_dummy_estimator/base_translation/z",
-    "odometry_dummy_estimator/base_linear_velocity/x", "odometry_dummy_estimator/base_linear_velocity/y", "odometry_dummy_estimator/base_linear_velocity/z",
-  };
+  command_interface_names_ = {};
 
   // pre-reserve command interfaces
   command_interfaces_.reserve(command_interface_names_.size());

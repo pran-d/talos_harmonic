@@ -78,7 +78,6 @@ def generate_launch_description():
         "gripper_left_joint_inertia_shaping_controller",
         "lfc",
         "jse",
-        "odometry_dummy_estimator",
     ]
 
     default_controllers_str = " ".join(default_controllers)
