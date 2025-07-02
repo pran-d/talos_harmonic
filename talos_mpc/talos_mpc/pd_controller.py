@@ -3,93 +3,16 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy
+import numpy as np
 
 from linear_feedback_controller_msgs.msg import Control
 import linear_feedback_controller_msgs_py.lfc_py_types as lfc_py_types
 from linear_feedback_controller_msgs_py.numpy_conversions import control_numpy_to_msg
-import numpy as np
+from talos_mpc.controller_interface import ControllerInterface
 
-class PDController(Node):
+class PDController(ControllerInterface):
     def __init__(self):
-        super().__init__('fixed_control_publisher')
-
-        # Publisher on /control topic
-        qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
-        self.publisher_control_ = self.create_publisher(Control, '/control', qos)
-
-        # Prepare a fixed Control message
-        robot_nj = 32
-        free_flyer_nq = 7
-        free_flyer_nv = 6
-        robot_nq = robot_nj + free_flyer_nq
-        robot_nv = robot_nj + free_flyer_nv
-
-        # Fixed zero matrices as example
-        K_ricatti = np.zeros((robot_nj, 2*robot_nv))
-        tau = np.zeros((robot_nj, 1))
-
-        # Create sensor with zeros
-        sensor = lfc_py_types.Sensor(
-            base_pose=np.array([0,0,1.08, 0,0,0,1]),
-            base_twist=np.zeros(6),
-            joint_state=lfc_py_types.JointState(
-                name=[
-                    "leg_left_1_joint",
-                    "leg_left_2_joint",
-                    "leg_left_3_joint",
-                    "leg_left_4_joint",
-                    "leg_left_5_joint",
-                    "leg_left_6_joint",
-                    "leg_right_1_joint",
-                    "leg_right_2_joint",
-                    "leg_right_3_joint",
-                    "leg_right_4_joint",
-                    "leg_right_5_joint",
-                    "leg_right_6_joint",
-                    "torso_1_joint",
-                    "torso_2_joint",
-                    "arm_left_1_joint",
-                    "arm_left_2_joint",
-                    "arm_left_3_joint",
-                    "arm_left_4_joint",
-                    "arm_left_5_joint",
-                    "arm_left_6_joint",
-                    "arm_left_7_joint",
-                    "gripper_left_joint",
-                    "arm_right_1_joint",
-                    "arm_right_2_joint",
-                    "arm_right_3_joint",
-                    "arm_right_4_joint",
-                    "arm_right_5_joint",
-                    "arm_right_6_joint",
-                    "arm_right_7_joint",
-                    "gripper_right_joint",
-                    "head_1_joint",
-                    "head_2_joint",
-                ],
-                position=np.zeros(robot_nj),
-                velocity=np.zeros((robot_nj, 1)),
-                effort=np.zeros((robot_nj, 1)),
-            ),
-            contacts=[],
-        )
-
-        self.fixed_ctrl_msg = lfc_py_types.Control(
-            feedback_gain=K_ricatti,
-            feedforward=tau,
-            initial_state=sensor,
-        )
-
-        # Timer to publish message every 0.1s
-        self.timer = self.create_timer(0.1, self.timer_callback)
-
-        self.get_logger().info("FixedControlPublisher started")
-
-    def timer_callback(self):
-        msg = control_numpy_to_msg(self.fixed_ctrl_msg)
-        self.publisher_control_.publish(msg)
-        self.get_logger().info("Published fixed Control message")
-
+        super().__init__()
 
 def main(args=None):
     rclpy.init(args=args)
