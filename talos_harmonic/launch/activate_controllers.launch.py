@@ -94,9 +94,10 @@ def generate_launch_description():
             description='Whether to activate or deactivate the controllers'
         ),
 
+        pd_controller(),
+
         *chain(
             switch_controllers(),
             gz_play(),
         ),
-        # pd_controller(),
     ])
