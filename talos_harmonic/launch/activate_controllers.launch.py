@@ -36,6 +36,13 @@ def pd_controller():
         output="screen",
     )
 
+def model_predictive_controller():
+    return Node(
+        package="talos_mpc",
+        executable="mpc_ros_interface",
+        output="screen",
+    )
+
 
 def generate_launch_description():
     """Load controllers."""
@@ -94,7 +101,8 @@ def generate_launch_description():
             description='Whether to activate or deactivate the controllers'
         ),
 
-        pd_controller(),
+        # pd_controller(),
+        model_predictive_controller(),
 
         *chain(
             switch_controllers(),

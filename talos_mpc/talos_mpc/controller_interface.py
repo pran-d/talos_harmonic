@@ -14,8 +14,9 @@ class ControllerInterface(Node):
         super().__init__('controller_publisher')
 
         # Publisher on /control topic
-        qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
-        self.publisher_control_ = self.create_publisher(msg_type, topic, qos)
+        self.qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
+        self.publisher_control_ = self.create_publisher(msg_type, topic, self.qos)
+        self.get_logger().info("controller_publisher started")
 
         # Prepare a fixed Control message
         self.robot_nj = 32
@@ -57,7 +58,8 @@ class ControllerInterface(Node):
             "head_1_joint",
             "head_2_joint",
         ]
-
+        
+    def doControl(self):
         # Fixed matrices as example
         K_ricatti = np.zeros((self.robot_nj, 2*self.robot_nv))
         tau = np.zeros((self.robot_nj, 1))
@@ -78,12 +80,3 @@ class ControllerInterface(Node):
             feedforward=tau,
             initial_state=sensor,
         )
-
-        # Timer to publish message every 0.1s
-        self.timer = self.create_timer(time_interval, self.timer_callback)
-
-        self.get_logger().info("controller_publisher started")
-
-    def timer_callback(self):
-        msg = control_numpy_to_msg(self.ctrl_msg_)
-        self.publisher_control_.publish(msg)
