@@ -11,9 +11,7 @@ from talos_mpc.mpc_solver import MPCSolver
 
 class MPCRosInterface(ControllerInterface):
     def __init__(self):
-        super().__init__()
-        self.timer = self.create_timer(0.01, self.timer_callback)
-        
+        super().__init__()        
         self.subscription = self.create_subscription(
             Sensor,
             '/sensor',
@@ -28,6 +26,9 @@ class MPCRosInterface(ControllerInterface):
 
         self.KRiccati = np.zeros((self.robot_nj, 2*self.robot_nv))
         self.tau = np.zeros((self.robot_nj, 1))
+        self.current_sensor_state = None
+
+        self.timer = self.create_timer(0.01, self.timer_callback)
 
     def sensor_state_callback(self, msg):
         # Store the current sensor state
@@ -37,6 +38,7 @@ class MPCRosInterface(ControllerInterface):
         self.current_base_vel = np.array(self.current_sensor_state.base_twist).reshape((self.free_flyer_nv, 1))
         self.current_joint_pos = np.array(self.current_sensor_state.joint_state.position).reshape((self.robot_nj, 1))
         self.current_joint_vel = np.array(self.current_sensor_state.joint_state.velocity).reshape((self.robot_nj, 1))
+        self.current_joint_eff = np.array(self.current_sensor_state.joint_state.effort).reshape((self.robot_nj, 1))
         
         self.state_q = np.vstack((self.current_base_pos, self.current_joint_pos))
         self.state_v = np.vstack((self.current_base_vel, self.current_joint_vel))
@@ -48,19 +50,32 @@ class MPCRosInterface(ControllerInterface):
 
     def doControl(self):
         # Fixed matrices as example
-        self.x0 = self.ocp.createState(self.state_q, self.state_v)
-        status_ = self.ocp.createProblem(self.diff_model_, self.x0, self.DT, self.N)
-        result_ = self.ocp.solveProblem()
+        if self.current_sensor_state is not None:
+            init_state = lfc_py_types.Sensor(
+                base_pose=self.current_base_pos.squeeze(),
+                base_twist=self.current_base_vel.squeeze(),
+                joint_state=lfc_py_types.JointState(
+                    name=self.joint_names,
+                    position=self.current_joint_pos.squeeze(),
+                    velocity=self.current_joint_vel.squeeze(),
+                    effort=self.current_joint_eff.squeeze(),
+                ),
+                contacts=[],
+            )
+            x0 = self.ocp.createState(self.state_q, self.state_v)
+            status_ = self.ocp.createProblem(self.diff_model_, x0, self.DT, self.N)
+            result_ = self.ocp.solveProblem()
 
-        if status_ and result_:
-            self.tau = self.ocp.getControl(0)
-            self.KRiccati = self.ocp.getRiccatiGains(0)
-       
-        self.ctrl_msg_ = lfc_py_types.Control(
-            feedback_gain=self.KRiccati,
-            feedforward=self.tau,
-            initial_state=self.x0,
-        )
+            if status_ and result_:
+                self.tau = self.ocp.getControl(0)
+                self.KRiccati = self.ocp.getRiccatiGains(0)
+                self.get_logger().info("Control state updated")
+        
+            self.ctrl_msg_ = lfc_py_types.Control(
+                feedback_gain=self.KRiccati,
+                feedforward=self.tau,
+                initial_state=init_state,
+            )
 
 def main(args=None):
     rclpy.init(args=args)

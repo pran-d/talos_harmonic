@@ -19,7 +19,7 @@ class ControllerInterface(Node):
         self.get_logger().info("controller_publisher started")
 
         # Prepare a fixed Control message
-        self.robot_nj = 32
+        self.robot_nj = 30
         self.free_flyer_nq = 7
         self.free_flyer_nv = 6
         self.robot_nq = self.robot_nj + self.free_flyer_nq
@@ -46,7 +46,7 @@ class ControllerInterface(Node):
             "arm_left_5_joint",
             "arm_left_6_joint",
             "arm_left_7_joint",
-            "gripper_left_joint",
+            # "gripper_left_joint",
             "arm_right_1_joint",
             "arm_right_2_joint",
             "arm_right_3_joint",
@@ -54,7 +54,7 @@ class ControllerInterface(Node):
             "arm_right_5_joint",
             "arm_right_6_joint",
             "arm_right_7_joint",
-            "gripper_right_joint",
+            # "gripper_right_joint",
             "head_1_joint",
             "head_2_joint",
         ]

@@ -31,7 +31,7 @@ jse:
       - arm_left_5_joint/position
       - arm_left_6_joint/position
       - arm_left_7_joint/position
-      - gripper_left_joint/position
+      # - gripper_left_joint/position
       - arm_right_1_joint/position
       - arm_right_2_joint/position
       - arm_right_3_joint/position
@@ -39,7 +39,7 @@ jse:
       - arm_right_5_joint/position
       - arm_right_6_joint/position
       - arm_right_7_joint/position
-      - gripper_right_joint/position
+      # - gripper_right_joint/position
       - head_1_joint/position
       - head_2_joint/position
       - dummy_estimator/base_linear_velocity/x
@@ -69,7 +69,7 @@ jse:
       - arm_left_5_joint/velocity
       - arm_left_6_joint/velocity
       - arm_left_7_joint/velocity 
-      - gripper_left_joint/velocity 
+      # - gripper_left_joint/velocity 
       - arm_right_1_joint/velocity
       - arm_right_2_joint/velocity
       - arm_right_3_joint/velocity
@@ -77,7 +77,7 @@ jse:
       - arm_right_5_joint/velocity
       - arm_right_6_joint/velocity
       - arm_right_7_joint/velocity
-      - gripper_right_joint/velocity
+      # - gripper_right_joint/velocity
       - head_1_joint/velocity
       - head_2_joint/velocity
       - leg_left_1_joint/effort
@@ -101,7 +101,7 @@ jse:
       - arm_left_5_joint/effort
       - arm_left_6_joint/effort
       - arm_left_7_joint/effort
-      - gripper_left_joint/effort
+      # - gripper_left_joint/effort
       - arm_right_1_joint/effort
       - arm_right_2_joint/effort
       - arm_right_3_joint/effort
@@ -109,7 +109,7 @@ jse:
       - arm_right_5_joint/effort
       - arm_right_6_joint/effort
       - arm_right_7_joint/effort
-      - gripper_right_joint/effort
+      # - gripper_right_joint/effort
       - head_1_joint/effort
       - head_2_joint/effort
     command_interfaces:
@@ -141,7 +141,7 @@ jse:
       - lfc/arm_left_5_joint/position
       - lfc/arm_left_6_joint/position
       - lfc/arm_left_7_joint/position
-      - lfc/gripper_left_joint/position
+      # - lfc/gripper_left_joint/position
       - lfc/arm_right_1_joint/position
       - lfc/arm_right_2_joint/position
       - lfc/arm_right_3_joint/position
@@ -149,7 +149,7 @@ jse:
       - lfc/arm_right_5_joint/position
       - lfc/arm_right_6_joint/position
       - lfc/arm_right_7_joint/position
-      - lfc/gripper_right_joint/position
+      # - lfc/gripper_right_joint/position
       - lfc/head_1_joint/position
       - lfc/head_2_joint/position
       - lfc/base_linear_velocity_x
@@ -179,7 +179,7 @@ jse:
       - lfc/arm_left_5_joint/velocity
       - lfc/arm_left_6_joint/velocity
       - lfc/arm_left_7_joint/velocity
-      - lfc/gripper_left_joint/velocity
+      # - lfc/gripper_left_joint/velocity
       - lfc/arm_right_1_joint/velocity
       - lfc/arm_right_2_joint/velocity
       - lfc/arm_right_3_joint/velocity
@@ -187,7 +187,7 @@ jse:
       - lfc/arm_right_5_joint/velocity
       - lfc/arm_right_6_joint/velocity
       - lfc/arm_right_7_joint/velocity
-      - lfc/gripper_right_joint/velocity
+      # - lfc/gripper_right_joint/velocity
       - lfc/head_1_joint/velocity
       - lfc/head_2_joint/velocity
       - lfc/leg_left_1_joint/effort
@@ -211,7 +211,7 @@ jse:
       - lfc/arm_left_5_joint/effort
       - lfc/arm_left_6_joint/effort
       - lfc/arm_left_7_joint/effort
-      - lfc/gripper_left_joint/effort
+      # - lfc/gripper_left_joint/effort
       - lfc/arm_right_1_joint/effort
       - lfc/arm_right_2_joint/effort
       - lfc/arm_right_3_joint/effort
@@ -219,6 +219,6 @@ jse:
       - lfc/arm_right_5_joint/effort
       - lfc/arm_right_6_joint/effort
       - lfc/arm_right_7_joint/effort
-      - lfc/gripper_right_joint/effort
+      # - lfc/gripper_right_joint/effort
       - lfc/head_1_joint/effort
       - lfc/head_2_joint/effort

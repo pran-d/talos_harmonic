@@ -13,7 +13,6 @@ from talos_mpc.controller_interface import ControllerInterface
 class PDController(ControllerInterface):
     def __init__(self):
         super().__init__()
-        self.timer = self.create_timer(0.1, self.timer_callback)
 
         self.subscription = self.create_subscription(
             Sensor,
@@ -36,6 +35,8 @@ class PDController(ControllerInterface):
 
         self.current_joint_pos = np.zeros((self.robot_nj, 1))
         self.current_joint_vel = np.zeros((self.robot_nj, 1))
+
+        self.timer = self.create_timer(0.01, self.timer_callback)
     
     def sensor_state_callback(self, msg):
         # Store the current sensor state
@@ -62,7 +63,7 @@ class PDController(ControllerInterface):
             0, 0, 
         ]]).transpose()
         des_joint_vel = np.zeros((self.robot_nj, 1))
-        self.tau = np.array(50 * (des_joint_pos - self.current_joint_pos) + 2 * (des_joint_vel -self.current_joint_vel))
+        self.tau = np.array(0 * (des_joint_pos - self.current_joint_pos) + 0 * (des_joint_vel -self.current_joint_vel))
 
         self.ctrl_msg_ = lfc_py_types.Control(
             feedback_gain=K_ricatti,
@@ -70,16 +71,6 @@ class PDController(ControllerInterface):
             initial_state=self.current_sensor_state,
         )
     
-    # def doControl(self):
-    #     K_ricatti = np.zeros((self.robot_nv, 2*self.robot_nv))
-    #     des_joint_pos = np.zeros((self.robot_nj, 1))
-    #     des_joint_vel = np.zeros((self.robot_nj, 1))
-    #     tau = 20 * (des_joint_pos - self.current_sensor_state.joint_state.position) + 2 * (des_joint_vel - self.current_sensor_state.joint_state.velocity)
-    #     self.ctrl_msg_ = lfc_py_types.Control(
-    #         feedback_gain=K_ricatti,
-    #         feedforward=tau,
-    #         initial_state=self.current_sensor_state
-    #     )
 
 def main(args=None):
     rclpy.init(args=args)

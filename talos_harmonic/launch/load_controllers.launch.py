@@ -61,8 +61,8 @@ def generate_launch_description():
                     'torso_2_joint_inertia_shaping_controller',
                     'head_1_joint_inertia_shaping_controller',
                     'head_2_joint_inertia_shaping_controller',
-                    'gripper_right_joint_inertia_shaping_controller',
-                    'gripper_left_joint_inertia_shaping_controller',
+                    # 'gripper_right_joint_inertia_shaping_controller',
+                    # 'gripper_left_joint_inertia_shaping_controller',
                 ],
                 param_file=Path(
                     get_package_share_directory('talos_harmonic'),

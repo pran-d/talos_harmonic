@@ -2,7 +2,7 @@
 lfc:
   ros__parameters:
     type: linear_feedback_controller/LinearFeedbackController
-    urdf: /home/pdebbad/forked/talos_robot/talos_description/robots/talos_full_v2.urdf
+    urdf: /home/pdebbad/ros2_dev_ws/talos_harmonic/src/talos_harmonic/urdf/talos_without_grippers.urdf
     moving_joint_names: [
       arm_right_1_joint,
       arm_right_2_joint,
@@ -34,8 +34,8 @@ lfc:
       torso_2_joint,
       head_1_joint,
       head_2_joint,
-      gripper_left_joint,
-      gripper_right_joint,
+      # gripper_left_joint,
+      # gripper_right_joint,
     ]
     arm_right_1_joint:
       p: 0.0
@@ -127,12 +127,12 @@ lfc:
     head_2_joint:
       p: 0.0
       d: 0.0
-    gripper_left_joint:
-      p: 0.0
-      d: 0.0
-    gripper_right_joint:
-      p: 0.0
-      d: 0.0
+    # gripper_left_joint:
+    #   p: 0.0
+    #   d: 0.0
+    # gripper_right_joint:
+    #   p: 0.0
+    #   d: 0.0
     chainable_controller:
       reference_prefix: ''
       command_interfaces:
@@ -166,8 +166,8 @@ lfc:
         - torso_2_joint_inertia_shaping_controller/torso_2_joint/effort
         - head_1_joint_inertia_shaping_controller/head_1_joint/effort
         - head_2_joint_inertia_shaping_controller/head_2_joint/effort
-        - gripper_left_joint_inertia_shaping_controller/gripper_left_joint/position
-        - gripper_right_joint_inertia_shaping_controller/gripper_right_joint/position
+        # - gripper_left_joint_inertia_shaping_controller/gripper_left_joint/position
+        # - gripper_right_joint_inertia_shaping_controller/gripper_right_joint/position
     remove_gravity_compensation_effort: false
     joint_velocity_filter_coefficient: 0.9
     pd_to_lf_transition_duration: 0.1

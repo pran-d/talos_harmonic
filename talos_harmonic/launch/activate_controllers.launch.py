@@ -23,16 +23,9 @@ from itertools import (
 )
 
 def pd_controller():
-    pd_plus_controller_params = Path(
-        get_package_share_directory("talos_mpc"),
-        "config",
-        "pd_control_parameters.yaml",
-    )
-
     return Node(
         package="talos_mpc",
         executable="pd_controller",
-        parameters=[pd_plus_controller_params],
         output="screen",
     )
 

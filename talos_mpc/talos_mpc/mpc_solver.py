@@ -6,9 +6,9 @@ from pathlib import Path
 
 class MPCSolver():
     def __init__(self):
-        self.resource_path = get_package_share_directory("talos_robot")
-        self.urdf_path = Path(self.resource_path) / "talos_description" / "robots" / "talos_full_v2.urdf"
-        self.srdf_path = Path(self.resource_path) / "talos_description" / "srdf" / "talos.srdf"
+        self.resource_path = get_package_share_directory("talos_harmonic")
+        self.urdf_path = Path(self.resource_path) / "urdf" / "talos_without_grippers.urdf"
+        self.srdf_path = Path(self.resource_path) / "urdf" / "talos.srdf"
         
         robot = pin.robot_wrapper.RobotWrapper.BuildFromURDF(
             str(self.urdf_path),
@@ -25,14 +25,14 @@ class MPCSolver():
         q0 = pin.neutral(self.rmodel)
         q0 = self.rmodel.referenceConfigurations["half_sitting"].copy()
         q0 = pin.normalize(self.rmodel, q0)
-        self.x0 = np.concatenate([q0, np.zeros(self.model.nv)])
+        self.x0 = np.concatenate([q0, np.zeros(self.rmodel.nv)])
 
         # Getting the frame ids
         self.ee_ids = {}
-        self.ee_ids["rf"] = self.model.getFrameId("right_sole_link")
-        self.ee_ids["lf"] = self.model.getFrameId("left_sole_link")
-        self.ee_ids["rh"] = self.model.getFrameId("gripper_right_joint")
-        self.ee_ids["lh"] = self.model.getFrameId("gripper_left_joint")
+        self.ee_ids["rf"] = self.rmodel.getFrameId("right_sole_link")
+        self.ee_ids["lf"] = self.rmodel.getFrameId("left_sole_link")
+        # self.ee_ids["rh"] = self.rmodel.getFrameId("gripper_right_joint")
+        # self.ee_ids["lh"] = self.rmodel.getFrameId("gripper_left_joint")
 
         self.state = crocoddyl.StateMultibody(self.rmodel)
         self.actuation = crocoddyl.ActuationModelFloatingBase(self.state)
@@ -110,12 +110,12 @@ class MPCSolver():
         lf_friction = crocoddyl.CostModelResidual(
             self.state,
             activation_friction,
-            crocoddyl.ResidualModelContactFrictionCone(self.state, self.lf_id, cone, self.actuation.nu),
+            crocoddyl.ResidualModelContactFrictionCone(self.state, self.ee_ids["lf"], cone, self.actuation.nu),
         )
         rf_friction = crocoddyl.CostModelResidual(
             self.state,
             activation_friction,
-            crocoddyl.ResidualModelContactFrictionCone(self.state, self.rf_id, cone, self.actuation.nu),
+            crocoddyl.ResidualModelContactFrictionCone(self.state, self.ee_ids["rf"], cone, self.actuation.nu),
         )
         self.costs.addCost("lf_friction", lf_friction, 1e1)
         self.costs.addCost("rf_friction", rf_friction, 1e1)
@@ -143,7 +143,7 @@ class MPCSolver():
 
    
     def createState(self, q):
-        return np.concatenate([q, np.zeros(self.model.nv)])
+        return np.concatenate([q, np.zeros(self.rmodel.nv)])
 
 
     def createState(self, q, v):
