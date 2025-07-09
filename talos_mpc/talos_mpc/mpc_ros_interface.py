@@ -6,6 +6,7 @@ import numpy as np
 import linear_feedback_controller_msgs_py.lfc_py_types as lfc_py_types
 from linear_feedback_controller_msgs_py.numpy_conversions import control_numpy_to_msg, sensor_msg_to_numpy
 from linear_feedback_controller_msgs.msg import Sensor, Control
+from nav_msgs.msg import Odometry
 from talos_mpc.controller_interface import ControllerInterface
 from talos_mpc.mpc_solver import MPCSolver
 
@@ -19,14 +20,19 @@ class MPCRosInterface(ControllerInterface):
             self.qos
         )
 
-        self.DT = 1e-3
-        self.N = 10
         self.ocp = MPCSolver()
-        self.diff_model_ = self.ocp.createActionModel()
+        DT = 1e-3
+        N = 20
+        self.state_q = np.hstack((np.array([0,0,1.08,0,0,0,1]), np.zeros((self.robot_nj,)))).reshape((self.free_flyer_nq+self.robot_nj, 1))
+        x0 = self.ocp.createState(self.state_q)
+        self.ocp.createInitialProblem(x0, DT, N)
 
         self.KRiccati = np.zeros((self.robot_nj, 2*self.robot_nv))
         self.tau = np.zeros((self.robot_nj, 1))
         self.current_sensor_state = None
+
+        self.warm_xs = []
+        self.warm_us = []
 
         self.timer = self.create_timer(0.01, self.timer_callback)
 
@@ -63,13 +69,15 @@ class MPCRosInterface(ControllerInterface):
                 contacts=[],
             )
             x0 = self.ocp.createState(self.state_q, self.state_v)
-            status_ = self.ocp.createProblem(self.diff_model_, x0, self.DT, self.N)
-            result_ = self.ocp.solveProblem()
+            status_ = self.ocp.updateProblem(x0)
+            result_ = self.ocp.solveProblem(self.warm_xs, self.warm_us, 100)
 
             if status_ and result_:
-                self.tau = self.ocp.getControl(0)
-                self.KRiccati = self.ocp.getRiccatiGains(0)
-                self.get_logger().info("Control state updated")
+                self.warm_xs = self.ocp.getStateSequence()
+                self.warm_us = self.ocp.getControlSequence()
+                self.tau = self.warm_us[0]
+                self.KRiccati = self.ocp.getRiccatiGainSequence()[0]
+                self.get_logger().info(f"Control state updated after {result_[1]} iterations")
         
             self.ctrl_msg_ = lfc_py_types.Control(
                 feedback_gain=self.KRiccati,

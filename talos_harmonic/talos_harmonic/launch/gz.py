@@ -224,7 +224,10 @@ def gz_server(
         executable='parameter_bridge',
         arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
                    '/model/talos/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry'],
-        output='screen'
+        output='screen',
+        parameters=[
+            {'use_sim_time': LaunchConfiguration('use_sim_time')}
+        ],
     )
 
 

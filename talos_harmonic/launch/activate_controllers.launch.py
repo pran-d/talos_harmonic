@@ -4,7 +4,10 @@
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
+from launch.actions import ( 
+    DeclareLaunchArgument,
+    TimerAction
+)
 from launch.substitutions import LaunchConfiguration
 
 from pathlib import (
@@ -22,26 +25,30 @@ from itertools import (
     chain,
 )
 
-def pd_controller():
-    return Node(
-        package="talos_mpc",
-        executable="pd_controller",
-        output="screen",
-    )
-
-def model_predictive_controller():
-    return Node(
-        package="talos_mpc",
-        executable="mpc_ros_interface",
-        output="screen",
-    )
-
-
 def generate_launch_description():
     """Load controllers."""
 
     controllers = LaunchConfiguration('controllers')
     activate = LaunchConfiguration('activate') 
+    use_sim_time = LaunchConfiguration('use_sim_time')
+
+    pd_controller = Node(
+        package="talos_mpc",
+        executable="pd_controller",
+        output="screen",
+        parameters=[
+            {'use_sim_time': LaunchConfiguration('use_sim_time')}
+        ],
+    )
+
+    model_predictive_controller = Node(
+        package="talos_mpc",
+        executable="mpc_ros_interface",
+        output="screen",
+        parameters=[
+            {'use_sim_time': LaunchConfiguration('use_sim_time')}
+        ],
+    )
 
     default_controllers = [
         "arm_right_1_joint_inertia_shaping_controller",
@@ -74,8 +81,8 @@ def generate_launch_description():
         "torso_2_joint_inertia_shaping_controller",
         "head_1_joint_inertia_shaping_controller",
         "head_2_joint_inertia_shaping_controller",
-        "gripper_right_joint_inertia_shaping_controller",
-        "gripper_left_joint_inertia_shaping_controller",
+        # "gripper_right_joint_inertia_shaping_controller",
+        # "gripper_left_joint_inertia_shaping_controller",
         "lfc",
         "jse",
     ]
@@ -93,12 +100,19 @@ def generate_launch_description():
             default_value='True',
             description='Whether to activate or deactivate the controllers'
         ),
-
-        # pd_controller(),
-        model_predictive_controller(),
-
-        *chain(
-            switch_controllers(),
-            gz_play(),
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='True',
+            description='Whether to use sim_time or not'
         ),
+
+        model_predictive_controller,
+        TimerAction(
+            period=1.0,
+            actions=[*chain(switch_controllers())]
+        ),
+        TimerAction(
+            period=2.5,
+            actions=[*chain(gz_play())]
+        )
     ])

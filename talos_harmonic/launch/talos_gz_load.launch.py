@@ -1,8 +1,9 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, TimerAction
+from launch.actions import IncludeLaunchDescription, TimerAction, OpaqueFunction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.substitutions import FindPackageShare
+from launch.event_handlers import OnProcessExit
 
 import os
 
@@ -14,18 +15,24 @@ def generate_launch_description():
     pkg_talos_harmonic = FindPackageShare('talos_harmonic').find('talos_harmonic')
 
     # Paths to the individual launch files
-    robot_spawn_launch = os.path.join(pkg_talos_harmonic, 'launch', 'robot_spawn.launch.py')
-    load_controllers_launch = os.path.join(pkg_talos_harmonic, 'launch', 'load_controllers.launch.py')
-    switch_controllers_launch = os.path.join(pkg_talos_harmonic, 'launch', 'switch_controllers.launch.py')
+    robot_spawn_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_talos_harmonic, 'launch', 'robot_spawn.launch.py')
+        )
+    )
+    load_controllers_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_talos_harmonic, 'launch', 'load_controllers.launch.py')
+        )
+    )
+    activate_controllers_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_talos_harmonic, 'launch', 'activate_controllers.launch.py')
+        )
+    )
 
     return LaunchDescription([
-        # Launch robot_spawn
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(robot_spawn_launch)
-        ),
-
-        # Launch load_controllers
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(load_controllers_launch)
-        ),
+        robot_spawn_launch,
+        load_controllers_launch,
     ])
+

@@ -175,7 +175,7 @@ def load_controllers(
         Node,
         package='controller_manager',
         executable='spawner',
-        output='screen'
+        output='screen',
     )
 
     yield Invoke(
