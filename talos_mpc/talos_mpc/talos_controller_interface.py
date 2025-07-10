@@ -9,8 +9,8 @@ import linear_feedback_controller_msgs_py.lfc_py_types as lfc_py_types
 from linear_feedback_controller_msgs_py.numpy_conversions import control_numpy_to_msg
 import numpy as np
 
-class ControllerInterface(Node):
-    def __init__(self, msg_type=Control, topic='/control', time_interval=0.1):
+class TalosControllerInterface(Node):
+    def __init__(self, msg_type=Control, topic='/control'):
         super().__init__('controller_publisher')
 
         # Publisher on /control topic

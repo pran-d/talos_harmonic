@@ -8,9 +8,9 @@ import numpy as np
 from linear_feedback_controller_msgs.msg import Sensor, Control
 import linear_feedback_controller_msgs_py.lfc_py_types as lfc_py_types
 from linear_feedback_controller_msgs_py.numpy_conversions import control_numpy_to_msg, sensor_msg_to_numpy
-from talos_mpc.controller_interface import ControllerInterface
+from talos_mpc.talos_controller_interface import TalosControllerInterface
 
-class PDController(ControllerInterface):
+class PDController(TalosControllerInterface):
     def __init__(self):
         super().__init__()
 
