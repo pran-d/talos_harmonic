@@ -37,8 +37,7 @@ class MPCSolver():
         self.state = crocoddyl.StateMultibody(self.rmodel)
         self.actuation = crocoddyl.ActuationModelFloatingBase(self.state)
 
-
-    def createActionModel(self, target=None):
+    def createInitialProblem(self, x0, DT, N, target=None):
         # Defining the multi-contact model (double-support contact)
         self.contacts = crocoddyl.ContactModelMultiple(self.state, self.actuation.nu)
         lf_contact = crocoddyl.ContactModel6D(
@@ -125,38 +124,44 @@ class MPCSolver():
             self.state, self.actuation, self.contacts, self.costs
         )
 
-        return dmodel
-    
-
-    def createSequence(self, dmodel, DT, N):
         runningModel = crocoddyl.IntegratedActionModelEuler(dmodel, DT)
-        terminalModel = crocoddyl.IntegratedActionModelEuler(dmodel, 0.0)
-        seq = [runningModel] * N + [terminalModel]
-        return seq
-        
-
-    def createProblem(self, dmodel, x0, DT, N):
-        seq = self.createSequence(dmodel, DT, N)
-        self.problem = crocoddyl.ShootingProblem(x0, seq, seq[-1])
+        self.seq = [runningModel] * N
+        self.problem = crocoddyl.ShootingProblem(x0, self.seq, self.seq[-1])
         self.fddp = crocoddyl.SolverFDDP(self.problem)
+
+    def updateProblem(self, x0):
+        self.problem.circularAppend(self.seq[-1])
+        # self.seq[-1].state =x0
+        # self.seq[-2].state = x0
+        self.problem.x0 = x0
         return True
 
-   
-    def createState(self, q):
-        return np.concatenate([q, np.zeros(self.rmodel.nv)])
 
-
-    def createState(self, q, v):
+    def createState(self, q, v=None):
+        if v is None:
+            v = np.zeros((self.rmodel.nv,1))
         return np.concatenate([q, v])
 
 
-    def solveProblem(self):
-        return (self.fddp.solve(), self.fddp.iter, self.fddp.cost)
+    def solveProblem(self, x0, maxiter=100):
+        # warm start for states
+        warm_xs = self.getStateSequence()
+        del warm_xs[0]
+        warm_xs[0] = x0
+        warm_xs.append(warm_xs[-1])
 
+        # warm start for control inputs
+        warm_us = self.getControlSequence()
+        del warm_us[0]
+        warm_us.append(warm_us[-1])
 
-    def getControl(self, timestep=0):
-        return self.fddp.us[timestep]
+        return (self.fddp.solve(warm_xs, warm_us, maxiter), self.fddp.iter, self.fddp.cost)
 
+    def getControlSequence(self):
+        return self.fddp.us
 
-    def getRiccatiGains(self, timestep=0):
-        return self.fddp.K[timestep]
+    def getStateSequence(self):
+        return self.fddp.xs
+
+    def getRiccatiGainSequence(self):
+        return self.fddp.K

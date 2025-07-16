@@ -51,6 +51,7 @@ hardware_interface::CallbackReturn DummyHardwareInterfaceGz::on_init(const hardw
 
     // Resize state vectors based on expected vector size (in this case, 3: x,y,z)
     position_states_.resize(3, 0.0);
+    position_states_[2] = 1.08;
     velocity_states_.resize(3, 0.0);
 
     rclcpp::NodeOptions options;
