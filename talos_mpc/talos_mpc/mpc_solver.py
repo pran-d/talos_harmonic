@@ -129,10 +129,9 @@ class MPCSolver():
         self.problem = crocoddyl.ShootingProblem(x0, self.seq, self.seq[-1])
         self.fddp = crocoddyl.SolverFDDP(self.problem)
 
+
     def updateProblem(self, x0):
         self.problem.circularAppend(self.seq[-1])
-        # self.seq[-1].state =x0
-        # self.seq[-2].state = x0
         self.problem.x0 = x0
         return True
 
