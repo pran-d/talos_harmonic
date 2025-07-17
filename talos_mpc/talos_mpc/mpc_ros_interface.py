@@ -44,10 +44,11 @@ class MPCRosInterface(TalosControllerInterface):
     def sensor_state_callback(self, msg):
         # Store the current sensor state
         self.sensor_msg_ = sensor_msg_to_numpy(msg)
-        self.sensor_msg_.contacts = [
-            self.wrench_left,
-            self.wrench_right
-        ]
+        # self.ocp.problem.runningDatas[0]
+        # self.sensor_msg_.contacts = [
+        #     self.wrench_left,
+        #     self.wrench_right
+        # ]
         
 
     def controller_callback(self):

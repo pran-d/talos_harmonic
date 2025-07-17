@@ -59,11 +59,10 @@ class TalosControllerInterface(Node):
             "head_2_joint",
         ]
         
-    def doControl(self):
         # Fixed matrices as example
         K_ricatti = np.zeros((self.robot_nj, 2*self.robot_nv))
         tau = np.zeros((self.robot_nj, 1))
-        sensor = lfc_py_types.Sensor(
+        self.sensor_msg_ = lfc_py_types.Sensor(
             base_pose=np.array([0,0,1.08, 0,0,0,1]),
             base_twist=np.zeros(6),
             joint_state=lfc_py_types.JointState(
@@ -78,5 +77,5 @@ class TalosControllerInterface(Node):
         self.ctrl_msg_ = lfc_py_types.Control(
             feedback_gain=K_ricatti,
             feedforward=tau,
-            initial_state=sensor,
+            initial_state=self.sensor_msg_,
         )
