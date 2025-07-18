@@ -13,6 +13,11 @@
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
 <robot name="talos" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor">
+  <ros2_control name="dummy_hardware" type="system">
+    <hardware>
+      <plugin>dummy_hardware_gz/DummyHardwareInterfaceGz</plugin>
+    </hardware>
+  </ros2_control>
   <!--************************-->
   <!--        TORSO_2  (TILT) -->
   <!--************************-->
@@ -2249,37 +2254,23 @@
     </plugin>
   </gazebo>
   <gazebo>
-    <plugin filename="libgazebo_ros_ft_sensor.so" name="gazebo_ros_ft">
-      <ros>
-        <!-- Add namespace and remap the default topic -->
-        <namespace>/talos</namespace>
-        <remapping>wrench:=base_link_wrench</remapping>
-      </ros>
-      <!-- Replace camelCase elements with camel_case ones -->
-      <body_name>base_link</body_name>
-      <frame_name>link</frame_name>
-      <update_rate>1000</update_rate>
-      <gaussian_noise>0.01</gaussian_noise>
-    </plugin>
-  </gazebo>
-  <gazebo>
-    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
-      <always_on>true</always_on>
-      <update_rate>50.0</update_rate>
-      <body_name>base_link</body_name>
-      <ros>
-        <!-- Add namespace and remap the default topic -->
-        <namespace>/talos</namespace>
-      </ros>
-      <gaussian_noise>0.0</gaussian_noise>
-      <frame_name>map</frame_name>
-      <xyzOffsets>0 0 0</xyzOffsets>
-      <rpyOffsets>0 0 0</rpyOffsets>
-    </plugin>
-  </gazebo>
-  <gazebo>
+    <!-- plugin for reading IMU values -->
     <plugin filename="libgz-sim-imu-system.so" name="gz::sim::systems::Imu">
       </plugin>
+    <!-- plugin for publishing pose -->
+    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <publish_model_pose>true</publish_model_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+    <!-- plugin for publishing odometry -->
+    <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+      <odom_frame>base_link/odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <dimensions>3</dimensions>
+    </plugin>
   </gazebo>
   <gazebo reference="imu_link">
     <sensor name="imu_sensor" type="imu">
@@ -2699,6 +2690,7 @@
         <mechanical_reduction>1.0</mechanical_reduction>
       </joint>
     </transmission>
+    <!-- Gripper left-->
     <joint name="head_1_joint">
       <command_interface name="position"/>
       <command_interface name="velocity"/>

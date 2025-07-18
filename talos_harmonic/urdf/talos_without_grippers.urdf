@@ -13,6 +13,46 @@
   Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 -->
 <robot name="talos" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor">
+  <material name="Blue">
+      <color rgba="0.0 0.0 0.8 1.0"/>
+    </material>
+
+    <material name="Green">
+      <color rgba="0.0 0.8 0.0 1.0"/>
+    </material>
+
+    <material name="Grey">
+      <color rgba="0.7 0.7 0.7 1.0"/>
+    </material>
+
+    <material name="LightGrey">
+      <color rgba="0.9 0.9 0.9 1.0"/>
+    </material>
+
+    <material name="DarkGrey">
+      <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+
+    <material name="Red">
+      <color rgba="0.8 0.0 0.0 1.0"/>
+    </material>
+
+    <material name="White">
+      <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
+
+    <material name="Orange">
+      <color rgba="1.0 0.5 0.0 1.0"/>
+    </material>
+
+    <material name="FlatBlack">
+      <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <ros2_control name="dummy_hardware" type="system">
+    <hardware>
+      <plugin>dummy_hardware_gz/DummyHardwareInterfaceGz</plugin>
+    </hardware>
+  </ros2_control>
   <!--************************-->
   <!--        TORSO_2  (TILT) -->
   <!--************************-->
@@ -1626,6 +1666,59 @@
   <gazebo reference="leg_right_6_link">
     <material>Gazebo/White</material>
   </gazebo>
+  <gazebo>
+    <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <ros>
+        <argument>--ros-args</argument>
+        <argument>--params-file</argument>
+        <argument>/home/pdebbad/ros2_dev_ws/talos_harmonic/src/talos_harmonic/config/gazebo_controller_manager_cfg.yaml</argument>
+      </ros>
+      <hold_joints>false</hold_joints>
+      <parameters>/home/pdebbad/ros2_dev_ws/talos_harmonic/src/talos_harmonic/config/gazebo_controller_manager_cfg.yaml</parameters>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <!-- plugin for reading IMU values -->
+    <plugin filename="libgz-sim-imu-system.so" name="gz::sim::systems::Imu">
+    </plugin>
+    <!-- plugin for publishing pose -->
+    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <publish_model_pose>true</publish_model_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+    <!-- plugin for publishing odometry -->
+    <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+      <odom_frame>base_link/odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <dimensions>3</dimensions>
+    </plugin>
+  </gazebo>
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>1</always_on>
+      <update_rate>1000.0</update_rate>
+      <imu>
+        <noise>
+          <type>gaussian</type>
+          <rate>
+            <mean>0.0</mean>
+            <stddev>0.0</stddev>
+            <bias_mean>0.000000</bias_mean>
+            <bias_stddev>0.0000008</bias_stddev>
+          </rate>
+          <accel>
+            <mean>0.0</mean>
+            <stddev>0.0</stddev>
+            <bias_mean>0.0</bias_mean>
+            <bias_stddev>0.000</bias_stddev>
+          </accel>
+        </noise>
+      </imu>
+    </sensor>
+  </gazebo>
   <link name="foo_ee_left">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -1680,15 +1773,22 @@
     <parent link="wrist_right_ft_tool_link"/>
     <child link="foo_ee_right"/>
   </joint>
-  <ros2_control name="dummy_hardware" type="system">
-    <hardware>
-      <plugin>dummy_hardware_gz/DummyHardwareInterfaceGz</plugin>
-    </hardware>
-  </ros2_control>
   <ros2_control name="ros2_control_talos_system" type="system">
     <hardware>
-      <plugin>robot_control/RobotControl</plugin>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
     </hardware>
+    <sensor name="imu_sensor">
+      <state_interface name="orientation.x"/>
+      <state_interface name="orientation.y"/>
+      <state_interface name="orientation.z"/>
+      <state_interface name="orientation.w"/>
+      <state_interface name="angular_velocity.x"/>
+      <state_interface name="angular_velocity.y"/>
+      <state_interface name="angular_velocity.z"/>
+      <state_interface name="linear_acceleration.x"/>
+      <state_interface name="linear_acceleration.y"/>
+      <state_interface name="linear_acceleration.z"/>
+    </sensor>
     <joint name="arm_right_1_joint">
       <command_interface name="position"/>
       <command_interface name="velocity"/>
@@ -1909,80 +2009,6 @@
         <offset>0.0</offset>
         <mechanicalReduction>-1.0</mechanicalReduction>
         <mechanicalReduction>1.0</mechanicalReduction>
-      </joint>
-    </transmission>
-    <joint name="gripper_right_joint">
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="gripper_right_inner_double_joint">
-      <param name="mimic">gripper_right_joint</param>
-      <param name="multiplier">1</param>
-    </joint>
-    <joint name="gripper_right_fingertip_1_joint">
-      <param name="mimic">gripper_right_joint</param>
-      <param name="multiplier">1</param>
-    </joint>
-    <joint name="gripper_right_fingertip_2_joint">
-      <param name="mimic">gripper_right_joint</param>
-      <param name="multiplier">1</param>
-    </joint>
-    <joint name="gripper_right_motor_single_joint">
-      <param name="mimic">gripper_right_joint</param>
-      <param name="multiplier">-1</param>
-    </joint>
-    <joint name="gripper_right_inner_single_joint">
-      <param name="mimic">gripper_right_joint</param>
-      <param name="multiplier">-1</param>
-    </joint>
-    <joint name="gripper_right_fingertip_3_joint">
-      <param name="mimic">gripper_right_joint</param>
-      <param name="multiplier">-1</param>
-    </joint>
-    <transmission name="gripper_right_trans">
-      <plugin>transmission_interface/SimpleTransmission</plugin>
-      <actuator name="gripper_right_actuator" role="actuator1"/>
-      <joint name="gripper_right_joint" role="joint1">
-        <mechanical_reduction>1.0</mechanical_reduction>
-      </joint>
-    </transmission>
-    <joint name="gripper_left_joint">
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="gripper_left_inner_double_joint">
-      <param name="mimic">gripper_left_joint</param>
-      <param name="multiplier">1</param>
-    </joint>
-    <joint name="gripper_left_fingertip_1_joint">
-      <param name="mimic">gripper_left_joint</param>
-      <param name="multiplier">1</param>
-    </joint>
-    <joint name="gripper_left_fingertip_2_joint">
-      <param name="mimic">gripper_left_joint</param>
-      <param name="multiplier">1</param>
-    </joint>
-    <joint name="gripper_left_motor_single_joint">
-      <param name="mimic">gripper_left_joint</param>
-      <param name="multiplier">-1</param>
-    </joint>
-    <joint name="gripper_left_inner_single_joint">
-      <param name="mimic">gripper_left_joint</param>
-      <param name="multiplier">-1</param>
-    </joint>
-    <joint name="gripper_left_fingertip_3_joint">
-      <param name="mimic">gripper_left_joint</param>
-      <param name="multiplier">-1</param>
-    </joint>
-    <transmission name="gripper_left_trans">
-      <plugin>transmission_interface/SimpleTransmission</plugin>
-      <actuator name="gripper_left_actuator" role="actuator1"/>
-      <joint name="gripper_left_joint" role="joint1">
-        <mechanical_reduction>1.0</mechanical_reduction>
       </joint>
     </transmission>
     <joint name="head_1_joint">

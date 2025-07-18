@@ -1,0 +1,42 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000 # Hz
+    use_sim_time: true
+
+gazebo_ros2_control:
+  ros__parameters:
+    pid_gains:
+      position:
+        leg_left_1_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_left_2_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_left_3_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_left_4_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_left_5_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_left_6_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_right_1_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_right_2_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_right_3_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_right_4_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_right_5_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        leg_right_6_joint:  {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        head_1_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        head_2_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+
+        torso_1_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        torso_2_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+
+        arm_right_1_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_right_2_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_right_3_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_right_4_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_right_5_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_right_6_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_right_7_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_1_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_2_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_3_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_4_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_5_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_6_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+        arm_left_7_joint: {kp:  5000.0, kd: 20.0, ki:  5.0, max_integral_error: 10000.0}
+

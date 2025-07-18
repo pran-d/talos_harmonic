@@ -1,6 +1,9 @@
-use_sim:
+use_sim: 
   default_value: 'True'
   
+enable_crane:
+  default_value: 'False'
+
 test:
   default_value: 'False'
 
@@ -10,11 +13,5 @@ foot_collision:
 disable_gazebo_camera:
   default_value: 'False'
 
-head_type:
-  default_value: 'default'
-
-flexibility:
-  default_value: 'False'
-
 use_grippers:
-  default_value: 'True'
+  default_value: 'False'

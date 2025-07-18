@@ -20,6 +20,11 @@ def generate_launch_description():
             os.path.join(pkg_talos_harmonic, 'launch', 'robot_spawn.launch.py')
         )
     )
+    world_spawn_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_talos_harmonic, 'launch', 'world_spawn.launch.py')
+        )
+    )
     load_controllers_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_talos_harmonic, 'launch', 'load_controllers.launch.py')
@@ -32,7 +37,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        robot_spawn_launch,
+        # robot_spawn_launch,
+        world_spawn_launch,
         load_controllers_launch,
     ])
 
