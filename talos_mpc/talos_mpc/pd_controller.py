@@ -21,6 +21,10 @@ class PDController(TalosControllerInterface):
             self.qos
         )
 
+        self.setDesiredPos = False
+        self.des_joint_pos = np.zeros((self.robot_nj, 1))
+        self.des_joint_vel = np.zeros((self.robot_nj, 1))
+
         self.current_sensor_state = lfc_py_types.Sensor(
             base_pose=np.array([0,0,1.08, 0,0,0,1]),
             base_twist=np.zeros(6),
@@ -36,16 +40,38 @@ class PDController(TalosControllerInterface):
         self.current_joint_pos = np.zeros((self.robot_nj, 1))
         self.current_joint_vel = np.zeros((self.robot_nj, 1))
 
-        self.timer = self.create_timer(0.01, self.timer_callback)
+        self.Kp = np.array([
+            5000,5000,5000,5000,5000,5000,
+            5000,5000,5000,5000,5000,5000,
+            10000,10000,
+            10000,10000,5000,5000,500,500,100,
+            10000,10000,5000,5000,500,500,100,
+            300,300
+        ]).reshape((self.robot_nj, 1))
+
+        self.Kd = np.array([
+            20,20,20,20,20,20,
+            20,20,20,20,20,20,
+            10,10,
+            0.01,0.01,0,0,1,1,1,
+            0.01,0.01,0,0,1,1,1,
+            0.1,0.1
+        ]).reshape((self.robot_nj, 1))
+
+        self.timer = self.create_timer(0.001, self.timer_callback)
     
     def sensor_state_callback(self, msg):
         # Store the current sensor state
-        self.get_logger().info("Sensor state received")
+        # self.get_logger().info("Sensor state received")
         self.current_sensor_state = sensor_msg_to_numpy(msg)
         self.current_joint_pos = np.array(self.current_sensor_state.joint_state.position).reshape((self.robot_nj, 1))
         self.current_joint_vel = np.array(self.current_sensor_state.joint_state.velocity).reshape((self.robot_nj, 1))
+        if not self.setDesiredPos:
+            self.des_joint_pos = self.current_joint_pos
+            self.setDesiredPos = True
 
     def timer_callback(self):
+        self.get_logger().info(f"Control updated at {self.get_clock().now().nanoseconds}")
         self.doControl()
         msg = control_numpy_to_msg(self.ctrl_msg_)
         self.publisher_control_.publish(msg)
@@ -54,16 +80,15 @@ class PDController(TalosControllerInterface):
         # Fixed matrices as example
         K_ricatti = np.zeros((self.robot_nj, 2*self.robot_nv))
 
-        des_joint_pos = np.array([[
-            0.25847, 0.173046, -0.0002, -0.525366, 0, 0, 0.1,
-            -0.25847, -0.173046, 0.0002, -0.525366, 0, 0, 0.1,
-            0, 0.006761,
-            0.0, 0.0, -0.411354, 0.859395, -0.448041, -0.001708, 0,
-            0.0, 0.0, -0.411354, 0.859395, -0.448041, -0.001708, 0,
-            0, 0, 
-        ]]).transpose()
-        des_joint_vel = np.zeros((self.robot_nj, 1))
-        self.tau = np.array(0 * (des_joint_pos - self.current_joint_pos) + 0 * (des_joint_vel -self.current_joint_vel))
+        # des_joint_pos = np.array([[
+        #  # leg-left
+        #  # leg-right
+        #  # torso
+        #  # arm-left
+        #  # arm-right
+        #  # head 
+        # ]]).transpose()
+        self.tau = np.array(self.Kp * (self.des_joint_pos - self.current_joint_pos) + self.Kd * (self.des_joint_vel - self.current_joint_vel))
 
         self.ctrl_msg_ = lfc_py_types.Control(
             feedback_gain=K_ricatti,

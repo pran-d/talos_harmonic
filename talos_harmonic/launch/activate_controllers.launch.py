@@ -106,7 +106,9 @@ def generate_launch_description():
             description='Whether to use sim_time or not'
         ),
 
-        model_predictive_controller,
+        # model_predictive_controller,
+        pd_controller,
+        
         TimerAction(
             period=1.0,
             actions=[*chain(switch_controllers())]
