@@ -38,7 +38,7 @@ git clone https://github.com/pran-d/talos_harmonic.git
     git clone https://github.com/pran-d/talos_robot.git
     ```
 > [!note] 
-> This fork from the [original repository]{https://github.com/pal-robotics/talos_robot.git} contains some minor modifications to make it work using ROS2 Control on Gazebo Harmonic. 
+> This fork from the [original repository](https://github.com/pal-robotics/talos_robot.git) contains some minor modifications to make it work using ROS2 Control on Gazebo Harmonic. 
 > It still contains plugins from the older Gazebo version, which raises errors. These may be ignored unless the plugins are required.
 
 2. Clone the `linear_feedback_controller` and `linear_feedback_controller_msgs` packages into the `${WS}/src` directory:
@@ -48,15 +48,15 @@ git clone https://github.com/pran-d/talos_harmonic.git
     git clone https://github.com/loco-3d/linear-feedback-controller-msgs.git
     ```
 > [!note] 
-> This fork from the [original repository]{https://github.com/loco-3d/linear-feedback-controller} contains a fix in the initialization of the feedback gain matrix. 
-> Clone the original instead if the [pull request]{https://github.com/loco-3d/linear-feedback-controller/pull/105/commits/58ae655923bcc444e9b8a85fd599e7382bb9b429} is merged.
+> This fork from the [original repository](https://github.com/loco-3d/linear-feedback-controller) contains a fix in the initialization of the feedback gain matrix. 
+> Clone the original instead if this (pull request){https://github.com/loco-3d/linear-feedback-controller/pull/105/commits/58ae655923bcc444e9b8a85fd599e7382bb9b429} is merged.
 
 3. Clone the `gz_gep_tools` package to reconfigure Talos into the half-sitting position on initialization.
     ```sh
     git clone https://github.com/pran-d/gz_gep_tools.git
     ```
 > [!note]
-> This fork from the [original repository]{https://gitlab.laas.fr/ostasse/gz_gep_tools} contains some minor modifications to make it work with a URDF spawned inside an empty world (as opposed to a SDF world containing the robot model already).
+> This fork from the [original repository](https://gitlab.laas.fr/ostasse/gz_gep_tools) contains some minor modifications to make it work with a URDF spawned inside an empty world (as opposed to a SDF world containing the robot model already).
 
 ### Build
 
