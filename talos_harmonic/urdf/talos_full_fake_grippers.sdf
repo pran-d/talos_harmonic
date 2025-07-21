@@ -1,0 +1,2939 @@
+<?xml version="1.0" ?>
+<sdf version='1.11'>
+  <model name='talos'>
+    <link name='base_link'>
+      <inertial>
+        <pose>-0.057094190000000003 0.0015305399999999999 -0.076252100000000003 0 0 0</pose>
+        <mass>15.36284</mass>
+        <inertia>
+          <ixx>0.20105075811000001</ixx>
+          <ixy>0.00023244733999999999</ixy>
+          <ixz>0.0040167728000000003</ixz>
+          <iyy>0.084114967289999995</iyy>
+          <iyz>-0.00087206649</iyz>
+          <izz>0.23189084139999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/torso/base_link_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/torso/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_left_1_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.02 0.085000000000000006 -0.27105000000000001 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>leg_left_1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.3490658503988659</lower>
+          <upper>1.570796326794897</upper>
+          <effort>100</effort>
+          <velocity>3.8700000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_left_1_link'>
+      <pose relative_to='leg_left_1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.084728390000000001 0.10997434 0.017058980000000001 0 0 0</pose>
+        <mass>2.2350089999999998</mass>
+        <inertia>
+          <ixx>0.010498489999999999</ixx>
+          <ixy>-4.0970000000000002e-05</ixy>
+          <ixz>9.7709999999999998e-05</ixz>
+          <iyy>0.0053408600000000002</iyy>
+          <iyz>0.0011949</iyz>
+          <izz>0.0070859499999999997</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_left_1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_z_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_left_1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_z_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_left_2_joint' type='revolute'>
+      <pose relative_to='leg_left_1_link'>0 0 0 0 0 0</pose>
+      <parent>leg_left_1_link</parent>
+      <child>leg_left_2_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.52359999999999995</lower>
+          <upper>0.52359999999999995</upper>
+          <effort>160</effort>
+          <velocity>5.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_left_2_link'>
+      <pose relative_to='leg_left_2_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0070470300000000001 0.025926589999999999 0.0027338499999999999 0 0 0</pose>
+        <mass>1.4909520000000001</mass>
+        <inertia>
+          <ixx>0.0049715225900000002</ixx>
+          <ixy>-0.0001311358</ixy>
+          <ixz>-4.8664800000000002e-06</ixz>
+          <iyy>0.0019055099300000001</iyy>
+          <iyz>4.5853809999999999e-05</iyz>
+          <izz>0.0047428975399999998</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_left_2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_x_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_left_2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_x_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_left_3_joint' type='revolute'>
+      <pose relative_to='leg_left_2_link'>0 0 0 0 0 0</pose>
+      <parent>leg_left_2_link</parent>
+      <child>leg_left_3_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.0950000000000002</lower>
+          <upper>0.69999999999999996</upper>
+          <effort>160</effort>
+          <velocity>5.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_left_3_link'>
+      <pose relative_to='leg_left_3_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0058523000000000004 0.063696699999999995 -0.18339564 0 0 0</pose>
+        <mass>6.2398709999999999</mass>
+        <inertia>
+          <ixx>0.15337403915</ixx>
+          <ixy>0.00068913396000000004</ixy>
+          <ixz>0.0016803436599999999</ixz>
+          <iyy>0.13648139345999999</iyy>
+          <iyz>-0.02187635445</iyz>
+          <izz>0.030015948850000002</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_left_3_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_y_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_left_3_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_y_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_left_4_joint' type='revolute'>
+      <pose relative_to='leg_left_3_link'>0 0 -0.38 0 0 0</pose>
+      <parent>leg_left_3_link</parent>
+      <child>leg_left_4_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>2.6179999999999999</upper>
+          <effort>400</effort>
+          <velocity>7</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_left_4_link'>
+      <pose relative_to='leg_left_4_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.01317717 0.029175079999999999 -0.11594602 0 0 0</pose>
+        <mass>3.759951</mass>
+        <inertia>
+          <ixx>0.04287677484</ixx>
+          <ixy>0.00043705396999999999</ixy>
+          <ixz>0.00078292368000000003</ixz>
+          <iyy>0.035989069710000002</iyy>
+          <iyz>0.00037717693999999999</iyz>
+          <izz>0.013647915639999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_left_4_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/knee_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_left_4_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/knee_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_left_5_joint' type='revolute'>
+      <pose relative_to='leg_left_4_link'>0 0 -0.32500000000000001 0 0 0</pose>
+      <parent>leg_left_4_link</parent>
+      <child>leg_left_5_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.27</lower>
+          <upper>0.68000000000000005</upper>
+          <effort>160</effort>
+          <velocity>5.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_left_5_link'>
+      <pose relative_to='leg_left_5_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.014008380000000001 0.04180064 0.038201859999999997 0 0 0</pose>
+        <mass>1.2909600000000001</mass>
+        <inertia>
+          <ixx>0.011434308190000001</ixx>
+          <ixy>0.00096978272999999999</ixy>
+          <ixz>0.00039976581000000002</ixz>
+          <iyy>0.0088897431199999998</iyy>
+          <iyz>-0.0027780866699999998</iyz>
+          <izz>0.0050637387500000004</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_left_5_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_Y_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_left_5_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_Y_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/White</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.875 0.875 0.875 1</diffuse>
+          <ambient>0.875 0.875 0.875 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_left_6_joint' type='revolute'>
+      <pose relative_to='leg_left_5_link'>0 0 0 0 0 0</pose>
+      <parent>leg_left_5_link</parent>
+      <child>leg_left_6_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.52359999999999995</lower>
+          <upper>0.52359999999999995</upper>
+          <effort>100</effort>
+          <velocity>4.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>true</provide_feedback>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+          <provide_feedback>true</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_left_6_link'>
+      <pose relative_to='leg_left_6_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.020220128055166989 -0.00051193594072048722 -0.060167391776351511 0 0 0</pose>
+        <mass>1.6077729999999999</mass>
+        <inertia>
+          <ixx>0.0045123455110069781</ixx>
+          <ixy>-6.754090196766338e-05</ixy>
+          <ixz>0.001147692510930919</ixz>
+          <iyy>0.0075568146185711494</iyy>
+          <iyz>3.9672683498003288e-05</iyz>
+          <izz>0.005613183751937781</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_left_6_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1.1499999999999999 1.05 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_X_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1000000</kp>
+              <kd>100</kd>
+              <max_vel>1</max_vel>
+              <min_depth>0</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1</mu>
+              <mu2>1</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_left_6_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_X_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/White</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.875 0.875 0.875 1</diffuse>
+          <ambient>0.875 0.875 0.875 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_right_1_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.02 -0.085000000000000006 -0.27105000000000001 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>leg_right_1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>0.3490658503988659</upper>
+          <effort>100</effort>
+          <velocity>3.8700000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_right_1_link'>
+      <pose relative_to='leg_right_1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.084728390000000001 -0.10997434 0.017058980000000001 0 0 0</pose>
+        <mass>2.2350089999999998</mass>
+        <inertia>
+          <ixx>0.010498489999999999</ixx>
+          <ixy>4.0970000000000002e-05</ixy>
+          <ixz>9.7709999999999998e-05</ixz>
+          <iyy>0.0053408600000000002</iyy>
+          <iyz>-0.0011949</iyz>
+          <izz>0.0070859499999999997</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_right_1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_z_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_right_1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_z_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_right_2_joint' type='revolute'>
+      <pose relative_to='leg_right_1_link'>0 0 0 0 0 0</pose>
+      <parent>leg_right_1_link</parent>
+      <child>leg_right_2_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.52359999999999995</lower>
+          <upper>0.52359999999999995</upper>
+          <effort>160</effort>
+          <velocity>5.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_right_2_link'>
+      <pose relative_to='leg_right_2_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0070470300000000001 -0.025926589999999999 0.0027338499999999999 0 0 0</pose>
+        <mass>1.4909520000000001</mass>
+        <inertia>
+          <ixx>0.0049715225900000002</ixx>
+          <ixy>0.0001311358</ixy>
+          <ixz>-4.8664800000000002e-06</ixz>
+          <iyy>0.0019055099300000001</iyy>
+          <iyz>-4.5853809999999999e-05</iyz>
+          <izz>0.0047428975399999998</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_right_2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_x_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_right_2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_x_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_right_3_joint' type='revolute'>
+      <pose relative_to='leg_right_2_link'>0 0 0 0 0 0</pose>
+      <parent>leg_right_2_link</parent>
+      <child>leg_right_3_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.0950000000000002</lower>
+          <upper>0.69999999999999996</upper>
+          <effort>160</effort>
+          <velocity>5.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_right_3_link'>
+      <pose relative_to='leg_right_3_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0058523000000000004 -0.063696699999999995 -0.18339564 0 0 0</pose>
+        <mass>6.2398709999999999</mass>
+        <inertia>
+          <ixx>0.15337403915</ixx>
+          <ixy>-0.00068913396000000004</ixy>
+          <ixz>0.0016803436599999999</ixz>
+          <iyy>0.13648139345999999</iyy>
+          <iyz>0.02187635445</iyz>
+          <izz>0.030015948850000002</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_right_3_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_y_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_right_3_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/hip_y_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_right_4_joint' type='revolute'>
+      <pose relative_to='leg_right_3_link'>0 0 -0.38 0 0 0</pose>
+      <parent>leg_right_3_link</parent>
+      <child>leg_right_4_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>2.6179999999999999</upper>
+          <effort>400</effort>
+          <velocity>7</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_right_4_link'>
+      <pose relative_to='leg_right_4_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.01317717 -0.029175079999999999 -0.11594602 0 0 0</pose>
+        <mass>3.759951</mass>
+        <inertia>
+          <ixx>0.04287677484</ixx>
+          <ixy>-0.00043705396999999999</ixy>
+          <ixz>0.00078292368000000003</ixz>
+          <iyy>0.035989069710000002</iyy>
+          <iyz>-0.00037717693999999999</iyz>
+          <izz>0.013647915639999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_right_4_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/knee_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_right_4_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/knee_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_right_5_joint' type='revolute'>
+      <pose relative_to='leg_right_4_link'>0 0 -0.32500000000000001 0 0 0</pose>
+      <parent>leg_right_4_link</parent>
+      <child>leg_right_5_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.27</lower>
+          <upper>0.68000000000000005</upper>
+          <effort>160</effort>
+          <velocity>5.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_right_5_link'>
+      <pose relative_to='leg_right_5_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.014008380000000001 -0.04180064 0.038201859999999997 0 0 0</pose>
+        <mass>1.2909600000000001</mass>
+        <inertia>
+          <ixx>0.011434308190000001</ixx>
+          <ixy>-0.00096978272999999999</ixy>
+          <ixz>0.00039976581000000002</ixz>
+          <iyy>0.0088897431199999998</iyy>
+          <iyz>0.0027780866699999998</iyz>
+          <izz>0.0050637387500000004</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_right_5_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_Y_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_right_5_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_Y_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/White</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.875 0.875 0.875 1</diffuse>
+          <ambient>0.875 0.875 0.875 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='leg_right_6_joint' type='revolute'>
+      <pose relative_to='leg_right_5_link'>0 0 0 0 0 0</pose>
+      <parent>leg_right_5_link</parent>
+      <child>leg_right_6_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-0.52359999999999995</lower>
+          <upper>0.52359999999999995</upper>
+          <effort>100</effort>
+          <velocity>4.7999999999999998</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>true</provide_feedback>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+          <provide_feedback>true</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='leg_right_6_link'>
+      <pose relative_to='leg_right_6_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.020220128055166989 0.00051193594072048722 -0.060167391776351511 0 0 0</pose>
+        <mass>1.6077729999999999</mass>
+        <inertia>
+          <ixx>0.0045123455110069781</ixx>
+          <ixy>6.754090196766338e-05</ixy>
+          <ixz>0.001147692510930919</ixz>
+          <iyy>0.0075568146185711494</iyy>
+          <iyz>-3.9672683498003288e-05</iyz>
+          <izz>0.005613183751937781</izz>
+        </inertia>
+      </inertial>
+      <collision name='leg_right_6_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1.1499999999999999 -1.05 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_X_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1000000</kp>
+              <kd>100</kd>
+              <max_vel>1</max_vel>
+              <min_depth>0</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1</mu>
+              <mu2>1</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='leg_right_6_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/v2/ankle_X_lo_res.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/White</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.875 0.875 0.875 1</diffuse>
+          <ambient>0.875 0.875 0.875 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='torso_1_joint' type='revolute'>
+      <pose relative_to='base_link'>0 0 0.0722 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>torso_1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.256637061435917</lower>
+          <upper>1.256637061435917</upper>
+          <effort>200</effort>
+          <velocity>5.4000000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='torso_1_link'>
+      <pose relative_to='torso_1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.00078222999999999997 3.5280000000000001e-05 -0.017824570000000001 0 0 0</pose>
+        <mass>2.2946580000000001</mass>
+        <inertia>
+          <ixx>0.0063850808699999996</ixx>
+          <ixy>-7.107e-08</ixy>
+          <ixz>-3.065592e-05</ixz>
+          <iyy>0.0041025610200000001</iyy>
+          <iyz>-1.46946e-06</iyz>
+          <izz>0.00622968815</izz>
+        </inertia>
+      </inertial>
+      <collision name='torso_1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/torso/torso_1.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='torso_1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/torso/torso_1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='torso_2_joint' type='revolute'>
+      <pose relative_to='torso_1_link'>0 0 0 0 0 0</pose>
+      <parent>torso_1_link</parent>
+      <child>torso_2_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.22689280275926291</lower>
+          <upper>0.73303828583761843</upper>
+          <effort>200</effort>
+          <velocity>5.4000000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>true</provide_feedback>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+          <provide_feedback>true</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='torso_2_link'>
+      <pose relative_to='torso_2_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.04630000811874449 -0.00098964696405387867 0.1452408860214566 0 0 0</pose>
+        <mass>16.984030000000001</mass>
+        <inertia>
+          <ixx>0.4437725880641008</ixx>
+          <ixy>0.00069037516515460572</ixy>
+          <ixz>-0.01211777700678765</ixz>
+          <iyy>0.29999519863173169</iyy>
+          <iyz>-0.0001955675405743494</iyz>
+          <izz>0.32210790904719322</izz>
+        </inertia>
+      </inertial>
+      <collision name='torso_2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/torso/torso_2_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='torso_2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/torso/torso_2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='torso_2_link_fixed_joint_lump__imu_link_visual_1'>
+        <pose>0.049250000000000002 0 0.078 3.1415926535897931 0 1.5707963267948959</pose>
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual>
+      <sensor name='imu_sensor' type='imu'>
+        <always_on>true</always_on>
+        <update_rate>1000</update_rate>
+        <imu>
+          <angular_velocity/>
+          <linear_acceleration/>
+          <noise>
+            <type>gaussian</type>
+            <rate>
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+              <bias_mean>0.000000</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </rate>
+            <accel>
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+              <bias_mean>0.0</bias_mean>
+              <bias_stddev>0.000</bias_stddev>
+            </accel>
+          </noise>
+        </imu>
+        <pose>0.049250000000000002 0 0.078 3.1415899999999999 0 1.5708</pose>
+      </sensor>
+    </link>
+    <joint name='arm_left_1_joint' type='revolute'>
+      <pose relative_to='torso_2_link'>0 0.1575 0.23200000000000001 0 0 0</pose>
+      <parent>torso_2_link</parent>
+      <child>arm_left_1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>0.78539816339744828</upper>
+          <effort>100</effort>
+          <velocity>2.7000000000000002</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_1_link'>
+      <pose relative_to='arm_left_1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.00027619999999999999 0.10060223 0.044374190000000001 0 0 0</pose>
+        <mass>2.7145670000000002</mass>
+        <inertia>
+          <ixx>0.01237818683</ixx>
+          <ixy>-3.625571e-05</ixy>
+          <ixz>7.1447199999999996e-05</ixz>
+          <iyy>0.0041913719999999996</iyy>
+          <iyz>-0.00023639064</iyz>
+          <izz>0.013581611089999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_1_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_left_1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_left_2_joint' type='revolute'>
+      <pose relative_to='arm_left_1_link'>0.0049300000000000004 0.13650000000000001 0.046730000000000001 0 0 0</pose>
+      <parent>arm_left_1_link</parent>
+      <child>arm_left_2_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0.0087266462599716477</lower>
+          <upper>2.871066619530672</upper>
+          <effort>100</effort>
+          <velocity>3.6600000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_2_link'>
+      <pose relative_to='arm_left_2_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.01438831 0.00092938000000000005 -0.086842680000000005 0 0 0</pose>
+        <mass>2.4250859999999999</mass>
+        <inertia>
+          <ixx>0.012978221010000001</ixx>
+          <ixy>1.2087910000000001e-05</ixy>
+          <ixz>-0.0032037043299999999</ixz>
+          <iyy>0.013808702779999999</iyy>
+          <iyz>-0.00012770058999999999</iyz>
+          <izz>0.0047885662100000002</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_2_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_left_2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_left_3_joint' type='revolute'>
+      <pose relative_to='arm_left_2_link'>0 0 0 0 0 0</pose>
+      <parent>arm_left_2_link</parent>
+      <child>arm_left_3_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.4260076602721181</lower>
+          <upper>2.4260076602721181</upper>
+          <effort>70</effort>
+          <velocity>4.5800000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_3_link'>
+      <pose relative_to='arm_left_3_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0136084 0.012416190000000001 -0.24990039999999999 0 0 0</pose>
+        <mass>2.2087409999999998</mass>
+        <inertia>
+          <ixx>0.0071883149300000001</ixx>
+          <ixy>-0.00011563550999999999</ixy>
+          <ixz>0.00075969733000000002</ixz>
+          <iyy>0.0069352850300000001</iyy>
+          <iyz>0.00042134742999999999</iyz>
+          <izz>0.0038835900699999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_3_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_3_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_left_3_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_left_4_joint' type='revolute'>
+      <pose relative_to='arm_left_3_link'>0.02 0 -0.2782 0 0 0</pose>
+      <parent>arm_left_3_link</parent>
+      <child>arm_left_4_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.2340214425527418</lower>
+          <upper>-0.0034906585039886592</upper>
+          <effort>70</effort>
+          <velocity>4.5800000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_4_link'>
+      <pose relative_to='arm_left_4_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0081040399999999999 -0.01944328 -0.033292370000000002 0 0 0</pose>
+        <mass>0.81567500000000004</mass>
+        <inertia>
+          <ixx>0.00299913</ixx>
+          <ixy>-9.3330000000000003e-05</ixy>
+          <ixz>0.0003389</ixz>
+          <iyy>0.0030399400000000001</iyy>
+          <iyz>-0.00042329999999999999</iyz>
+          <izz>0.0012624800000000001</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_4_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_4_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_left_4_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_left_5_joint' type='revolute'>
+      <pose relative_to='arm_left_4_link'>-0.02 0 -0.26429999999999998 0 0 0</pose>
+      <parent>arm_left_4_link</parent>
+      <child>arm_left_5_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.513274122871834</lower>
+          <upper>2.513274122871834</upper>
+          <effort>20</effort>
+          <velocity>1.95</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_5_link'>
+      <pose relative_to='arm_left_5_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-6.0000000000000002e-05 0.0032620000000000001 0.079625000000000001 0 0 0</pose>
+        <mass>1.877923</mass>
+        <inertia>
+          <ixx>0.0034950728299999998</ixx>
+          <ixy>1.2654890000000001e-05</ixy>
+          <ixz>1.0382860000000001e-05</ixz>
+          <iyy>0.00436830072</iyy>
+          <iyz>-9.7360420000000005e-05</iyz>
+          <izz>0.0022826336999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_5_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_5_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_left_5_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_5.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_left_6_joint' type='revolute'>
+      <pose relative_to='arm_left_5_link'>0 0 0 0 0 0</pose>
+      <parent>arm_left_5_link</parent>
+      <child>arm_left_6_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.3700834628155489</lower>
+          <upper>1.3700834628155489</upper>
+          <effort>8</effort>
+          <velocity>1.76</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_6_link'>
+      <pose relative_to='arm_left_6_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>2.0999999999999999e-05 -0.0019650000000000002 -0.00059100000000000005 0 0 0</pose>
+        <mass>0.40931000000000001</mass>
+        <inertia>
+          <ixx>0.00010700023</ixx>
+          <ixy>-8.8990000000000005e-08</ixy>
+          <ixz>-4.3919999999999999e-08</ixz>
+          <iyy>0.00014101316000000001</iyy>
+          <iyz>4.1702000000000001e-07</iyz>
+          <izz>0.00015398658000000001</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_6_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_6_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_left_6_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_6.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_left_7_joint' type='revolute'>
+      <pose relative_to='arm_left_6_link'>0 0 0 0 0 0</pose>
+      <parent>arm_left_6_link</parent>
+      <child>arm_left_7_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.68067840827778847</lower>
+          <upper>0.68067840827778847</upper>
+          <effort>8</effort>
+          <velocity>1.76</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>true</provide_feedback>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+          <provide_feedback>true</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_left_7_link'>
+      <pose relative_to='arm_left_7_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.001479947385773188 0.00021930849930306339 -0.091976612462702084 0 0 0</pose>
+        <mass>1.5044409999999999</mass>
+        <inertia>
+          <ixx>0.0041764894468495021</ixx>
+          <ixy>-5.3823340987742617e-06</ixy>
+          <ixz>-0.00015170301952889049</ixz>
+          <iyy>0.0041002219545006203</iyy>
+          <iyz>-3.7948584347429578e-05</iyz>
+          <izz>0.002042389122689935</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_left_7_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_7_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='arm_left_7_link_fixed_joint_lump__wrist_left_ft_link_collision_1'>
+        <pose>0 0 -0.050999999999999997 0 0 1.570796326794897</pose>
+        <geometry>
+          <cylinder>
+            <length>0.015699999999999999</length>
+            <radius>0.022499999999999999</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='arm_left_7_link_fixed_joint_lump__wrist_left_ft_tool_link_collision_2'>
+        <pose>0 0 -0.063725000000000004 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.00975</length>
+            <radius>0.025000000000000001</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='arm_left_7_link_fixed_joint_lump__foo_ee_left_collision_3'>
+        <pose>0 0 -0.11372500000000001 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.050000000000000003</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name='arm_left_7_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_7.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+      <visual name='arm_left_7_link_fixed_joint_lump__wrist_left_ft_link_visual_1'>
+        <pose>0 0 -0.050999999999999997 0 0 1.570796326794897</pose>
+        <geometry>
+          <cylinder>
+            <length>0.015699999999999999</length>
+            <radius>0.022499999999999999</radius>
+          </cylinder>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='arm_left_7_link_fixed_joint_lump__wrist_left_ft_tool_link_visual_2'>
+        <pose>0 0 -0.063725000000000004 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.00975</length>
+            <radius>0.025000000000000001</radius>
+          </cylinder>
+        </geometry>
+        <material>
+          <diffuse>0 0 0 1</diffuse>
+          <ambient>0 0 0 1</ambient>
+        </material>
+      </visual>
+      <visual name='arm_left_7_link_fixed_joint_lump__foo_ee_left_visual_3'>
+        <pose>0 0 -0.11372500000000001 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.050000000000000003</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <diffuse>0 1 1 1</diffuse>
+          <ambient>0 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_1_joint' type='revolute'>
+      <pose relative_to='torso_2_link'>0 -0.1575 0.23200000000000001 0 0 0</pose>
+      <parent>torso_2_link</parent>
+      <child>arm_right_1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.78539816339744828</lower>
+          <upper>1.570796326794897</upper>
+          <effort>100</effort>
+          <velocity>2.7000000000000002</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_1_link'>
+      <pose relative_to='arm_right_1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.00027619999999999999 -0.10060223 0.044374190000000001 0 0 0</pose>
+        <mass>2.7145670000000002</mass>
+        <inertia>
+          <ixx>0.01237818683</ixx>
+          <ixy>3.625571e-05</ixy>
+          <ixz>7.1447199999999996e-05</ixz>
+          <iyy>0.0041913719999999996</iyy>
+          <iyz>0.00023639064</iyz>
+          <izz>0.013581611089999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_1_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_right_1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_2_joint' type='revolute'>
+      <pose relative_to='arm_right_1_link'>0.0049300000000000004 -0.13650000000000001 0.046730000000000001 0 0 0</pose>
+      <parent>arm_right_1_link</parent>
+      <child>arm_right_2_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.871066619530672</lower>
+          <upper>-0.0087266462599716477</upper>
+          <effort>100</effort>
+          <velocity>3.6600000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_2_link'>
+      <pose relative_to='arm_right_2_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.01438831 -0.00092938000000000005 -0.086842680000000005 0 0 0</pose>
+        <mass>2.4250859999999999</mass>
+        <inertia>
+          <ixx>0.012978221010000001</ixx>
+          <ixy>-1.2087910000000001e-05</ixy>
+          <ixz>-0.0032037043299999999</ixz>
+          <iyy>0.013808702779999999</iyy>
+          <iyz>0.00012770058999999999</iyz>
+          <izz>0.0047885662100000002</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_2_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_right_2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_3_joint' type='revolute'>
+      <pose relative_to='arm_right_2_link'>0 0 0 0 0 0</pose>
+      <parent>arm_right_2_link</parent>
+      <child>arm_right_3_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.4260076602721181</lower>
+          <upper>2.4260076602721181</upper>
+          <effort>70</effort>
+          <velocity>4.5800000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_3_link'>
+      <pose relative_to='arm_right_3_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0136084 -0.012416190000000001 -0.24990039999999999 0 0 0</pose>
+        <mass>2.2087409999999998</mass>
+        <inertia>
+          <ixx>0.0071883149300000001</ixx>
+          <ixy>0.00011563550999999999</ixy>
+          <ixz>0.00075969733000000002</ixz>
+          <iyy>0.0069352850300000001</iyy>
+          <iyz>-0.00042134742999999999</iyz>
+          <izz>0.0038835900699999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_3_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_3_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_right_3_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_4_joint' type='revolute'>
+      <pose relative_to='arm_right_3_link'>0.02 0 -0.2782 0 0 0</pose>
+      <parent>arm_right_3_link</parent>
+      <child>arm_right_4_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-2.2340214425527418</lower>
+          <upper>-0.0034906585039886592</upper>
+          <effort>70</effort>
+          <velocity>4.5800000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_4_link'>
+      <pose relative_to='arm_right_4_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0081040399999999999 0.01944328 -0.033292370000000002 0 0 0</pose>
+        <mass>0.81567500000000004</mass>
+        <inertia>
+          <ixx>0.00299913</ixx>
+          <ixy>9.3330000000000003e-05</ixy>
+          <ixz>0.0003389</ixz>
+          <iyy>0.0030399400000000001</iyy>
+          <iyz>0.00042329999999999999</iyz>
+          <izz>0.0012624800000000001</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_4_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_4_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_right_4_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_5_joint' type='revolute'>
+      <pose relative_to='arm_right_4_link'>-0.02 0 -0.26429999999999998 0 0 0</pose>
+      <parent>arm_right_4_link</parent>
+      <child>arm_right_5_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-2.513274122871834</lower>
+          <upper>2.513274122871834</upper>
+          <effort>20</effort>
+          <velocity>1.95</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_5_link'>
+      <pose relative_to='arm_right_5_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-6.0000000000000002e-05 -0.0032620000000000001 0.079625000000000001 0 0 0</pose>
+        <mass>1.877923</mass>
+        <inertia>
+          <ixx>0.0034950728299999998</ixx>
+          <ixy>-1.2654890000000001e-05</ixy>
+          <ixz>1.0382860000000001e-05</ixz>
+          <iyy>0.00436830072</iyy>
+          <iyz>9.7360420000000005e-05</iyz>
+          <izz>0.0022826336999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_5_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_5_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_right_5_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_5.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_6_joint' type='revolute'>
+      <pose relative_to='arm_right_5_link'>0 0 0 0 0 0</pose>
+      <parent>arm_right_5_link</parent>
+      <child>arm_right_6_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.3700834628155489</lower>
+          <upper>1.3700834628155489</upper>
+          <effort>8</effort>
+          <velocity>1.76</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_6_link'>
+      <pose relative_to='arm_right_6_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>2.0999999999999999e-05 0.0019650000000000002 -0.00059100000000000005 0 0 0</pose>
+        <mass>0.40931000000000001</mass>
+        <inertia>
+          <ixx>0.00010700023</ixx>
+          <ixy>8.8990000000000005e-08</ixy>
+          <ixz>-4.3919999999999999e-08</ixz>
+          <iyy>0.00014101316000000001</iyy>
+          <iyz>-4.1702000000000001e-07</iyz>
+          <izz>0.00015398658000000001</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_6_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_6_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='arm_right_6_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_6.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_right_7_joint' type='revolute'>
+      <pose relative_to='arm_right_6_link'>0 0 0 0 0 0</pose>
+      <parent>arm_right_6_link</parent>
+      <child>arm_right_7_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.68067840827778847</lower>
+          <upper>0.68067840827778847</upper>
+          <effort>8</effort>
+          <velocity>1.76</velocity>
+        </limit>
+        <dynamics>
+          <damping>1</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <provide_feedback>true</provide_feedback>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+          <provide_feedback>true</provide_feedback>
+        </ode>
+      </physics>
+    </joint>
+    <link name='arm_right_7_link'>
+      <pose relative_to='arm_right_7_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.001605608677907608 -0.00021930849930306339 -0.091976612462702084 0 0 0</pose>
+        <mass>1.5044409999999999</mass>
+        <inertia>
+          <ixx>0.0041764894468495021</ixx>
+          <ixy>3.1700947769810179e-06</ixy>
+          <ixz>-0.00015745409071496431</ixz>
+          <iyy>0.0040996386301267824</iyy>
+          <iyz>3.7948584347429578e-05</iyz>
+          <izz>0.0020418057983160958</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_right_7_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_7_collision.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='arm_right_7_link_fixed_joint_lump__wrist_right_ft_link_collision_1'>
+        <pose>0 0 -0.050999999999999997 0 0 -1.5707963267948959</pose>
+        <geometry>
+          <cylinder>
+            <length>0.015699999999999999</length>
+            <radius>0.022499999999999999</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='arm_right_7_link_fixed_joint_lump__wrist_right_ft_tool_link_collision_2'>
+        <pose>0 0 -0.063725000000000004 0 0 -3.1415926535897931</pose>
+        <geometry>
+          <cylinder>
+            <length>0.00975</length>
+            <radius>0.025000000000000001</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='arm_right_7_link_fixed_joint_lump__foo_ee_right_collision_3'>
+        <pose>0 0 -0.11372500000000001 0 0 -3.1415926535897931</pose>
+        <geometry>
+          <sphere>
+            <radius>0.050000000000000003</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name='arm_right_7_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 -1 1</scale>
+            <uri>model://talos_description/meshes/arm/arm_7.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+      <visual name='arm_right_7_link_fixed_joint_lump__wrist_right_ft_link_visual_1'>
+        <pose>0 0 -0.050999999999999997 0 0 -1.5707963267948959</pose>
+        <geometry>
+          <cylinder>
+            <length>0.015699999999999999</length>
+            <radius>0.022499999999999999</radius>
+          </cylinder>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='arm_right_7_link_fixed_joint_lump__wrist_right_ft_tool_link_visual_2'>
+        <pose>0 0 -0.063725000000000004 0 0 -3.1415926535897931</pose>
+        <geometry>
+          <cylinder>
+            <length>0.00975</length>
+            <radius>0.025000000000000001</radius>
+          </cylinder>
+        </geometry>
+        <material>
+          <diffuse>0 0 0 1</diffuse>
+          <ambient>0 0 0 1</ambient>
+        </material>
+      </visual>
+      <visual name='arm_right_7_link_fixed_joint_lump__foo_ee_right_visual_3'>
+        <pose>0 0 -0.11372500000000001 0 0 -3.1415926535897931</pose>
+        <geometry>
+          <sphere>
+            <radius>0.050000000000000003</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <diffuse>0 1 1 1</diffuse>
+          <ambient>0 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='head_1_joint' type='revolute'>
+      <pose relative_to='torso_2_link'>0 0 0.316 0 0 0</pose>
+      <parent>torso_2_link</parent>
+      <child>head_1_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.20943951023931959</lower>
+          <upper>0.78539816339744828</upper>
+          <effort>8</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='head_1_link'>
+      <pose relative_to='head_1_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.00157211 -0.0015791900000000001 0.02175767 0 0 0</pose>
+        <mass>0.73746</mass>
+        <inertia>
+          <ixx>0.0022487858399999998</ixx>
+          <ixy>4.6937499999999997e-06</ixy>
+          <ixz>8.5555699999999998e-05</ixz>
+          <iyy>0.0011115849200000001</iyy>
+          <iyz>-4.132536e-05</iyz>
+          <izz>0.0020522592099999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='head_1_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/head/head_1_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='head_1_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/head/head_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='head_2_joint' type='revolute'>
+      <pose relative_to='head_1_link'>0 0 0 0 0 0</pose>
+      <parent>head_1_link</parent>
+      <child>head_2_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.308996938995747</lower>
+          <upper>1.308996938995747</upper>
+          <effort>4</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>true</implicit_spring_damper>
+          <cfm_damping>true</cfm_damping>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='head_2_link'>
+      <pose relative_to='head_2_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.01066966985149807 0.00058085535455349 0.14193227336973699 0 0 0</pose>
+        <mass>1.463954</mass>
+        <inertia>
+          <ixx>0.010940348166183981</ixx>
+          <ixy>-2.530116117254603e-05</ixy>
+          <ixz>0.00037709025118422339</ixz>
+          <iyy>0.01103766257032557</iyy>
+          <iyz>-8.2611111389425121e-06</iyz>
+          <izz>0.0058207741517033156</izz>
+        </inertia>
+      </inertial>
+      <collision name='head_2_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/head/head_2_default_collision.stl</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.90000000000000002</mu>
+              <mu2>0.90000000000000002</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='head_2_link_fixed_joint_lump__rgbd_link_collision_1'>
+        <pose>0.0521 0.040000000000000001 0.1832 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.040000000000000001 0.185 0.029999999999999999</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='head_2_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/head/head_2_default.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/White</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='head_2_link_fixed_joint_lump__rgbd_link_visual_1'>
+        <pose>0.062100000000000002 0.037499999999999999 0.1832 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://talos_description/meshes/sensors/orbbec/orbbec.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/FlatBlack</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <ambient>0.25 0.25 0.25 1</ambient>
+        </material>
+      </visual>
+      <sensor name='rgbd_frame_sensor' type='depth'>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.0471975511965976</horizontal_fov>
+          <image>
+            <format>B8G8R8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.59999999999999998</near>
+            <far>8</far>
+          </clip>
+        </camera>
+        <plugin name='rgbd_frame_controller' filename='libgazebo_ros_openni_kinect.so'>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>rgbd</cameraName>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <frameName>rgbd_optical_frame</frameName>
+          <pointCloudCutoff>0.45</pointCloudCutoff>
+          <rangeMax>10.0</rangeMax>
+          <distortionK1>0.00000001</distortionK1>
+          <distortionK2>0.00000001</distortionK2>
+          <distortionK3>0.00000001</distortionK3>
+          <distortionT1>0.00000001</distortionT1>
+          <distortionT2>0.00000001</distortionT2>
+        </plugin>
+        <pose>0.062100000000000002 0.037499999999999999 0.1832 0 0 0</pose>
+      </sensor>
+      <sensor name='rgbd_high_res_frame_sensor' type='camera'>
+        <update_rate>30</update_rate>
+        <camera name='head'>
+          <horizontal_fov>1.0471975511965976</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.050000000000000003</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0.0070000000000000001</stddev>
+          </noise>
+        </camera>
+        <plugin name='rgbd_high_res_frame_controller' filename='libgazebo_ros_camera.so'>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>45.0</updateRate>
+          <cameraName>rgbd/high_res</cameraName>
+          <imageTopicName>/rgbd/rgb/high_res/image_raw</imageTopicName>
+          <cameraInfoTopicName>/rgbd/rgb/high_res/camera_info</cameraInfoTopicName>
+          <frameName>rgbd_optical_frame</frameName>
+          <hackBaseline>0.0</hackBaseline>
+          <distortionK1>0.00000001</distortionK1>
+          <distortionK2>0.00000001</distortionK2>
+          <distortionK3>0.00000001</distortionK3>
+          <distortionT1>0.00000001</distortionT1>
+          <distortionT2>0.00000001</distortionT2>
+        </plugin>
+        <pose>0.062100000000000002 0.037499999999999999 0.1832 0 0 0</pose>
+      </sensor>
+    </link>
+    <plugin name='gz_ros2_control::GazeboSimROS2ControlPlugin' filename='libgz_ros2_control-system.so'>
+      <ros>
+        <argument>--ros-args</argument>
+        <argument>--params-file</argument>
+        <argument>/home/pdebbad/ros2_dev_ws/talos_harmonic/src/talos_harmonic/config/gazebo_controller_manager_cfg.yaml</argument>
+      </ros>
+      <hold_joints>false</hold_joints>
+      <parameters>/home/pdebbad/ros2_dev_ws/talos_harmonic/src/talos_harmonic/config/gazebo_controller_manager_cfg.yaml</parameters>
+    </plugin>
+    <plugin name='gz::sim::systems::Imu' filename='libgz-sim-imu-system.so'/>
+    <plugin name='gz::sim::systems::PosePublisher' filename='gz-sim-pose-publisher-system'>
+      <publish_link_pose>true</publish_link_pose>
+      <publish_model_pose>true</publish_model_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+    <plugin name='gz::sim::systems::OdometryPublisher' filename='gz-sim-odometry-publisher-system'>
+      <odom_frame>base_link/odom</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <dimensions>3</dimensions>
+    </plugin>
+    <ros2_control name="ros2_control_orientus" type="sensor">
+      <hardware>
+        <plugin>pal_orientus_sensor/OrientusSensor</plugin>
+        <param name="io_device">/dev/ttyS4</param>
+      </hardware>
+    </ros2_control>
+    <frame name='left_foot_lower_left_fix_joint' attached_to='left_sole_link'>
+      <pose>-0.10000000000000001 0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_lower_left' attached_to='left_foot_lower_left_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_lower_right_fix_joint' attached_to='left_sole_link'>
+      <pose>-0.10000000000000001 -0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_lower_right' attached_to='left_foot_lower_right_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_upper_left_fix_joint' attached_to='left_sole_link'>
+      <pose>0.10000000000000001 0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_upper_left' attached_to='left_foot_upper_left_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_upper_right_fix_joint' attached_to='left_sole_link'>
+      <pose>0.10000000000000001 -0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='left_foot_upper_right' attached_to='left_foot_upper_right_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='leg_left_sole_fix_joint' attached_to='leg_left_6_link'>
+      <pose>0 0 -0.107 0 0 0</pose>
+    </frame>
+    <frame name='left_sole_link' attached_to='leg_left_sole_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_lower_left_fix_joint' attached_to='right_sole_link'>
+      <pose>-0.10000000000000001 0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_lower_left' attached_to='right_foot_lower_left_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_lower_right_fix_joint' attached_to='right_sole_link'>
+      <pose>-0.10000000000000001 -0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_lower_right' attached_to='right_foot_lower_right_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_upper_left_fix_joint' attached_to='right_sole_link'>
+      <pose>0.10000000000000001 0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_upper_left' attached_to='right_foot_upper_left_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_upper_right_fix_joint' attached_to='right_sole_link'>
+      <pose>0.10000000000000001 -0.050000000000000003 0 0 0 0</pose>
+    </frame>
+    <frame name='right_foot_upper_right' attached_to='right_foot_upper_right_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='leg_right_sole_fix_joint' attached_to='leg_right_6_link'>
+      <pose>0 0 -0.107 0 0 0</pose>
+    </frame>
+    <frame name='right_sole_link' attached_to='leg_right_sole_fix_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='imu_joint' attached_to='torso_2_link'>
+      <pose>0.049250000000000002 0 0.078 3.1415926535897931 0 1.5707963267948959</pose>
+    </frame>
+    <frame name='imu_link' attached_to='imu_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='foo_ee_left_joint' attached_to='wrist_left_ft_tool_link'>
+      <pose>0 0 -0.050000000000000003 0 0 0</pose>
+    </frame>
+    <frame name='foo_ee_left' attached_to='foo_ee_left_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='wrist_left_tool_joint' attached_to='wrist_left_ft_link'>
+      <pose>0 0 -0.012725 0 0 -1.570796326794897</pose>
+    </frame>
+    <frame name='wrist_left_ft_tool_link' attached_to='wrist_left_tool_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='wrist_left_ft_joint' attached_to='arm_left_7_link'>
+      <pose>0 0 -0.050999999999999997 0 0 1.570796326794897</pose>
+    </frame>
+    <frame name='wrist_left_ft_link' attached_to='wrist_left_ft_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='foo_ee_right_joint' attached_to='wrist_right_ft_tool_link'>
+      <pose>0 0 -0.050000000000000003 0 0 0</pose>
+    </frame>
+    <frame name='foo_ee_right' attached_to='foo_ee_right_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='wrist_right_tool_joint' attached_to='wrist_right_ft_link'>
+      <pose>0 0 -0.012725 0 0 -1.5707963267948959</pose>
+    </frame>
+    <frame name='wrist_right_ft_tool_link' attached_to='wrist_right_tool_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='wrist_right_ft_joint' attached_to='arm_right_7_link'>
+      <pose>0 0 -0.050999999999999997 0 0 -1.5707963267948959</pose>
+    </frame>
+    <frame name='wrist_right_ft_link' attached_to='wrist_right_ft_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_depth_optical_joint' attached_to='rgbd_depth_frame'>
+      <pose>0 0 0 -1.5707963267948959 -5.5511151231257827e-17 -1.5707963267948959</pose>
+    </frame>
+    <frame name='rgbd_depth_optical_frame' attached_to='rgbd_depth_optical_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_depth_joint' attached_to='rgbd_link'>
+      <pose>0.0033 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_depth_frame' attached_to='rgbd_depth_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_optical_joint' attached_to='rgbd_link'>
+      <pose>0 0 0 -1.5707963267948959 -5.5511151231257827e-17 -1.5707963267948959</pose>
+    </frame>
+    <frame name='rgbd_optical_frame' attached_to='rgbd_optical_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_rgb_optical_joint' attached_to='rgbd_rgb_frame'>
+      <pose>0 0 0 -1.5707963267948959 -5.5511151231257827e-17 -1.5707963267948959</pose>
+    </frame>
+    <frame name='rgbd_rgb_optical_frame' attached_to='rgbd_rgb_optical_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_rgb_joint' attached_to='rgbd_link'>
+      <pose>0.0033 -0.025000000000000001 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_rgb_frame' attached_to='rgbd_rgb_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_joint' attached_to='head_2_link'>
+      <pose>0.062100000000000002 0.037499999999999999 0.1832 0 0 0</pose>
+    </frame>
+    <frame name='rgbd_link' attached_to='rgbd_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+  </model>
+</sdf>

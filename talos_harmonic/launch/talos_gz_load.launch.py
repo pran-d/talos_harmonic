@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, TimerAction, OpaqueFunction
+from launch.actions import IncludeLaunchDescription, TimerAction, ExecuteProcess
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.substitutions import FindPackageShare
@@ -35,10 +35,21 @@ def generate_launch_description():
             os.path.join(pkg_talos_harmonic, 'launch', 'activate_controllers.launch.py')
         )
     )
+    change_robot_config = ExecuteProcess(
+        cmd=['ros2', 'run', 'gz_gep_tools', 'control_loop', 't'],
+        output='screen'
+    )
 
     return LaunchDescription([
         # robot_spawn_launch,
         world_spawn_launch,
-        load_controllers_launch,
+        TimerAction(
+            period=5.0,
+            actions=[change_robot_config]
+        ),
+        # TimerAction(
+        #     period=10.0,
+        #     actions=[load_controllers_launch]
+        # ),
     ])
 

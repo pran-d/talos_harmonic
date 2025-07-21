@@ -66,7 +66,7 @@
     <include>
       <name>talos</name>
       <pose>0 0 1.085 0 0 0</pose>
-      <uri>file://src/talos_harmonic/urdf/talos_without_grippers.urdf</uri>
+      <uri>file://src/talos_harmonic/urdf/talos_full_fake_grippers.sdf</uri>
     </include>
     
     <state world_name = "empty_talos_ign" >
