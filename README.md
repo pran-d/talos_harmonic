@@ -49,7 +49,7 @@ git clone https://github.com/pran-d/talos_harmonic.git
     ```
 > [!note] 
 > This fork from the [original repository](https://github.com/loco-3d/linear-feedback-controller) contains a fix in the initialization of the feedback gain matrix. 
-> Clone the original instead if this (pull request){https://github.com/loco-3d/linear-feedback-controller/pull/105/commits/58ae655923bcc444e9b8a85fd599e7382bb9b429} is merged.
+> Clone the original instead if this [pull request](https://github.com/loco-3d/linear-feedback-controller/pull/105/commits/58ae655923bcc444e9b8a85fd599e7382bb9b429) is merged.
 
 3. Clone the `gz_gep_tools` package to reconfigure Talos into the half-sitting position on initialization.
     ```sh
