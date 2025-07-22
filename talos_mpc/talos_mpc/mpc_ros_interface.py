@@ -28,7 +28,15 @@ class MPCRosInterface(TalosControllerInterface):
         self.ocp = MPCSolver()
         DT = 1e-3
         N = 20
-        self.state_q = np.hstack((np.array([0,0,1.08,0,0,0,1]), np.zeros((self.robot_nj,)))).reshape((self.free_flyer_nq+self.robot_nj, 1))
+        self.state_q = np.array([
+            0, 0, 1.02, 0, 0, 0, 1,
+            0, 0, -0.448041, 0.896082, -0.448041, 0,
+            0, 0, -0.448041, 0.896082, -0.448041, 0,
+            0, 0,
+            0.25847, 0.173046, -0.0002, -0.525366, 0, 0, 0,
+            -0.25847, -0.173046, 0.0002, -0.525366, 0, 0, 0,
+            0, 0,
+        ]).reshape((self.free_flyer_nq+self.robot_nj, 1))
         x0 = self.ocp.createState(self.state_q)
         self.ocp.createInitialProblem(x0, DT, N)
 
