@@ -26,8 +26,8 @@ class MPCRosInterface(TalosControllerInterface):
         )
 
         self.ocp = MPCSolver()
-        DT = 1e-3
-        N = 20
+        DT = 1e-2
+        N = 100
         self.state_q = np.array([
             0, 0, 1.02, 0, 0, 0, 1,
             0, 0, -0.448041, 0.896082, -0.448041, 0,
@@ -44,7 +44,7 @@ class MPCRosInterface(TalosControllerInterface):
         self.warm_us = []
 
         self.controller_timer = self.create_timer(
-            0.016, 
+            0.01, 
             self.controller_callback, 
         )
     
@@ -79,7 +79,7 @@ class MPCRosInterface(TalosControllerInterface):
     def MPCUpdate(self, x0):
 
         status_ = self.ocp.updateProblem(x0)
-        result_ = self.ocp.solveProblem(x0, 3)
+        result_ = self.ocp.solveProblem(x0, 5)
 
         if status_ and result_:
             tau = self.ocp.getControlSequence()[0]
