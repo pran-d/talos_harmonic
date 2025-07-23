@@ -113,6 +113,19 @@ def __play_sim_cmd(
     ]
 
 
+def __make_move_camera_cmd(
+        timeout_ms: int
+):
+    return [
+        'gz',
+        'service',
+        '-s', '/gui/move_to/pose',
+        '--reqtype', 'gz.msgs.GUICamera',
+        '--reptype', 'gz.msgs.Boolean',
+        '--timeout', '{}'.format(timeout_ms),
+        '--req', 'pose: { position: { x: 2.0, y: 0.0, z: 1.0 }, orientation: { x: 0.0, y: 0.0, z: 1.0, w: 0.0 } }'
+    ]
+
 
 def gz_server(
         *,
@@ -230,6 +243,16 @@ def gz_server(
         ],
     )
 
+    yield Invoke(
+        __make_move_camera_cmd,
+        timeout_ms=5000,
+    ).and_then(
+        __log_then_forward_cmd,
+    ).and_then_with_key(
+        'cmd',
+        ExecuteProcess
+    )
+
 
 def __make_spawn_cmd(
         world: Text,
@@ -259,7 +282,7 @@ def __make_spawn_cmd(
         '--reptype', 'gz.msgs.Boolean',
         '--timeout', '{}'.format(timeout_ms),
         '--req',
-        'name: "{name}", sdf_filename: "{path}", pose: {{ position: {{ x: 0.0, y: 0.0, z: {z} }} }}'.format(
+        'name: "{name}", sdf_filename: "{path}", pose: {{ position: {{ x: 0.0, y: 0.0, z: {z} }}, orientation: {{ x: 0.0, y: 0.0, z: 0.0, w: 1.0 }} }}'.format(
             name=name,
             path=model_path,
             z=z_height

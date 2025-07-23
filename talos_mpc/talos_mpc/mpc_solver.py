@@ -5,9 +5,9 @@ from ament_index_python.packages import get_package_share_directory
 from pathlib import Path
 
 class MPCSolver():
-    def __init__(self):
+    def __init__(self, logger):
         self.resource_path = get_package_share_directory("talos_harmonic")
-        self.urdf_path = Path(self.resource_path) / "urdf" / "talos_without_grippers.urdf"
+        self.urdf_path = Path(self.resource_path) / "urdf" / "talos_full_fake_grippers.urdf"
         self.srdf_path = Path(self.resource_path) / "urdf" / "talos.srdf"
         
         robot = pin.robot_wrapper.RobotWrapper.BuildFromURDF(
@@ -46,7 +46,7 @@ class MPCSolver():
             pin.SE3.Identity(),
             pin.LOCAL_WORLD_ALIGNED,
             self.actuation.nu,
-            np.array([0, 40]),
+            np.array([0., 4.]),
         )
         rf_contact = crocoddyl.ContactModel6D(
             self.state,
@@ -54,7 +54,7 @@ class MPCSolver():
             pin.SE3.Identity(),
             pin.LOCAL_WORLD_ALIGNED,
             self.actuation.nu,
-            np.array([0, 40]),
+            np.array([0., 4.]),
         )
         self.contacts.addContact("lf_contact", lf_contact)
         self.contacts.addContact("rf_contact", rf_contact)
@@ -84,8 +84,8 @@ class MPCSolver():
         u_reg_cost = crocoddyl.CostModelResidual(
             self.state, crocoddyl.ResidualModelControl(self.state, self.actuation.nu)
         )
-        self.costs.addCost("xReg", x_reg_cost, 1e-3)
-        self.costs.addCost("uReg", u_reg_cost, 1e-4)
+        self.costs.addCost("xReg", x_reg_cost, 2e-2)
+        self.costs.addCost("uReg", u_reg_cost, 1e-3)
 
         # Adding the state limits penalization
         x_lb = np.concatenate([self.state.lb[1 : self.state.nv+1], self.state.lb[-self.state.nv :]])
@@ -118,6 +118,36 @@ class MPCSolver():
         )
         self.costs.addCost("lf_friction", lf_friction, 1e1)
         self.costs.addCost("rf_friction", rf_friction, 1e1)
+
+        # Adding the feet wrench cost
+        wrenchCone_LF = crocoddyl.WrenchCone(
+            np.identity(3), 0.3, np.array([0.1, 0.05]), 4, True, 200, 1200
+        )
+        wrenchCone_RF = crocoddyl.WrenchCone(
+            np.identity(3), 0.3, np.array([0.1, 0.05]), 4, True, 200, 1200
+        )
+        residual_LF_wrench = crocoddyl.ResidualModelContactWrenchCone(
+            self.state,
+            self.ee_ids["lf"],
+            wrenchCone_LF,
+            self.actuation.nu,
+        )
+        residual_RF_wrench = crocoddyl.ResidualModelContactWrenchCone(
+            self.state,
+            self.ee_ids["rf"],
+            wrenchCone_RF,
+            self.actuation.nu,
+        )
+        wrenchModel_LF = crocoddyl.CostModelResidual(
+            self.state,
+            residual_LF_wrench
+        )
+        wrenchModel_RF = crocoddyl.CostModelResidual(
+            self.state,
+            residual_RF_wrench
+        )
+        self.costs.addCost("wrench_LF", wrenchModel_LF, 1e-1)
+        self.costs.addCost("wrench_RF", wrenchModel_RF, 1e-1)
 
         # Creating the action model
         dmodel = crocoddyl.DifferentialActionModelContactFwdDynamics(

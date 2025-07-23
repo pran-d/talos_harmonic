@@ -25,7 +25,8 @@ class MPCRosInterface(TalosControllerInterface):
             self.qos, 
         )
 
-        self.ocp = MPCSolver()
+        self.ocp = MPCSolver(self.get_logger())
+
         DT = 1e-2
         N = 100
         self.state_q = np.array([
@@ -67,19 +68,14 @@ class MPCRosInterface(TalosControllerInterface):
 
 
     def getRobotState(self):
-        current_base_pos = np.array(self.sensor_msg_.base_pose).reshape((self.free_flyer_nq, 1))
-        current_base_vel = np.array(self.sensor_msg_.base_twist).reshape((self.free_flyer_nv, 1))
-        current_joint_pos = np.array(self.sensor_msg_.joint_state.position).reshape((self.robot_nj, 1))
-        current_joint_vel = np.array(self.sensor_msg_.joint_state.velocity).reshape((self.robot_nj, 1))
-        state_q = np.vstack((current_base_pos, current_joint_pos))
-        state_v = np.vstack((current_base_vel, current_joint_vel))
+        state_q = np.hstack((self.sensor_msg_.base_pose, self.sensor_msg_.joint_state.position.reshape((self.robot_nj,)))).reshape((self.free_flyer_nq+self.robot_nj, 1))
+        state_v = np.hstack((self.sensor_msg_.base_twist, self.sensor_msg_.joint_state.velocity.reshape((self.robot_nj,)))).reshape((self.free_flyer_nv+self.robot_nj, 1))
         return np.vstack((state_q, state_v))
 
 
     def MPCUpdate(self, x0):
-
         status_ = self.ocp.updateProblem(x0)
-        result_ = self.ocp.solveProblem(x0, 5)
+        result_ = self.ocp.solveProblem(x0, 1)
 
         if status_ and result_:
             tau = self.ocp.getControlSequence()[0]
