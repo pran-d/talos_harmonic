@@ -27,9 +27,9 @@ class MPCRosInterface(TalosControllerInterface):
 
         self.ocp = MPCSolver(self.get_logger())
 
-        DT = 1e-2
-        N = 100
-        self.state_q = np.array([
+        DT = 5e-3
+        N = 50
+        state_q = np.array([
             0, 0, 1.02, 0, 0, 0, 1,
             0, 0, -0.448041, 0.896082, -0.448041, 0,
             0, 0, -0.448041, 0.896082, -0.448041, 0,
@@ -38,11 +38,17 @@ class MPCRosInterface(TalosControllerInterface):
             -0.25847, -0.173046, 0.0002, -0.525366, 0, 0, 0,
             0, 0,
         ]).reshape((self.free_flyer_nq+self.robot_nj, 1))
-        x0 = self.ocp.createState(self.state_q)
+        x0 = self.ocp.createState(state_q)
         self.ocp.createInitialProblem(x0, DT, N)
 
-        self.warm_xs = []
-        self.warm_us = []
+        # INITIAL SOLUTION SO THAT THE ROBOT CAN START EARLY
+        result_ = self.ocp.solveProblem(x0, 200)
+        self.get_logger().info(f"SOLVED FOR {result_[1]} ITERATIONS, COST: {result_[2]}")
+        self.ctrl_msg_.initial_state = self.sensor_msg_
+        self.ctrl_msg_.feedforward = self.ocp.getControlSequence()[0]
+        self.ctrl_msg_.feedback_gain = self.ocp.getRiccatiGainSequence()[0]
+        msg = control_numpy_to_msg(self.ctrl_msg_)
+        self.publisher_control_.publish(msg)
 
         self.controller_timer = self.create_timer(
             0.01, 
@@ -53,12 +59,7 @@ class MPCRosInterface(TalosControllerInterface):
     def sensor_state_callback(self, msg):
         # Store the current sensor state
         self.sensor_msg_ = sensor_msg_to_numpy(msg)
-        # self.ocp.problem.runningDatas[0]
-        # self.sensor_msg_.contacts = [
-        #     self.wrench_left,
-        #     self.wrench_right
-        # ]
-        
+
 
     def controller_callback(self):
         x_measured_ = self.getRobotState()
@@ -75,13 +76,16 @@ class MPCRosInterface(TalosControllerInterface):
 
     def MPCUpdate(self, x0):
         status_ = self.ocp.updateProblem(x0)
-        result_ = self.ocp.solveProblem(x0, 1)
+        result_ = self.ocp.solveProblem(x0, 10)
 
         if status_ and result_:
             tau = self.ocp.getControlSequence()[0]
             KRiccati = self.ocp.getRiccatiGainSequence()[0]
-            self.get_logger().info(f"Control state updated after {result_[1]} its at {self.get_clock().now().seconds_nanoseconds()}")
+            self.get_logger().info(f"Control state updated after {result_[1]} iterations at {self.get_clock().now().seconds_nanoseconds()}, cost: {result_[2]}")
             self.ctrl_msg_.initial_state = self.sensor_msg_
+            quat_norm = np.linalg.norm(self.ctrl_msg_.initial_state.base_pose[-4:])
+            if quat_norm > 1e-8 and abs(1.000 - quat_norm) > 1e-5:
+                self.ctrl_msg_.initial_state.base_pose[-4:] /= quat_norm
             self.ctrl_msg_.feedforward = tau
             self.ctrl_msg_.feedback_gain = KRiccati
 

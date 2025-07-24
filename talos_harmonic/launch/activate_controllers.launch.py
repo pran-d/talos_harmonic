@@ -114,7 +114,7 @@ def generate_launch_description():
             actions=[*chain(switch_controllers())]
         ),
         TimerAction(
-            period=3.0,
+            period=2.5,
             actions=[*chain(gz_play())]
         )
     ])

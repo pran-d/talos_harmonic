@@ -76,7 +76,19 @@ class MPCSolver():
 
         
         # Adding state and control regularization terms
-        w_x = np.array([0] * 3 + [10.0] * 3 + [0.01] * (self.state.nv - 6) + [10] * self.state.nv)
+        w_x = np.array(
+            [500] * 3 + 
+            [1000] * 3 + 
+            [500, 500, 500, 500, 1000, 1000] * 2 +
+            [100, 200] + 
+            [100, 100, 100, 100, 1, 1, 1] * 2 +
+            [500, 500] + 
+            [1] * 6 +
+            [1] * 12 + 
+            [10, 10] + 
+            [10] * 14 +
+            [10, 10]
+        )
         activation_xreg = crocoddyl.ActivationModelWeightedQuad(w_x**2)
         x_reg_cost = crocoddyl.CostModelResidual(
             self.state, activation_xreg, crocoddyl.ResidualModelState(self.state, self.x0, self.actuation.nu)
@@ -98,7 +110,7 @@ class MPCSolver():
             activation_xbounds,
             crocoddyl.ResidualModelState(self.state, self.actuation.nu),
         )
-        self.costs.addCost("xBounds", x_bounds, 1.0)
+        self.costs.addCost("xBounds", x_bounds, 1e2)
 
         # Adding the friction cone penalization
         nsurf, mu = np.identity(3), 0.7
@@ -146,8 +158,8 @@ class MPCSolver():
             self.state,
             residual_RF_wrench
         )
-        self.costs.addCost("wrench_LF", wrenchModel_LF, 1e-1)
-        self.costs.addCost("wrench_RF", wrenchModel_RF, 1e-1)
+        self.costs.addCost("wrench_LF", wrenchModel_LF, 1e2)
+        self.costs.addCost("wrench_RF", wrenchModel_RF, 1e2)
 
         # Creating the action model
         dmodel = crocoddyl.DifferentialActionModelContactFwdDynamics(
@@ -161,7 +173,10 @@ class MPCSolver():
 
 
     def updateProblem(self, x0):
-        self.problem.circularAppend(self.seq[-1])
+        self.problem.circularAppend(
+            self.problem.runningModels[0],
+            self.problem.runningDatas[0]
+        )
         self.problem.x0 = x0
         return True
 
@@ -187,10 +202,10 @@ class MPCSolver():
         return (self.fddp.solve(warm_xs, warm_us, maxiter), self.fddp.iter, self.fddp.cost)
 
     def getControlSequence(self):
-        return self.fddp.us
+        return self.fddp.us.copy()
 
     def getStateSequence(self):
-        return self.fddp.xs
+        return self.fddp.xs.copy()
 
     def getRiccatiGainSequence(self):
-        return self.fddp.K
+        return self.fddp.K.copy()
