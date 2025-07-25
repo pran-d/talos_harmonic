@@ -110,11 +110,11 @@ def generate_launch_description():
         # pd_controller,
         
         TimerAction(
-            period=1.0,
+            period=7.0,
             actions=[*chain(switch_controllers())]
         ),
         TimerAction(
-            period=2.5,
+            period=9.0,
             actions=[*chain(gz_play())]
         )
     ])

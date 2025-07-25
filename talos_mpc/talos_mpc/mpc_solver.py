@@ -5,7 +5,7 @@ from ament_index_python.packages import get_package_share_directory
 from pathlib import Path
 
 class MPCSolver():
-    def __init__(self, logger):
+    def __init__(self, com_position, logger):
         self.resource_path = get_package_share_directory("talos_harmonic")
         self.urdf_path = Path(self.resource_path) / "urdf" / "talos_full_fake_grippers.urdf"
         self.srdf_path = Path(self.resource_path) / "urdf" / "talos.srdf"
@@ -15,6 +15,8 @@ class MPCSolver():
             [self.resource_path],
             pin.JointModelFreeFlyer()
         )
+
+        self.com_position = com_position
         
         self.rmodel = robot.model
         pin.loadRotorParameters(self.rmodel, self.srdf_path)
@@ -37,7 +39,7 @@ class MPCSolver():
         self.state = crocoddyl.StateMultibody(self.rmodel)
         self.actuation = crocoddyl.ActuationModelFloatingBase(self.state)
 
-    def createInitialProblem(self, x0, DT, N, target=None):
+    def createProblemFromInitial(self, x0, DT, N, target=None):
         # Defining the multi-contact model (double-support contact)
         self.contacts = crocoddyl.ContactModelMultiple(self.state, self.actuation.nu)
         lf_contact = crocoddyl.ContactModel6D(
@@ -87,14 +89,18 @@ class MPCSolver():
             [1] * 12 + 
             [10, 10] + 
             [10] * 14 +
-            [10, 10]
+            [100, 100]
         )
         activation_xreg = crocoddyl.ActivationModelWeightedQuad(w_x**2)
         x_reg_cost = crocoddyl.CostModelResidual(
             self.state, activation_xreg, crocoddyl.ResidualModelState(self.state, self.x0, self.actuation.nu)
         )
+        w_u = np.array(
+            [1] * 30
+        )
+        activation_ureg = crocoddyl.ActivationModelWeightedQuad(w_u**2)
         u_reg_cost = crocoddyl.CostModelResidual(
-            self.state, crocoddyl.ResidualModelControl(self.state, self.actuation.nu)
+            self.state, activation_ureg, crocoddyl.ResidualModelControl(self.state, self.actuation.nu)
         )
         self.costs.addCost("xReg", x_reg_cost, 2e-2)
         self.costs.addCost("uReg", u_reg_cost, 1e-3)
@@ -110,7 +116,7 @@ class MPCSolver():
             activation_xbounds,
             crocoddyl.ResidualModelState(self.state, self.actuation.nu),
         )
-        self.costs.addCost("xBounds", x_bounds, 1e2)
+        self.costs.addCost("xBounds", x_bounds, 1e3)
 
         # Adding the friction cone penalization
         nsurf, mu = np.identity(3), 0.7
@@ -133,10 +139,10 @@ class MPCSolver():
 
         # Adding the feet wrench cost
         wrenchCone_LF = crocoddyl.WrenchCone(
-            np.identity(3), 0.3, np.array([0.1, 0.05]), 4, True, 200, 1200
+            np.identity(3), 0.3, np.array([0.1, 0.05]), 4, True, 300, 1200
         )
         wrenchCone_RF = crocoddyl.WrenchCone(
-            np.identity(3), 0.3, np.array([0.1, 0.05]), 4, True, 200, 1200
+            np.identity(3), 0.3, np.array([0.1, 0.05]), 4, True, 300, 1200
         )
         residual_LF_wrench = crocoddyl.ResidualModelContactWrenchCone(
             self.state,
@@ -158,8 +164,15 @@ class MPCSolver():
             self.state,
             residual_RF_wrench
         )
-        self.costs.addCost("wrench_LF", wrenchModel_LF, 1e2)
-        self.costs.addCost("wrench_RF", wrenchModel_RF, 1e2)
+        self.costs.addCost("wrench_LF", wrenchModel_LF, 0)
+        self.costs.addCost("wrench_RF", wrenchModel_RF, 0)
+
+        # Adding COM position cost
+        com_position_cost = crocoddyl.CostModelResidual(
+            self.state,
+            crocoddyl.ResidualModelCoMPosition(self.state, self.com_position, self.actuation.nu)
+        )
+        self.costs.addCost("comPosition", com_position_cost, 500)
 
         # Creating the action model
         dmodel = crocoddyl.DifferentialActionModelContactFwdDynamics(
