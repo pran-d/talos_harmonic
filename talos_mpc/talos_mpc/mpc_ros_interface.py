@@ -46,7 +46,7 @@ class MPCRosInterface(TalosControllerInterface):
         self.ocp.createProblemFromInitial(x0, DT, N)
 
         # INITIAL SOLUTION SO THAT THE CONTROL CAN START IMMEDIATELY
-        result_ = self.ocp.solveProblem(x0, 100)
+        result_ = self.ocp.solveProblem(maxiter=200)
         self.get_logger().info(f"SOLVED FOR {result_[1]} ITERATIONS, COST: {result_[2]}")
         self.ctrl_msg_.initial_state = self.sensor_msg_
         self.ctrl_msg_.feedforward = self.ocp.getControlSequence()[0]
@@ -55,7 +55,7 @@ class MPCRosInterface(TalosControllerInterface):
         self.publisher_control_.publish(msg)
 
         self.controller_timer = self.create_timer(
-            0.01, 
+            0.02, 
             self.controller_callback, 
         )
     
@@ -81,10 +81,22 @@ class MPCRosInterface(TalosControllerInterface):
 
     def MPCUpdate(self, x0):
         status_ = self.ocp.updateProblem(x0)
-        result_ = self.ocp.solveProblem(x0, 3)
+
+        # warm start for state
+        warm_xs = self.ocp.getStateSequence()
+        del warm_xs[0]
+        warm_xs[0] = x0
+        warm_xs.append(warm_xs[-1])
+
+        # warm start for control inputs
+        warm_us = self.ocp.getControlSequence()
+        del warm_us[0]
+        warm_us.append(warm_us[-1])
+
+        result_ = self.ocp.solveProblem(warm_xs=warm_xs, warm_us=warm_us, maxiter=1)
 
         if status_ and result_:
-            self.get_logger().info(f"Control state updated after {result_[1]} iterations at {self.get_clock().now().seconds_nanoseconds()}, cost: {result_[2]}")
+            # self.get_logger().info(f"Control state updated after {result_[1]} iterations at {self.get_clock().now().seconds_nanoseconds()}, cost: {result_[2]}")
             self.ctrl_msg_.initial_state = self.sensor_msg_
             quat_norm = np.linalg.norm(self.ctrl_msg_.initial_state.base_pose[-4:])
             if quat_norm > 1e-8 and abs(1.000 - quat_norm) > 1e-5:
