@@ -25,7 +25,7 @@ class MPCRosInterface(TalosControllerInterface):
             self.qos, 
         )
 
-        self.com_position_ = np.zeros((3,1))
+        self.com_position_ = np.array([0,0,1.02]).reshape((3,1))
         self.ocp = MPCSolver(self.com_position_, self.get_logger())
 
         DT = 1e-2
@@ -40,8 +40,6 @@ class MPCRosInterface(TalosControllerInterface):
             0, 0,
         ]).reshape((self.free_flyer_nq+self.robot_nj, 1))
 
-        self.com_position_ = state_q[:3]
-        
         x0 = self.ocp.createState(state_q)
         self.ocp.createProblemFromInitial(x0, DT, N)
 
@@ -67,7 +65,7 @@ class MPCRosInterface(TalosControllerInterface):
 
     def controller_callback(self):
         x_measured_ = self.getRobotState()
-        self.com_position_ = x_measured_[:3]
+        # self.com_position_ = x_measured_[:3]
         self.MPCUpdate(x_measured_)
         msg = control_numpy_to_msg(self.ctrl_msg_)
         self.publisher_control_.publish(msg)

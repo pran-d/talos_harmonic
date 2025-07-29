@@ -40,13 +40,13 @@ class MPCSolver():
         self.actuation = crocoddyl.ActuationModelFloatingBase(self.state)
 
         self.cost_fn_weights = {
-            "lh_goal": 1e2,
+            "lh_goal": 0,
             "x_reg": 2e-2,
             "u_reg": 1e-3,
-            "x_bounds": 1e3,
+            "x_bounds": 1e1,
             "feet_friction": 0,
             "feet_wrench": 0,
-            "com_position": 5e2,
+            "com_position": 5e3,
         }
 
     def createProblemFromInitial(self, x0, DT, N, target=None):
